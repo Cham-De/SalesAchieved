@@ -74,6 +74,11 @@
     text-decoration: none;
     color:#000000;
   }
+
+  div.side_bar ul li.active a{
+    color: #FFFFFF;
+  }
+    
   div.side_bar ul li{
     padding: 25px;
     text-align: center;
