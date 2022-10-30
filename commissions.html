@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commissions</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!--stylesheet for icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--stylesheet for nav and side bars-->
+    <link rel="stylesheet" href="prop.css">
+    <!--stylehseet for filter buttons-->
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="com.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+  <!--common top nav and side bar content-->
+    <div class="nav_bar">
+
+      <div class="search-container">
+        <table class="element-container">
+          <tr>
+            <td>
+              <input type="text" placeholder="Search..." class="search">
+            </td>
+            <td>
+              <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+        <div class="user-wrapper">
+            <img src="man.png" width="50px" height="50px" alt="user image">
+            <div>
+                <h4>John Doe</h4>
+                <small>Finance Manager</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="side_bar">
+        <div class="logo">
+            <img src="logosales.jpeg" width= "65%" height="55%">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="commissions.html">Commissions</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="sales.html">Sales</a></li>
+            <li><a href="#">Reports</a></li>
+            <li>
+              <table class="side-bar-icons">
+                <tr>
+                  <td><i class="fa-regular fa-circle-user"></i></td>
+                  <td><a href="profile.html">Profile</a></td>
+                </tr>
+                <tr>
+                  <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+                  <td><a href="#">Log out</a></td>
+                </tr>
+              </table>
+            </li>
+        </ul>
+    </div>
+    <!---end of side and nav bars-->
+
+    <div class="search_box">
+      <input type="text" class="input" placeholder="Search...">
+      <div class="icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+    </div>
+
+    <div class="commission">
+      <h4>Commission Rate :</h4>
+      <h2>5%</h2>
+      <button class="chg_com">Change</button>
+    </div>
+    <!--table-->
+    <table class="content-table">
+        <thead>
+          <tr>
+            <th>Sales Rep ID</th>
+            <th>Name</th>
+            <th>Successful Orders<br>(Rs.)</th>
+            <th>Commission<br>(Rs.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12</td>
+            <td>Sanduni Perera</td>
+            <td>15,000.00</td>
+            <td>750.00</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Vihanga Anushka</td>
+            <td>13,000.00</td>
+            <td>650.00</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Malka Nayomi</td>
+            <td>19,000.00</td>
+            <td>950.00</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Chathu De Silva</td>
+            <td>6,800.00</td>
+            <td>340.00</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Anil Kumara</td>
+            <td>27,860.00</td>
+            <td>1,393.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="navigation-table">
+        <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+        <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
+      </div>
+      <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+</body>
+</html>
