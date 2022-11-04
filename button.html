@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Easily Create Buttons with Icons using HTML & CSS</title>
+	<link rel="stylesheet" href="button.css">
+</head>
+<body>
+    <div class="btn_wrapper">
+    <div class="dropdown_button">
+        <button type="button" class="button">
+            <span class="button__text">2022</span>
+            <span class="button__icon" onclick="myFunction(this)">
+                <ion-icon name="arrow-down-circle-outline"></ion-icon>
+            </span>
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#">2021</a>
+            <a href="#">2019</a>
+            <a href="#">2018</a>
+          </div>
+    </div>
+
+    <div class="dropdown_button">
+        <button type="button" class="button">
+            <span class="button__text">January</span>
+            <span class="button__icon" onclick="myFunction(this)">
+                <ion-icon name="arrow-down-circle-outline"></ion-icon>
+            </span>
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#">February</a>
+            <a href="#">March</a>
+            <a href="#">April</a>
+          </div>
+    </div>
+    </div>
+
+    <script>
+        var myFunction = function(target) {
+        target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+    </script>
+	<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>
