@@ -1,3 +1,24 @@
+<?php
+	session_start();
+	include("../../Model/connect.php");
+	
+	if($_SERVER['REQUEST_METHOD'] == "POST")
+	{
+		$orderID = $_POST["orderID"];
+        $productCode = $_POST["productCode"];
+        $complaint = $_POST["complaint"];
+		
+		if(!empty($orderID) && !empty($productCode) && !empty($complaint))
+		{
+			mysqli_query($con, "INSERT INTO complaint(orderID, productCode, complaint) values('$orderID', '$productCode', '$complaint')");
+		}
+		else
+		{
+			echo "<script>window.alert('Please enter valid information');</script>";
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,15 +158,12 @@
     <!--Popup Form-->
     <div class="popup-container" id="popup_container">
         <div class="popup-modal">
-          <form action="connect.php" method="post">
+          <form method="post">
             <label for="orderID">Order ID
                 <input type="number" id="orderID">
             </label>
             <label for="productCode">Product Code
                 <input type="string" id="productCode">
-            </label>
-            <label for="customerID">Customer ID
-                <input type="number" id="customerID">
             </label>
             <label for="complaint">Complaint
                 <textarea name="complaint" id="complaint" required="required"></textarea>
