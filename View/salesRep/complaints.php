@@ -1,22 +1,5 @@
 <?php
-	session_start();
-	include("../../Model/connect.php");
-	
-	if($_SERVER['REQUEST_METHOD'] == "POST")
-	{
-		$orderID = $_POST["orderID"];
-        $productCode = $_POST["productCode"];
-        $complaint = $_POST["complaint"];
-		
-		if(!empty($orderID) && !empty($productCode) && !empty($complaint))
-		{
-			mysqli_query($con, "INSERT INTO complaint(orderID, productCode, complaint) values('$orderID', '$productCode', '$complaint')");
-		}
-		else
-		{
-			echo "<script>window.alert('Please enter valid information');</script>";
-		}
-	}
+    require_once("../../Model/complaintsCRUD.php");
 ?>
 
 <!DOCTYPE html>
@@ -105,49 +88,28 @@
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Order Date</th>
+            <th>Complaint Date</th>
             <th>Product Code</th>
             <th>Customer ID</th>
             <th>Complain</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>23</td>
-            <td>21/10/2022</td>
-            <td>PR002</td>
-            <td>12</td>
-            <td>Damaged goods</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td>21/10/2022</td>
-            <td>PR002</td>
-            <td>12</td>
-            <td>Damaged goods</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td>21/10/2022</td>
-            <td>PR002</td>
-            <td>12</td>
-            <td>Damaged goods</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td>21/10/2022</td>
-            <td>PR002</td>
-            <td>12</td>
-            <td>Damaged goods</td>
-          </tr>
-          <tr>
-            <td>23</td>
-            <td>21/10/2022</td>
-            <td>PR002</td>
-            <td>12</td>
-            <td>Damaged goods</td>
-          </tr>
-        </tbody>
+        <?php
+            while($rows = mysqli_fetch_assoc($result))
+                {
+        ?>
+            <tbody>
+                    <tr>
+                        <td><?php echo $rows['orderID'];?></td>
+                        <td><?php echo $rows['complaintDate'];?></td>
+                        <td><?php echo $rows['productCode'];?></td>
+                        <td><?php echo $rows['customerID'];?></td>
+                        <td><?php echo $rows['complaint'];?></td>
+                    </tr>
+            </tbody>
+        <?php
+                }
+        ?>
       </table>
     
     <div class="navigation-table" id="nav_table">
@@ -158,18 +120,18 @@
     <!--Popup Form-->
     <div class="popup-container" id="popup_container">
         <div class="popup-modal">
-          <form method="post">
+          <form method="post" action="complaints.php">
             <label for="orderID">Order ID
-                <input type="number" id="orderID">
+                <input type="number" id="orderID" name="orderID" required="required">
             </label>
             <label for="productCode">Product Code
-                <input type="string" id="productCode">
+                <input type="string" id="productCode" name="productCode" required="required">
             </label>
             <label for="complaint">Complaint
                 <textarea name="complaint" id="complaint" required="required"></textarea>
             </label>
             <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
-            <button class="submit" id="save" type="submit" value="Submit">Save</button>
+            <button class="submit" id="save" type="submit" value="Submit" name="submit">Save</button>
           </form>
         </div>
       </div>
