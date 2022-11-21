@@ -1,6 +1,7 @@
 div.nav_bar{
-    margin-left: 250px;
+    margin-left: 20%;
     display: flex;
+    width: 80%;
     justify-content: space-between;
     padding: 1rem;
     border: 1px solid rgba(217, 217, 217, 0.87);
@@ -46,18 +47,16 @@ div.nav_bar{
   div.side_bar{
     text-decoration: none;
     position: fixed;
-    width: 250px;
+    width: 20%;
     height: 100%;
     left: 0px;
     top: 0px;
-  
     background: rgba(217, 217, 217, 0.61);
-  
-  
   }
+
   div.side_bar div.logo{
-    margin-top: 10px;
-    margin-left: 60px;
+    margin-top: 5%;
+    margin-left: 25%;
   }
   div.side_bar ul li.active{
     background: rgb(235, 137, 58);
@@ -84,6 +83,10 @@ div.nav_bar{
     padding-top: 20%;
   }
   
+  .last-item{
+    margin-top: 30%;
+  }
+
   .side-bar-icons{
     margin-top: 20px;
     margin-left: 60px;
