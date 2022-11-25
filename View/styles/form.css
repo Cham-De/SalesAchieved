@@ -1,0 +1,96 @@
+.popup-container{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup-container-pwd{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.update-modal{
+    padding: 50px;
+    padding-bottom: 30px;
+    margin: auto;
+    max-width: 600px;
+    /*border: 1px solid rgba(131, 10, 10, 0.87);*/
+    background: #FFFFFF;
+    border: 1px solid rgba(222, 221, 221, 0.69);
+    border-radius: 15px;
+}
+.update-modal input[type=text], select{
+    width: 100%;
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.update-modal label, input{
+    display: block;
+}
+.update-modal label{
+    margin-bottom: 20px;
+    color: rgb(133, 134, 134);
+}
+
+.update-modal input{
+    color: black;
+}
+
+.cancel, .submit{
+    display: inline-block;
+    margin: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.cancel{
+    border: 2px solid #F8914A;
+    color: #F8914A;
+    padding: 15px 40px;
+    background: #FFFFFF;
+}
+.submit{
+    background: #F8914A;
+    border: none;
+    padding: 18px 45px;
+}
+input[type=submit]{
+    color: #FFFFFF;
+}
+
+.sp-label{
+    margin-left: 90px;
+}
+::placeholder {
+    color: rgb(0, 0, 0);
+  }
+
+.popup-container.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.popup-container-pwd.show{
+    pointer-events: auto;
+    opacity: 1;
+}

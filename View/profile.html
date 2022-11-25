@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!--stylesheet for icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--stylesheet for nav and side bars-->
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="form.css">
+    
+</head>
+<body>
+    <!--common top nav and side bar content-->
+    <div class="nav_bar">
+
+        <div class="search-container">
+          <table class="element-container">
+            <tr>
+              <td>
+                <input type="text" placeholder="Search..." class="search">
+              </td>
+              <td>
+                <a><i class="fa-solid fa-magnifying-glass"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+  
+          <div class="user-wrapper">
+              <img src="cham2.png" width="50px" height="50px" alt="user image">
+              <div>
+                  <h4>Chamodi</h4>
+                  <small>Finance Manager</small>
+              </div>
+          </div>
+      </div>
+  
+      <div class="side_bar">
+          <div class="logo">
+              <img src="logosales.jpeg" width= "65%" height="55%">
+          </div>
+          <ul>
+              <li class="active"><a href="dms.html">Back</a></li>
+          </ul>
+          <table class="side-bar-icons">
+            <tr>
+              <td><i class="fa-regular fa-circle-user"></i></td>
+              <td><a href="#">Profile</a></td>
+            </tr>
+            <tr>
+              <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+              <td><a href="#">Log out</a></td>
+            </tr>
+          </table>
+      </div>
+
+      <div class="middle">
+        <table class="prof-table">
+            <tr>
+                <td><a href="#"><img src="cham2.png" width="120px" height="120px" alt="user image"></a></td>
+                <td><p>Username</p><b>Cham234</b></td>
+            </tr>
+            <tr>
+                <td><p>Your Name</p><b>Chamodi</b></td>
+                <td><p>Email Address</p><b>cham123@gmail.com</b></td>
+            </tr>
+            <tr>
+                <td><p>Phone Number</p><b>0786546567</b></td>
+                <td><p>Gender</p><b>Female</b></td>
+            </tr>
+        </table>
+      </div>
+
+
+      <div class="btn-wrap">
+        <button id="change_pwd"><b>Change Password</b></button>
+        <button id="update_popup"><b>Update Profile</b></button>
+      </div>
+
+
+    <div class="popup-container" id="popup_container"> 
+      <div class="update-modal">
+        <form>
+            <label for="name">Your Name
+                <input type="text" placeholder="Name">
+            </label>
+            
+
+            <label for="username">Username
+                <input type="text" placeholder="Uaser Name">
+            </label>
+            
+
+            <label for="email">Email Address
+                <input type="text" placeholder="cha123@email.com">
+            </label>
+            
+
+            <label for="phone">Phone number
+                <input type="text" placeholder="phone">
+            </label>
+            
+
+            <label for="gender">Gender
+                <select id="gender">
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </label>
+            
+            <label class="sp-label">
+                <button class="cancel" id="close">Cancel</button>
+                <input type="submit" value="Save" class="submit" id="save">
+            </label>
+            
+        </form>
+      </div>
+    </div>
+
+    <!--change password container-->
+    <div class="popup-container-pwd" id="popup_container_pwd"> 
+        <div class="update-modal">
+          <form>
+              <label for="current_password">Current Password
+                  <input type="text">
+              </label>
+              
+  
+              <label for="new_password">New Password
+                  <input type="text">
+              </label>
+              
+  
+              <label for="re_enter_password">Re-enter New Password
+                  <input type="text">
+              </label>
+              
+              <label class="sp-label">
+                  <button class="cancel" id="close">Cancel</button>
+                  <input type="submit" value="Save" class="submit" id="save">
+              </label>
+              
+          </form>
+        </div>
+      </div>
+
+
+
+
+    <script>
+        const update_popup = document.getElementById('update_popup');
+        const popup_container = document.getElementById('popup_container');
+        const popup_container_pwd = document.getElementById('popup_container_pwd');
+        const close = document.getElementById('close');
+
+        const change_pwd = document.getElementById('change_pwd');
+        const save = document.getElementById('save');
+
+        update_popup.addEventListener('click', () => {
+            popup_container.classList.add('show');
+        });
+
+        close.addEventListener('click', () => {
+            popup_container.classList.remove('show');
+        });
+
+        save.addEventListener('click', () => {
+            popup_container.classList.remove('show');
+        });
+
+        change_pwd.addEventListener('click', () => {
+            popup_container_pwd.classList.add('show');
+        });
+
+        close.addEventListener('click', () => {
+            popup_container_pwd.classList.remove('show');
+        });
+
+        save.addEventListener('click', () => {
+            popup_container_pwd.classList.remove('show');
+        });
+
+
+    </script>
+      <!---end of side and nav bars-->
+      <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+</body>
+</html>
