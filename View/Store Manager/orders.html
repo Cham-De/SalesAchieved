@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="filter-buttons.css">
+    <link rel="stylesheet" href="prop.css">
+    <link rel="stylesheet" href="orders.css">
+</head>
+<body>
+    <div class="nav_bar">
+        <div class="search-container">
+            <table class="element-container">
+              <tr>
+                <td>
+                  <input type="text" placeholder="Search..." class="search">
+                </td>
+                <td>
+                  <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        <div class="user-wrapper">
+            <img src="man.png" width="50px" height="50px" alt="user image">
+            <div>
+                <h4>John Doe</h4>
+                <small>Store Manager</small>
+            </div>
+        </div>
+    </div>
+    <div class="side_bar">
+        <div class="logo">
+            <img src="logosales.jpeg" width= "65%" height="55%">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="stocks.php">Stocks</a></li>
+            <li class="active"><a href="orders.html">Orders</a></li>
+            <li><a href="agents.html">Agents</a></li>
+            <li>
+                <table class="side-bar-icons">
+                    <tr>
+                      <td><i class="fa-regular fa-circle-user"></i></td>
+                      <td><a href="profile.html">Profile</a></td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+                      <td><a href="#">Log out</a></td>
+                    </tr>
+                  </table>
+            </li>
+        </ul>
+    </div>
+
+    <main>
+
+        <div class="wrapper">
+            <div class="dropdown">
+                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
+                    <span class="button__icon" onclick="myFunction(this)">
+                        <ion-icon name="arrow-down-circle-outline"></ion-icon>
+                    </span>
+                </button>
+                <div id="myDropdown1" class="dropdown-content">
+                    <a href="#">2021</a>
+                    <a href="#">2019</a>
+                    <a href="#">2018</a>
+                </div>
+            </div> 
+         
+            <div class="dropdown">
+                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
+                    <span class="button__icon" onclick="myFunction(this)">
+                        <ion-icon name="arrow-down-circle-outline"></ion-icon>
+                    </span>
+                </button>
+                 <div id="myDropdown2" class="dropdown-content">
+                    <a href="#">February</a>
+                    <a href="#">March</a>
+                    <a href="#">April</a>
+                 </div>
+            </div> 
+
+            <div class="dropdown">
+                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">Status</span> 
+                    <span class="button__icon" onclick="myFunction(this)">
+                        <ion-icon name="arrow-down-circle-outline"></ion-icon>
+                    </span>
+                </button>
+                <div id="myDropdown3" class="dropdown-content">
+                    <a href="#">Pending</a>
+                    <a href="#">Completed</a>
+                    <a href="#">Dispatched</a>
+                </div>
+            </div> 
+        </div>
+
+    <!--Cards-->
+    <div class="cards-middle" id="cards_middle">
+        <div class="middle-cards">
+          <li>
+              <div class="cards">
+                <div class="cmpg"><h2>Order 23</h2></div>
+                <div class="cmpg"><h4 style="color: red;">Pending</h4></div>
+                <div class="cmpg"><h4 style="color: #808080;">Senu Dilshara</h4></div>
+                <div class="cmpg"><h4 style="color: #808080;">15/02/2020</h4></div>
+                  <div class="dv">
+                  <div class="view-button" id="view_button">
+                    <table>
+                      <tr>
+                        <td><i class="fa-solid fa-eye"></i></td>
+                        <td><a href="orders-view.html"><button id="products" class="prod">View </a></button></a></td>
+                      </tr>                  
+                    </table>
+                  </div>
+      
+                  <div class="update-button" id="update_button">
+                    <table>
+                      <tr>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><button id="products" class="prod">Update</a></button></td>
+                      </tr>                  
+                    </table>
+                  </div>
+      
+                  <div class="delete-button">
+                    <table>
+                      <tr>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                        <td><button id="products" class="prod">Delete</a></button></td>
+                      </tr>                  
+                    </table>
+                  </div>
+                </div>                    
+            </div>
+          </li>
+
+          <div class="cards-middle" id="cards_middle">
+            <div class="middle-cards">
+              <li>
+                  <div class="cards">
+                    <div class="cmpg"><h2>Order 24</h2></div>
+                    <div class="cmpg"><h4 style="color: #008000;">Completed</h4></div>
+                    <div class="cmpg"><h4 style="color: #808080;">Bethmi Navanjana</h4></div>
+                    <div class="cmpg"><h4 style="color: #808080;">13/02/2020</h4></div>
+                      <div class="dv">
+                      <div class="view-button" id="view_button">
+                        <table>
+                          <tr>
+                            <td><i class="fa-solid fa-eye"></i></td>
+                            <td><button id="products" class="prod">View </a></button></td>
+                          </tr>                  
+                        </table>
+                      </div>
+          
+                      <div class="update-button" id="update_button">
+                        <table>
+                          <tr>
+                            <td><i class="fa-solid fa-pen-to-square"></i></td>
+                            <td><button id="products" class="prod">Update</a></button></td>
+                          </tr>                  
+                        </table>
+                      </div>
+          
+                      <div class="delete-button">
+                        <table>
+                          <tr>
+                            <td><i class="fa-solid fa-trash"></i></td>
+                            <td><button id="products" class="prod">Delete</a></button></td>
+                          </tr>                  
+                        </table>
+                      </div>
+                    </div>                    
+                </div>
+              </li>
+
+              <div class="cards-middle" id="cards_middle">
+                <div class="middle-cards">
+                  <li>
+                      <div class="cards">
+                        <div class="cmpg"><h2>Order 25</h2></div>
+                        <div class="cmpg"><h4 style="color: #ED7014;">Dispatched</h4></div>
+                        <div class="cmpg"><h4 style="color: #808080;">Binu De Silva</h4></div>
+                        <div class="cmpg"><h4 style="color: #808080;">24/02/2020</h4></div>
+                          <div class="dv">
+                          <div class="view-button" id="view_button">
+                            <table>
+                              <tr>
+                                <td><i class="fa-solid fa-eye"></i></td>
+                                <td><button id="products" class="prod">View </a></button></td>
+                              </tr>                  
+                            </table>
+                          </div>
+              
+                          <div class="update-button" id="update_button">
+                            <table>
+                              <tr>
+                                <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                <td><button id="products" class="prod">Update</a></button></td>
+                              </tr>                  
+                            </table>
+                          </div>
+              
+                          <div class="delete-button">
+                            <table>
+                              <tr>
+                                <td><i class="fa-solid fa-trash"></i></td>
+                                <td><button id="products" class="prod">Delete</a></button></td>
+                              </tr>                  
+                            </table>
+                          </div>
+                        </div>                  
+                    </div>
+                  </li>
+                  <div class="navigation-table" style="margin-top:270px; margin-left: 800px;">
+                    <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+                    <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
+                  </div>  
+    <script>
+        var myFunction = function(target) {
+        target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
+    }
+    
+    window.onclick = function(event) {
+      if (!event.target.matches('.button__text')) {
+    
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+</body>
+</html>

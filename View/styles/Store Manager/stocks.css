@@ -1,0 +1,347 @@
+/*cards*/
+.cards{
+    box-sizing: border-box;
+    position: absolute;
+    width: 1190px;
+    height: 135px;
+    margin-left: 270px;
+    margin-top: 5px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.middle-cards li{
+    margin-bottom: 130px;
+}
+
+.navigation-table{
+    margin-top: 200px;
+    margin-left: 850px;
+}
+.navigation-table .fa-solid{
+    width: 30px;
+    height: 50px;
+    color: #F8914A;
+    cursor: pointer;
+}
+.status{
+    border: 1px solid #353535;
+    padding: 5px 25px;
+    border-radius: 15px;
+    width: 120px;
+    margin-left: 40px;
+    margin-top: 30px;
+}
+
+.view-button{
+    border: 1px solid #1A57C3;
+    padding: 10px 25px;
+    border-radius: 15px;
+    display: inline-block;
+    display: flex;
+    margin-left: 700px;
+}
+.view-button:hover{
+    background: #aec5ec;
+}
+
+.view-button table button{
+    margin-left: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #1A57C3;
+    font-size: 16px;
+}
+.view-button table i{
+    color: #1A57C3;
+}
+.cmpg{
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.dv{
+    display: flex;
+}
+
+.stat-cards{
+    box-sizing: border-box;
+    position: absolute;
+    width: 1040px;
+    height: 300px;
+    margin-left: 290px;
+    margin-top: 30px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.stat-cards h2{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.view-cards-wrapper{
+    width: 1000px;
+    height: 320px;
+    margin-left: 280px;
+    margin-top: 10px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.view-card{
+    background: rgba(51, 144, 252, 0.22);
+    width: 290px;
+    height: 228px;
+    float: left;
+    margin: 20px;
+    border-radius: 15px;
+    color: #1A57C3;
+}
+.name{
+    margin-top: 20px;
+    margin-left: 25px;
+}
+.title-wrap{
+    display: flex;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.title-wrap h2{
+    margin-left: 10px;
+}
+.back{
+    background: rgb(235, 137, 58);
+    color: #FFFFFF;
+    border: none;
+    padding: 20px 50px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 1145px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.prod a, .back a{
+    text-decoration: none;
+}
+.prod a{
+    color: #1A57C3;
+}
+.back a{
+    color: #FFFFFF;
+}
+
+.update-button{
+    border: 1px solid #179feb;
+    padding: 10px 25px;
+    border-radius: 15px;
+    display: inline-block;
+    display: flex;
+    margin-left: 20px;
+}
+.update-button:hover{
+    background: #aec5ec;
+}
+
+.update-button table button{
+    margin-left: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #179FEB;
+    font-size: 16px;
+}
+.update-button table i{
+    color: #179FEB;
+}
+
+.delete-button{
+    border: 1px solid #0ab8af;
+    padding: 10px 25px;
+    border-radius: 15px;
+    display: inline-block;
+    display: flex;
+    margin-left: 20px;
+}
+.delete-button:hover{
+    background: #aec5ec;
+}
+
+.delete-button table button{
+    margin-left: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #0ab8af;
+    font-size: 16px;
+}
+.delete-button table i{
+    color: #0ab8af;
+}
+
+/*Update Pop-up*/
+.modal-containerU{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-containerU.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modalU{
+    background-color: #ffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    padding: 30px 50px;
+    height: 95%;
+    max-width: 100%;
+    text-align: center;
+}
+
+.modalU input, select{
+    width: 100%;
+    display: inline-block;
+    padding: 12px 20px 12px 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.modalU .title{
+    display: flex;
+}
+.modalU .title h2{
+    margin-top: px;
+}
+.modalU label, input{
+    display: block;
+}
+.modalU label{
+    margin-bottom: 20px;
+    color: rgb(133, 134, 134);
+}
+.modalU input{
+    color: black;
+}
+.cancel, .submit{
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.cancel{
+    border: 2px solid #F8914A;
+    color: #F8914A;
+    background: #FFFFFF;
+    padding: 13px 30px;
+    margin-right: 30px;
+    margin-left: 40px;
+}
+
+.submit{
+    background: #F8914A;
+    border: none;
+    color: #FFFFFF;
+    padding: 15px 40px;
+}
+.submit:hover{
+    background: #fa7e2b;
+}
+.cancel{
+    margin-left: 30px;
+    margin-bottom: 1px;
+}
+.submit{
+    margin-left: 5px;
+}
+
+/*View Popup*/
+.modal-containerV{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-containerV.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modalV{
+    background-color: #ffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    padding: 30px 50px;
+    width: 600px;
+    max-width: 100%;
+    text-align: center;
+    height: 650px;
+    text-align: center;
+}
+
+.modal-containerV{
+    padding: 30px 40px 10px 40px;
+    margin-left: 600px;
+    max-width: 500px;
+    /*border: 1px solid rgba(131, 10, 10, 0.87);*/
+    background: #FFFFFF;
+    border: 1px solid rgba(222, 221, 221, 0.69);
+    border-radius: 15px;
+}
+
+.modal-containerV .title{
+    color: grey;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.modal-containerV .answer{
+    color: black;
+}
+
+.modal-containerV .heading3{
+   margin-top: 20px;
+   display: flex;
+}
+
+.cancelV{
+    border: 2px solid #F8914A;
+    color: #F8914A;
+    background: #FFFFFF;
+    padding: 13px 30px;
+    margin-right: 30px;
+    margin-left: 40px;
+    margin-top: 30px;
+}
+
+.cancelV{
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.cancelV{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
