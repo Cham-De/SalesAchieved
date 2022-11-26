@@ -1,0 +1,139 @@
+.action-btns{
+    display: flex;
+}
+
+.action-btns button{
+    cursor: pointer;
+}
+
+.action-btns .edit{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    background: rgb(235, 137, 58);
+    color: white;
+    margin-left: 8%;
+    
+}
+.action-btns .del{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: 1px solid rgb(235, 137, 58);
+    background: none;
+    color: rgb(235, 137, 58);
+    margin-left: 8%;
+}
+
+.popup-container-add, .popup-container-edit, .popup-container-del{
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+}
+.popup-container-add.show, .popup-container-edit.show, .popup-container-del.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.popup-modal-add, .popup-modal-edit{
+    padding: 30px 40px 10px 40px;
+    margin: auto;
+    max-width: 500px;
+    /*border: 1px solid rgba(131, 10, 10, 0.87);*/
+    background: #FFFFFF;
+    border: 1px solid rgba(222, 221, 221, 0.69);
+    border-radius: 15px;
+}
+
+.popup-modal-delete{
+    align-items: center;
+    width: 30%;
+    height: 30%;
+    background: #FFFFFF;
+    border: 1px solid rgba(222, 221, 221, 0.69);
+    border-radius: 15px;
+}
+.popup-modal-delete label, button{
+    display: block;
+}
+
+#del{
+    padding: 15px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    background: rgb(235, 137, 58);
+    color: white;
+}
+#cancel_del{
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: 1px solid rgb(235, 137, 58);
+    background: none;
+    cursor: pointer;
+    color: rgb(235, 137, 58);
+}
+
+input, select{
+    width: 100%;
+    display: inline-block;
+    padding: 12px 20px 12px 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.popup-modal .title{
+    display: flex;
+}
+.popup-modal .title h2{
+    margin-top: px;
+}
+.popup-modal label, input{
+    display: block;
+}
+.popup-modal label{
+    margin-bottom: 20px;
+    color: rgb(133, 134, 134);
+}
+.popup-modal input{
+    color: black;
+}
+.cancel, .submit{
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.cancel{
+    border: 2px solid #F8914A;
+    color: #F8914A;
+    background: #FFFFFF;
+    padding: 13px 30px;
+    margin-right: 30px;
+    margin-left: 10%;
+}
+
+.submit{
+    background: #F8914A;
+    border: none;
+    color: #FFFFFF;
+    padding: 15px 40px;
+}
+.submit:hover{
+    background: #fa7e2b;
+}
+.cancel{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.submit{
+    margin-left: 5px;
+}
