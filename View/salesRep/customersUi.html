@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Rep</title>
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!--stylesheet for icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--stylesheet for the customersUi page-->
+    <link rel="stylesheet" href="customersUi.css">
+    <!--Stylesheet for nav bar-->
+    <link rel="stylesheet" href="../styles/navBar.css">
+    <!--Stylesheet for popup form-->
+    <link rel="stylesheet" href="../styles/popupForm.css">
+</head>
+
+<body>
+    <!--common top nav and side bar content-->
+    <div class="nav_bar">
+        <div class="search-container">
+            <table class="element-container">
+                <tr>
+                    <td>
+                        <input type="text" placeholder="Search..." class="search">
+                    </td>
+                    <td>
+                        <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="user-wrapper">
+            <img src="../assets/man.png" width="50px" height="50px" alt="user image">
+            <div>
+                <h4>John Doe</h4>
+                <small>Sales Representative</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="side_bar">
+        <div class="logo">
+            <img src="../assets/logosales.jpeg" width="65%" height="55%">
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Orders</a></li>
+            <li class="active"><a href="#">Customers</a></li>
+            <li><a href="#">Stocks</a></li>
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Complaints</a></li>
+            <li>
+                <table class="side-bar-icons">
+                    <tr>
+                        <td><i class="fa-regular fa-circle-user"></i></td>
+                        <td><a href="#">Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+                        <td><a href="#">Log out</a></td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </div>
+    </div>
+    <!---end of side and nav bars-->
+    <!--Table search bar-->
+    <div class="search_container">
+        <table class="element_container">
+          <tr>
+            <td>
+              <input type="text" placeholder="Search Table..." class="search">
+            </td>
+            <td>
+              <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+    <!--Orders Cards-->
+    <div class="cards-middle" id="cards_middle">
+        <ul class="middle-cards">
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Senu Dilshara</h2>
+                    </div>
+                    <div class="dv">
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="view" class="perf"><a
+                                                href="stats-view.html">View</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><button id="update" class="update-txt"><a >Update</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt"><a
+                                                href="stats-view.html">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Bethmi Navanjana</h2>
+                    </div>
+                    <div class="dv">
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="view" class="perf"><a href="stats-view.html">View</a></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt"><a
+                                                href="stats-view.html">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Binu De Silva</h2>
+                    </div>
+                    <div class="dv">
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="view" class="perf"><a href="stats-view.html">View</a></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt"><a
+                                                href="stats-view.html">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Kaveesha Perera</h2>
+                    </div>
+                    <div class="dv">
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="view" class="perf"><a
+                                                href="stats-view.html">View</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><button id="update" class="update-txt"><a
+                                                href="#">Update</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt"><a
+                                                href="stats-view.html">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Maleesha Fernando</h2>
+                    </div>
+                    <div class="dv">
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="view" class="perf"><a
+                                                href="stats-view.html">View</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt"><a
+                                                href="stats-view.html">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        
+        <!--Popup Form-->
+        <div class="popup-container" id="popup_container"> 
+            <div class="popup-modal">
+              <form>
+                  <label for="name">Customer Name
+                      <input type="text" value="Senu Dilshara">
+                  </label>
+                  
+      
+                  <label for="address">Address
+                      <input type="text" value="23/A, Flower Road, Maharagama">
+                  </label>
+                  
+      
+                  <label for="phone">Phone Number
+                      <input type="text" value="0713648954">
+                  </label>
+                  
+      
+                  <label for="socialMediaPlatform">Social Media Platform
+                    <select id="socialMediaPlatform">
+                        <option value="facebook">Facebook</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="whatsapp">WhatsApp</option>
+                    </select>
+                  </label>
+                  
+                  <label class="sp-label">
+                      <button class="cancel" id="close">Cancel</button>
+                      <button class="submit" id="save">Update</button>
+                  </label>  
+              </form>
+            </div>
+        </div>
+        <script>
+            const update = document.getElementById('update');
+            const popup_container = document.getElementById('popup_container');
+            const close = document.getElementById('close');
+            const save = document.getElementById('save');
+    
+            update.addEventListener('click', () => {
+                popup_container.classList.add('show');
+            });
+    
+            close.addEventListener('click', () => {
+                popup_container.classList.remove('show');
+            });
+    
+            save.addEventListener('click', () => {
+                popup_container.classList.remove('show');
+            });
+    
+            save.addEventListener('click', () => {
+                popup_container_pwd.classList.remove('show');
+            });
+        </script>
+
+        <div class="navigation-table" id="nav_table">
+            <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+            <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
+        </div>
+</body>
+
+</html>

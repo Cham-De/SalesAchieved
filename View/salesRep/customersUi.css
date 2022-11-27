@@ -1,0 +1,224 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+/*Orders Cards*/
+.cards{
+    box-sizing: border-box;
+    position: absolute;
+    width: 1195px;
+    height: 135px;
+    margin-left: 315px;
+    margin-top: 30px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.middle-cards li{
+    margin-bottom: 130px;
+}
+
+.navigation-table{
+    margin-top: 180px;
+    margin-left: 780px;
+}
+.navigation-table .fa-solid{
+    width: 30px;
+    height: 50px;
+    color: #F8914A;
+    cursor: pointer;
+}
+
+/*Buttons*/
+.button{
+    padding: 10px 25px;
+    border-radius: 15px;
+    display: inline-block;
+    display: flex;
+    margin-left: 10px;
+    height: 50px;
+}
+
+.button.view{
+    border: 2px solid #1A57C3;
+    margin-left: 700px;
+}
+
+.button.update{
+    border: 2px solid #179FEB;
+    margin-left: 10px;
+}
+
+.button.delete{
+    border: 2px solid #7BDCF1;
+    margin-left: 10px;
+}
+
+.button.view:hover{
+    background: #aec5ec;
+}
+
+.button.update:hover{
+    background: #aec5ec;
+}
+
+.button.delete:hover{
+    background: #aec5ec;
+}
+
+.button table button{
+    margin-left: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button.view table button, .button.view i{
+    color: #1A57C3;
+}
+
+.button.update table button, .button.update i{
+    color: #179FEB;
+}
+
+.button.delete table button, .button.delete i{
+    color: #7BDCF1;
+}
+
+
+.perf a{
+    color: #1A57C3;
+}
+
+.update-txt a{
+    color: #179FEB;
+    text-decoration: none;
+    left: 800px;
+    top: 60px;
+}
+
+.uploadSlip-txt a{
+    color: #17C5EB;
+    text-decoration: none;
+    left: 800px;
+    top: 60px;
+}
+
+.delete-txt a{
+    color: #7BDCF1;
+    text-decoration: none;
+    left: 800px;
+    top: 60px;
+}
+
+.cmpg{
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.dv{
+    display: flex;
+    margin-top: -35px;
+}
+
+.stat-cards{
+    box-sizing: border-box;
+    position: absolute;
+    width: 1040px;
+    height: 300px;
+    margin-left: 290px;
+    margin-top: 30px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.stat-cards h2{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.view-cards-wrapper{
+    width: 1000px;
+    height: 320px;
+    margin-left: 280px;
+    margin-top: 10px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.view-card{
+    background: rgba(51, 144, 252, 0.22);
+    width: 290px;
+    height: 228px;
+    float: left;
+    margin: 20px;
+    border-radius: 15px;
+    color: #1A57C3;
+}
+.name{
+    margin-top: 20px;
+    margin-left: 25px;
+}
+.title-wrap{
+    display: flex;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.title-wrap h2{
+    margin-left: 10px;
+}
+.back{
+    background: rgb(235, 137, 58);
+    color: #FFFFFF;
+    border: none;
+    padding: 20px 50px;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 1145px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.perf a, .back a{
+    text-decoration: none;
+}
+
+.back a{
+    color: #FFFFFF;
+}
+
+/*Search table bar*/
+.search_container{
+    margin-top: 25px;
+    margin-left: 315px;
+    background: none;
+    width: 300px;
+    height: 50px;
+    border: 1px solid #2609cc;
+    padding: 0px 10px;
+    border-radius: 15px;
+  }
+  .element_container{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+  .search_container .search{
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background: none;
+  }
+  .search_container .fa-solid{
+    cursor: pointer;
+    color: #2609cc;
+  }
+  .search:focus{
+    outline: none;
+  }
