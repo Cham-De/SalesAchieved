@@ -1,0 +1,116 @@
+.content-table {
+    border-collapse: collapse;
+    /*border: 1px solid #0D1179;*/
+    margin: 25px 0;
+    margin-top: 50px;
+    margin-left: 290px;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
+}
+
+.content-table thead tr {
+    background-color: #1A57C3;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    width: 259px;
+    height: 75px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.commission{
+    box-sizing: border-box;
+    display: flex;
+
+position: absolute;
+width: 415px;
+height: 65px;
+left: 800px;
+top: 110px;
+
+background: #FFFFFF;
+border: 1px solid #D9D9D9;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+
+}
+.commission h4{
+    padding: 4px;
+    margin-left: 30px;
+}
+.commission h2{
+    margin-top: 19px;
+    margin-left: 5px;
+}
+.chg_com{
+    background: #F8914A;
+    border: none;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 140px;
+    margin-left: 50px;
+    height: 65px;
+    margin-top: 0px;
+    cursor: pointer;
+}
+.input{
+    border: 1px solid #0D1179;
+    background: #ffffff;
+    height: 50px;
+    width: 300px;
+    padding: 10px 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.search_box{
+    margin-left: 290px;
+    display: flex;
+    margin-top: 30px;
+}
+.icon{
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 60px;
+    background: #1A57C3;
+    z-index: 1;
+    cursor: pointer;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.icon .fa-solid{
+    position: absolute;
+    top: 142px;
+    margin-left: 20px;
+    color: #FFFFFF;
+}
+
+
+/*bottom navigation icons*/
+.navigation-table{
+    margin-top: 40px;
+    margin-left: 780px;
+}
+.navigation-table .fa-solid{
+    width: 30px;
+    height: 50px;
+    color: #F8914A;
+    cursor: pointer;
+}
