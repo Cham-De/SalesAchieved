@@ -1,8 +1,8 @@
 .content-table {
     border-collapse: collapse;
     margin: 25px 0;
-    margin-top: 30px;
-    margin-left: 22%;
+    margin-top: 7%;
+    margin-left: 19%;
     font-size: 0.9em;
     min-width: auto;
     width: 76%;
@@ -19,10 +19,9 @@
     font-weight: bold;
 }
 
-.content-table th,
-.content-table td {
-    padding: 12px 15px;
-    width: 259px;
+.content-table th, .content-table td {
+    padding: 1% 1%;
+    width: 3%;
     height: 75px;
     text-align: center;
     font-size: 16px;
