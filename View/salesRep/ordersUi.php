@@ -10,16 +10,21 @@
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--stylesheet for the ordersUi page-->
-    <link rel="stylesheet" href="ordersUi.css">
     <!--Stylesheet for nav bar-->
     <link rel="stylesheet" href="../styles/navBar.css">
+    <!--Stylesheet for quick actions-->
+    <link rel="stylesheet" href="../styles/quickActions.css">
+    <!--Stylesheet for orders cards-->
+    <link rel="stylesheet" href="../styles/cards.css">
+    <!--Stylesheet for buttons on orders cards-->
+    <link rel="stylesheet" href="../styles/buttons.css">
+    <!--Stylesheet for navigation arrows-->
+    <link rel="stylesheet" href="../styles/navButtons.css">
 </head>
 
 <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-
         <div class="search-container">
             <table class="element-container">
                 <tr>
@@ -32,7 +37,7 @@
                 </tr>
             </table>
         </div>
-
+  
         <div class="user-wrapper">
             <img src="../assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -41,38 +46,34 @@
             </div>
         </div>
     </div>
-
+  
     <div class="side_bar">
         <div class="logo">
-            <img src="../assets/logosales.jpeg" width="65%" height="55%">
+            <img src="../assets/logosales.png" width="80%" height="80%">
         </div>
         <ul>
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Sales</a></li>
-            <li><a href="#">Complaints</a></li>
+            <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+            <li><a href="customersUi.php"><i class="fa-solid fa-user-group"></i>Customers</a></li>
+            <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
+            <li><a href="salesUi.php"><i class="fa-solid fa-sack-dollar"></i>Sales</a></li>
+            <li><a href="complaints.php"><i class="fa-solid fa-comment"></i>Complaints</a></li>
+        </ul>
+        <ul class="profile">
             <li>
-                <table class="side-bar-icons">
-                    <tr>
-                        <td><i class="fa-regular fa-circle-user"></i></td>
-                        <td><a href="#">Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-                        <td><a href="#">Log out</a></td>
-                    </tr>
-                </table>
+                <a href="../profile.php"><i class="fa-regular fa-circle-user"></i>Profile</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
             </li>
         </ul>
     </div>
     </div>
-    <!---end of side and nav bars-->
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+    <!---end of side and nav bars-->
 
     <!--Top right corner buttons-->
-    <div class="btn_order">
+    <div class="btn_three">
         <button id="order_btn">Add Order</button>
     </div>
 
@@ -96,8 +97,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="performance" class="view-txt"><a href="ordersUiView.php">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -105,26 +105,26 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="button uploadSlip">
                             <table>
                                 <tr>
-                                    <td><i class="fa-solid fa-angles-up"></i></td>
-                                    <td><button id="performance" class="uploadSlip-txt"><a
-                                                href="#">Upload Slip</a></button></td>
+                                        <td><i class="fa-solid fa-angles-up"></i></td>
+                                        <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+                                    </a>
                                 </tr>
                             </table>
                         </div>
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <a href="#">
+                                        <td><i class="fa-solid fa-trash"></i></td>
+                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    </a>
                                 </tr>
                             </table>
                         </div>
@@ -148,8 +148,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="perf"><a href="stats-view.html">View</a></button>
-                                    </td>
+                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -157,17 +156,17 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <a href="#">
+                                        <td><i class="fa-solid fa-trash"></i></td>
+                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    </a>
                                 </tr>
                             </table>
                         </div>
@@ -191,8 +190,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="perf"><a href="stats-view.html">View</a></button>
-                                    </td>
+                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -200,17 +198,17 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <a href="#">
+                                        <td><i class="fa-solid fa-trash"></i></td>
+                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    </a>
                                 </tr>
                             </table>
                         </div>
@@ -234,8 +232,8 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="performance" class="view-txt"><a
+                                                href="ordersUiView.php">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -243,8 +241,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -253,7 +250,7 @@
                                 <tr>
                                     <td><i class="fa-solid fa-file"></i></td>
                                     <td><button id="performance" class="uploadSlip-txt"><a
-                                                href="#">View Slip</a></button></td>
+                                                href="viewSlip.php">View Slip</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -262,7 +259,7 @@
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
                                     <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                                href="stats-view.php">Delete</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -286,8 +283,8 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="performance" class="view-txt"><a
+                                                href="ordersUiView.php">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -295,8 +292,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -305,7 +301,7 @@
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
                                     <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                                href="stats-view.php">Delete</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -313,6 +309,7 @@
                 </div>
             </li>
         </ul>
+        <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>

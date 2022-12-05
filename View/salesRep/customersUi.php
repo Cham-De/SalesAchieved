@@ -10,12 +10,18 @@
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--stylesheet for the customersUi page-->
-    <link rel="stylesheet" href="customersUi.css">
     <!--Stylesheet for nav bar-->
     <link rel="stylesheet" href="../styles/navBar.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../styles/popupForm.css">
+    <!--Stylesheet for order cards-->
+    <link rel="stylesheet" href="../styles/cards.css">
+    <!--Stylesheet for table search bar-->
+    <link rel="stylesheet" href="../styles/tableSearch.css">
+    <!--Stylesheet for buttons on order cards-->
+    <link rel="stylesheet" href="../styles/buttons.css">
+    <!--Stylesheet for navigation arrows-->
+    <link rel="stylesheet" href="../styles/navButtons.css">
 </head>
 
 <body>
@@ -33,7 +39,7 @@
                 </tr>
             </table>
         </div>
-
+  
         <div class="user-wrapper">
             <img src="../assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -42,34 +48,32 @@
             </div>
         </div>
     </div>
-
+  
     <div class="side_bar">
         <div class="logo">
             <img src="../assets/logosales.jpeg" width="65%" height="55%">
         </div>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Orders</a></li>
-            <li class="active"><a href="#">Customers</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Sales</a></li>
-            <li><a href="#">Complaints</a></li>
+            <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+            <li class="active"><a href="customersUi.php"><i class="fa-solid fa-user-group"></i>Customers</a></li>
+            <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
+            <li><a href="salesUi.php"><i class="fa-solid fa-sack-dollar"></i>Sales</a></li>
+            <li><a href="complaints.php"><i class="fa-solid fa-comment"></i>Complaints</a></li>
+        </ul>
+        <ul class="profile">
             <li>
-                <table class="side-bar-icons">
-                    <tr>
-                        <td><i class="fa-regular fa-circle-user"></i></td>
-                        <td><a href="#">Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-                        <td><a href="#">Log out</a></td>
-                    </tr>
-                </table>
+                <a href="../profile.php"><i class="fa-regular fa-circle-user"></i>Profile</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
             </li>
         </ul>
     </div>
     </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
+
     <!--Table search bar-->
     <div class="search_container">
         <table class="element_container">
@@ -98,8 +102,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="view" class="perf">View</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -107,7 +110,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt"><a >Update</a></button></td>
+                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -115,8 +118,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -133,7 +135,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf"><a href="stats-view.html">View</a></button>
+                                    <td><button id="view" class="perf">View</button>
                                     </td>
                                 </tr>
                             </table>
@@ -142,7 +144,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -150,8 +152,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -168,7 +169,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf"><a href="stats-view.html">View</a></button>
+                                    <td><button id="view" class="perf">View</button>
                                     </td>
                                 </tr>
                             </table>
@@ -177,7 +178,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -185,8 +186,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -203,8 +203,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="view" class="perf">View</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -212,8 +211,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt"><a
-                                                href="#">Update</a></button></td>
+                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -221,8 +219,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -239,8 +236,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf"><a
-                                                href="stats-view.html">View</a></button></td>
+                                    <td><button id="view" class="perf">View</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -248,7 +244,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt"><a>Update</a></button></td>
+                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -256,8 +252,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt"><a
-                                                href="stats-view.html">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -270,6 +265,7 @@
         <div class="popup-container" id="popup_container"> 
             <div class="popup-modal">
               <form>
+                <fieldset id="form_field">
                   <label for="name">Customer Name
                       <input type="text" value="Senu Dilshara">
                   </label>
@@ -292,20 +288,28 @@
                         <option value="whatsapp">WhatsApp</option>
                     </select>
                   </label>
+                </fieldset>
                   
-                  <label class="sp-label">
-                      <button class="cancel" id="close">Cancel</button>
-                      <button class="submit" id="save">Update</button>
-                  </label>  
+                <label class="sp-label">
+                    <button class="cancel" id="close">Cancel</button>
+                    <button class="submit" id="save">Update</button>
+                </label>  
               </form>
             </div>
         </div>
         <script>
+            const view = document.getElementById('view');
             const update = document.getElementById('update');
             const popup_container = document.getElementById('popup_container');
             const close = document.getElementById('close');
             const save = document.getElementById('save');
-    
+            const form_field = document.getElementById('form_field');
+            
+            view.addEventListener('click', () => {
+                popup_container.classList.add('show');
+                form_field.setAttribute('disabled', true);
+            });
+
             update.addEventListener('click', () => {
                 popup_container.classList.add('show');
             });

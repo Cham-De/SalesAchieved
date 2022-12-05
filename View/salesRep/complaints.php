@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="../styles/navBar.css">
     <!--Stylesheet for the tabel-->
     <link rel="stylesheet" href="../styles/table.css">
-    <!--Stylesheet for the complains.html-->
-    <link rel="stylesheet" href="complaints.css">
+    <!-- Stylesheet for the table navigation buttons-->
+    <link rel="stylesheet" href="../styles/navButtons.css">
+    <!--Stylesheet for quick actoins buttons-->
+    <link rel="stylesheet" href="../styles/quickActions.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../styles/popupForm.css">
 </head>
@@ -27,59 +29,55 @@
 <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-        <div class="search-container">
-            <table class="element-container">
-                <tr>
-                    <td>
-                        <input type="text" placeholder="Search..." class="search">
-                    </td>
-                    <td>
-                        <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+      <div class="search-container">
+          <table class="element-container">
+              <tr>
+                  <td>
+                      <input type="text" placeholder="Search..." class="search">
+                  </td>
+                  <td>
+                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                  </td>
+              </tr>
+          </table>
+      </div>
 
-        <div class="user-wrapper">
-            <img src="../assets/man.png" width="50px" height="50px" alt="user image">
-            <div>
-                <h4>John Doe</h4>
-                <small>Sales Representative</small>
-            </div>
-        </div>
-    </div>
+      <div class="user-wrapper">
+          <img src="../assets/man.png" width="50px" height="50px" alt="user image">
+          <div>
+              <h4>John Doe</h4>
+              <small>Sales Representative</small>
+          </div>
+      </div>
+  </div>
 
-    <div class="side_bar">
-        <div class="logo">
-            <img src="../assets/logosales.jpeg" width="65%" height="55%">
-        </div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Sales</a></li>
-            <li class="active"><a href="#">Complaints</a></li>
-            <li>
-                <table class="side-bar-icons">
-                    <tr>
-                        <td><i class="fa-regular fa-circle-user"></i></td>
-                        <td><a href="#">Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-                        <td><a href="#">Log out</a></td>
-                    </tr>
-                </table>
-            </li>
-        </ul>
-    </div>
-    </div>
+  <div class="side_bar">
+      <div class="logo">
+          <img src="../assets/logosales.png" width="80%" height="80%">
+      </div>
+      <ul>
+          <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
+          <li><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+          <li><a href="customersUi.php"><i class="fa-solid fa-user-group"></i>Customers</a></li>
+          <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
+          <li><a href="salesUi.php"><i class="fa-solid fa-sack-dollar"></i>Sales</a></li>
+          <li class="active"><a href="complaints.php"><i class="fa-solid fa-comment"></i>Complaints</a></li>
+      </ul>
+      <ul class="profile">
+          <li>
+              <a href="../profile.php"><i class="fa-regular fa-circle-user"></i>Profile</a>
+          </li>
+          <li>
+              <a href="#"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
+          </li>
+      </ul>
+  </div>
+  </div>
+  <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
-    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Top right corner buttons-->
-    <div class="btn_complaint">
+    <div class="btn_three">
         <button id="complaint_btn">Add<br>Complaint</button>
     </div>
 
