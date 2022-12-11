@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../styles/table.css">
     <!--Stylesheet for table navigation buttons-->
     <link rel="stylesheet" href="../styles/navButtons.css">
+    <link rel="stylesheet" href="salesUi.css">
   </head>
   <body>
     <!--common top nav and side bar content-->
@@ -127,10 +128,23 @@
         </tbody>
       </table>
 
-      <!--Table navigation-->
-      <div class="navigation-table" id="nav_table">
+    <!--Table navigation-->
+    <div class="navigation-table" id="nav_table">
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
     </div>
+
+    <!--Commission Rate-->
+    <div class="commissionRate">
+        <h3>Commission Rate: </h3>
+        <h2>15%</h2>
+    </div>
+
+    <!--Current Commission-->
+    <div class="currentCommission">
+        <h3>Current Commission: </h3>
+        <h2>Rs. 65,993</h2>
+    </div>
+
   </body>
 </html>

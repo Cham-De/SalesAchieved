@@ -1,10 +1,14 @@
 .popup-modal{
     padding: 30px 40px 10px 40px;
     margin: auto;
-    max-width: 500px;
+    width: 25%;
+    max-width: 25%;
     background: #FFFFFF;
     border: 1px solid rgba(222, 221, 221, 0.69);
     border-radius: 15px;
+    /* z-index: 1; */
+    max-height: 80%;
+    overflow: auto !important;
 }
 .popup-modal input, select, textarea{
     width: 100%;
@@ -18,38 +22,44 @@
 .popup-modal .title{
     display: flex;
 }
-.popup-modal .title h2{
+/* .popup-modal .title h2{
     margin-top: px;
-}
-.popup-modal label, input, textarea{
+} */
+.popup-modal label, input, textarea, p{
     display: block;
 }
 .popup-modal label{
-    margin-bottom: 20px;
+    margin-top: 20px;
     color: rgb(133, 134, 134);
 }
 .popup-modal input, textarea{
     color: black;
 }
+
+.popup-modal p{
+    padding-bottom: 10%;
+    margin-top: 0;
+    text-align: center;
+}
+
 .cancel, .submit{
     display: inline-block;
-    margin-left: 5px;
     border-radius: 15px;
     cursor: pointer;
+    padding: 4% 8%;
 }
 .cancel{
     border: 2px solid #F8914A;
     color: #F8914A;
     background: #FFFFFF;
-    padding: 13px 30px;
-    margin-left: 35px;
+    margin-left: 20%;
 }
 
 .submit{
     background: #F8914A;
-    border: none;
+    border: 2px solid #FFFFFF;
     color: #FFFFFF;
-    padding: 15px 40px;
+    margin-left: 1%;
 }
 .submit:hover{
     background: #fa7e2b;
@@ -81,4 +91,15 @@
 }
 fieldset {
     border: 0 !important;
+}
+
+a{
+    color: rgb(133, 134, 134);
+    text-decoration: none;
+    margin-left: 3%;
+}
+
+.popup-modal div.controls{
+    text-align: right;
+    font-size: 70%;
 }

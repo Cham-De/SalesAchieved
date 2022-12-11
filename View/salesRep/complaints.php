@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="../styles/quickActions.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../styles/popupForm.css">
+    <!--Stylesheet for table search bar-->
+    <link rel="stylesheet" href="../styles/tableSearch.css">
 </head>
 
 <body>
@@ -80,6 +82,21 @@
     <div class="btn_three">
         <button id="complaint_btn">Add<br>Complaint</button>
     </div>
+
+    <!--Table search bar-->
+    <div class="search_container">
+        <table class="element_container">
+          <tr>
+            <td>
+              <input type="text" placeholder="Search Table..." class="search">
+            </td>
+            <td>
+              <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Table-->
     <table class="content-table">

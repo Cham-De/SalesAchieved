@@ -1,0 +1,31 @@
+.commissionRate h3{
+    color: darkgrey;
+    text-align: left;
+    float: left;
+    margin-left: 20%;
+    margin-top: 3%;
+}
+
+.currentCommission h3{
+    color: darkgrey;
+    text-align: right;
+    float: right;
+    margin-right: 15%;
+    margin-top: 3%;
+}
+
+.commissionRate h2{
+    margin-top: 2.8%;
+    padding-left: 1%;
+    text-align: left;
+    float: left;
+}
+
+.currentCommission h2{
+    margin-top: 2.8%;
+    margin-left: 85%;
+    padding-left: 1%;
+    position: absolute;
+    text-align: right;
+    float: right;
+}

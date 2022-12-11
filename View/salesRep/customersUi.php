@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="../styles/buttons.css">
     <!--Stylesheet for navigation arrows-->
     <link rel="stylesheet" href="../styles/navButtons.css">
+    <!--Stylesheet for quick actions-->
+    <link rel="stylesheet" href="../styles/quickActions.css">
 </head>
 
 <body>
@@ -89,6 +91,11 @@
     </div>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
+    <!--Top right corner buttons-->
+    <div class="btn_three">
+        <button id="customer_btn">Add Customer</button>
+    </div>
+
     <!--Orders Cards-->
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
@@ -98,6 +105,9 @@
                         <h2>Senu Dilshara</h2>
                     </div>
                     <div class="dv">
+                    <div class="customerName">
+                            996258373V
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
@@ -131,6 +141,9 @@
                         <h2>Bethmi Navanjana</h2>
                     </div>
                     <div class="dv">
+                    <div class="customerName">
+                            996258373V
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
@@ -165,6 +178,9 @@
                         <h2>Binu De Silva</h2>
                     </div>
                     <div class="dv">
+                    <div class="customerName">
+                            996258373V
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
@@ -199,6 +215,9 @@
                         <h2>Kaveesha Perera</h2>
                     </div>
                     <div class="dv">
+                    <div class="customerName">
+                            996258373V
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
@@ -232,6 +251,9 @@
                         <h2>Maleesha Fernando</h2>
                     </div>
                     <div class="dv">
+                    <div class="customerName">
+                            996258373V
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
@@ -261,9 +283,50 @@
             </li>
         </ul>
         
+        <!--Popup Form - Delete-->
+        <div class="popup-container" id="popup_container_delete">
+            <div class="popup-modal">
+            <form method="post">
+                <p>Do you want to delete customer?</p>
+                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit">Delete</button>
+            </form>
+            </div>
+        </div>
+
+        <!--Popup Form - Add Customer-->
+    <div class="popup-container" id="popup_container_customer">
+        <div class="popup-modal">
+          <form method="post">
+            <label for="customerName">Customer Name
+                <input type="string" id="customerName" name="customerName" required="required">
+            </label>
+            <label for="NIC">NIC No
+                <input type="string" id="NIC" name="NIC" required="required">
+            </label>
+            <label for="address">Address
+                <input type="string" id="address" name="address" required="required">
+            </label>
+            <label for="phone">Phone Number
+                <input type="string" id="phone" name="phone" required="required">
+            </label>
+            <label for="socialMediaPlatform">Social Media Platform
+                <select id="socialMediaPlatform">
+                    <option value="facebook">Facebook</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="whatsapp">WhatsApp</option>
+                </select>
+            </label>
+            <button class="cancel" id="close_customer" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_customer" type="submit" value="Submit" name="submit">Save</button>
+          </form>
+        </div>
+      </div>
+        
         <!--Popup Form-->
         <div class="popup-container" id="popup_container"> 
             <div class="popup-modal">
+                <h2>ID: 997480373V</h2>
               <form>
                 <fieldset id="form_field">
                   <label for="name">Customer Name
@@ -298,12 +361,30 @@
             </div>
         </div>
         <script>
+            const delete_btn = document.getElementById('delete');
             const view = document.getElementById('view');
             const update = document.getElementById('update');
             const popup_container = document.getElementById('popup_container');
+            const customer_btn = document.getElementById('customer_btn');
+            
+            const close_customer = document.getElementById('close_customer');
+            const save_customer = document.getElementById('save_customer');
             const close = document.getElementById('close');
             const save = document.getElementById('save');
+            const close_delete = document.getElementById('close_delete');
+            const save_delete = document.getElementById('save_delete');
+            
+            const popup_container_customer = document.getElementById('popup_container_customer');
             const form_field = document.getElementById('form_field');
+            const popup_container_delete = document.getElementById('popup_container_delete');
+            
+            delete_btn.addEventListener('click', () => {
+                popup_container_delete.classList.add('show');
+            });
+
+            customer_btn.addEventListener('click', () => {
+                popup_container_customer.classList.add('show');
+            });
             
             view.addEventListener('click', () => {
                 popup_container.classList.add('show');
@@ -317,13 +398,29 @@
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
             });
+
+            close_delete.addEventListener('click', () => {
+                popup_container_delete.classList.remove('show');
+            });
+
+            close_customer.addEventListener('click', () => {
+                popup_container_customer.classList.remove('show');
+            });
     
+            save_delete.addEventListener('click', () => {
+                popup_container_delete.classList.remove('show');
+            });
+            
             save.addEventListener('click', () => {
                 popup_container.classList.remove('show');
             });
     
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
+            });
+
+            save_customer.addEventListener('click', () => {
+                popup_container_customer.classList.remove('show');
             });
         </script>
 

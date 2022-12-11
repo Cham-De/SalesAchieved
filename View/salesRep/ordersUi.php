@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="../styles/buttons.css">
     <!--Stylesheet for navigation arrows-->
     <link rel="stylesheet" href="../styles/navButtons.css">
+    <!--Stylesheet for popup forms-->
+    <link rel="stylesheet" href="../styles/popupForm.css">
+    <!--Stylesheet for table search bar-->
+    <link rel="stylesheet" href="../styles/tableSearch.css">
 </head>
 
 <body>
@@ -77,6 +81,21 @@
         <button id="order_btn">Add Order</button>
     </div>
 
+    <!--Table search bar-->
+    <div class="search_container">
+        <table class="element_container">
+          <tr>
+            <td>
+              <input type="text" placeholder="Search Table..." class="search">
+            </td>
+            <td>
+              <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
     <!--Orders Cards-->
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
@@ -112,19 +131,16 @@
                         <div class="button uploadSlip">
                             <table>
                                 <tr>
-                                        <td><i class="fa-solid fa-angles-up"></i></td>
-                                        <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
-                                    </a>
+                                    <td><i class="fa-solid fa-angles-up"></i></td>
+                                    <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <a href="#">
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
-                                    </a>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -163,10 +179,8 @@
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <a href="#">
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
-                                    </a>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -205,10 +219,8 @@
                         <div class="button delete">
                             <table>
                                 <tr>
-                                    <a href="#">
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
-                                    </a>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -249,8 +261,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-file"></i></td>
-                                    <td><button id="performance" class="uploadSlip-txt"><a
-                                                href="viewSlip.php">View Slip</a></button></td>
+                                    <td><button id="performance" class="uploadSlip-txt"><a href="viewSlip.php">View Slip</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -258,8 +269,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.php">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -300,8 +310,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt"><a
-                                                href="stats-view.php">Delete</a></button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -314,6 +323,128 @@
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
         </div>
+
+        <!--Popup Form - Delete-->
+        <div class="popup-container" id="popup_container_delete">
+            <div class="popup-modal">
+            <form method="post">
+                <p>Do you want to delete order?</p>
+                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit">Delete</button>
+            </form>
+            </div>
+        </div>
+
+        <!--Popup Form - Orders-->
+    <div class="popup-container" id="popup_container_order">
+      <div class="popup-modal">
+        <form method="post">
+          <div id="dynamicField">
+            <label for="customerID">Customer ID
+                <input type="number" id="customerID" name="customerID" required="required">
+            </label>
+            <label for="orderDetails" id="productList">Order Details
+              <select id="orderDetails" name="orderDetails">
+                <option value="proOne">PR001</option>
+                <option value="proTwo">PR002</option>
+                <option value="proThree">PR003</option>
+                <option value="proFour">PR004</option>
+                <option value="proFive">PR005</option>
+                <option value="proSix">PR006</option>
+              </select>
+            </label>
+          </div>
+            <div class="controls">
+              <a href="#" id="add_more_fields">Add More</a>
+              <a href="#" id="remove_fields">Remove Field</a>
+            </div>
+            <label for="paymentMethod" id="payingMethods">Payment Method
+                <select id="paymentMethod" name="paymentMethod">
+                  <option value="COD">Cash on Delivery</option>
+                  <option value="BT">Bank Transaction</option>
+                </select>
+            </label>
+            <label for="deliveryDate">Delivery Date
+                <input type="date" id="deliveryDate" name="deliveryDate" required="required">
+            </label>
+            <label for="deliveryRegion" id="regions">Payment Method
+                <select id="deliveryRegion" name="deliveryRegion">
+                  <option value="WC">Within Colombo</option>
+                  <option value="CS">Colombo Suburbs</option>
+                  <option value="OC">Out of Colombo</option>
+                </select>
+            </label>
+            <button class="cancel" id="close_order" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_order" type="submit" value="Submit" name="submit">Save</button>
+          </form>
+      </div>
+    </div>
+
+        <script>
+            const delete_btn = document.getElementById('delete');
+            const order_btn = document.getElementById('order_btn');
+
+            const close_delete = document.getElementById('close_delete');
+            const save_delete = document.getElementById('save_delete');
+            const close_order = document.getElementById('close_order');
+            const save_order = document.getElementById('save_order');
+
+            const popup_container_delete = document.getElementById('popup_container_delete');
+            const popup_container_order = document.getElementById('popup_container_order');
+
+            delete_btn.addEventListener('click', () => {
+                popup_container_delete.classList.add('show');
+            });
+
+            order_btn.addEventListener('click', () => {
+                popup_container_order.classList.add('show');
+            });
+
+            close_delete.addEventListener('click', () => {
+                popup_container_delete.classList.remove('show');
+            });
+
+            close_order.addEventListener('click', () => {
+                popup_container_order.classList.remove('show');
+            });
+
+            save_delete.addEventListener('click', () => {
+                popup_container_delete.classList.remove('show');
+            });
+
+            save_order.addEventListener('click', () => {
+                popup_container_order.classList.remove('show');
+            });
+        </script>
+
+        <!--JavaScript for Dynamic form fields-->
+        <script>
+            var dynamicField = document.getElementById('dynamicField');
+            var add_more_fields = document.getElementById('add_more_fields');
+            var remove_fields = document.getElementById('remove_fields');
+            var productList = document.getElementById('productList');
+            var orderDetails = document.getElementById('orderDetails');
+            var count = 1;
+
+            add_more_fields.onclick = function(){
+                var newField = orderDetails.cloneNode(true);
+                newField.setAttribute('id', 'orderDetails' + count);
+                count += 1;
+                // newField.setAttribute('placeholder','Another Field');
+                productList.appendChild(newField);
+            }
+
+            remove_fields.onclick = function(){
+                var select_tags = productList.getElementsByTagName('select');
+                if(select_tags.length > 1) {
+                productList.removeChild(select_tags[(select_tags.length) - 1]);
+                }
+            }
+        </script>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
