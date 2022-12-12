@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../styles/navButtons.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../styles/popupForm.css">
+    
   </head>
   <body>
     
@@ -108,8 +109,8 @@
                         <div class="button delete">
                             <table>
                                 <tr>
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -146,7 +147,7 @@
                             <table>
                                 <tr>
                                         <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                        <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -183,7 +184,7 @@
                             <table>
                                 <tr>
                                         <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="performance" class="delete-txt">Delete</button></td>
+                                        <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -220,7 +221,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -257,7 +258,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="performance" class="delete-txt">Delete</button></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -300,6 +301,12 @@
         </div>
       </div>
 
+    <!-- Navigation Arrows -->
+    <div class="navigation-table" id="nav_table">
+        <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+        <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
+    </div>
+
       <!--Popup Form - View Product Details-->
       <div class="popup-container" id="popup_container_view"> 
             <div class="popup-modal">
@@ -326,9 +333,20 @@
                 </fieldset>
                   
                 <label class="sp-label">
-                    <button class="cancel" id="close">Cancel</button>
+                    <button class="cancelOne" id="close">Cancel</button>
                 </label>  
               </form>
+            </div>
+        </div>
+
+        <!--Popup Form - Delete-->
+        <div class="popup-container" id="popup_container_delete">
+            <div class="popup-modal">
+            <form method="post">
+                <p>Do you want to delete product?</p>
+                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit">Delete</button>
+            </form>
             </div>
         </div>
 
@@ -336,17 +354,25 @@
         const product_btn = document.getElementById('product_btn');
         const view_btn = document.getElementById('view_btn');
         const update_btn = document.getElementById('update_btn');
+        const delete_btn = document.getElementById('delete');
 
         const close = document.getElementById('close');
         const save = document.getElementById('save');
+        const close_delete = document.getElementById('close_delete');
+        const save_delete = document.getElementById('save_delete');
 
         const popup_container_addProduct = document.getElementById('popup_container_addProduct');
         const popup_container_view = document.getElementById('popup_container_view');
         const form_field = document.getElementById('form_field');
+        const popup_container_delete = document.getElementById('popup_container_delete');
 
         view_btn.addEventListener('click', () => {
                 popup_container_view.classList.add('show');
                 form_field.setAttribute('disabled', true);
+        });
+
+        update_btn.addEventListener('click', () => {
+                popup_container_view.classList.add('show');
         });
 
         product_btn.addEventListener('click', () => {
@@ -357,6 +383,10 @@
             popup_container_view.classList.add('show');
         });
 
+        delete_btn.addEventListener('click', () => {
+            popup_container_delete.classList.add('show');
+        });
+
         close.addEventListener('click', () => {
             popup_container_addProduct.classList.remove('show');
         });
@@ -365,12 +395,20 @@
             popup_container_view.classList.remove('show');
         });
 
+        close_delete.addEventListener('click', () => {
+            popup_container_delete.classList.remove('show');
+        });
+
         // close.addEventListener('click', () => {
         //     popup_container_update.classList.remove('show');
         // });
 
         save.addEventListener('click', () => {
             popup_container_addProduct.classList.remove('show');
+        });
+
+        save_delete.addEventListener('click', () => {
+            popup_container_delete.classList.remove('show');
         });
 
     </script>

@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/addAgentCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +21,10 @@
     <link rel="stylesheet" href="../styles/tableSearch.css">
     <!--Stylesheet for tables-->
     <link rel="stylesheet" href="../styles/table.css">
+    <!--Stylesheet for quick actions buttons-->
+    <link rel="stylesheet" href="../styles/quickActions.css">
+    <!--Stylesheet for popup form-->
+    <link rel="stylesheet" href="../styles/popupForm.css">
   </head>
   <body>
     
@@ -67,6 +75,11 @@
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
 
+    <!--Quick actions buttons-->
+    <div class="btn_three">
+        <button id="agent_btn">Add Agent</button>
+    </div>
+
     <!--Table search bar-->
     <div class="search_container">
         <table class="element_container">
@@ -86,44 +99,78 @@
     <table class="content-table">
         <thead>
             <tr>
+                <th>Agent ID</th>
                 <th>Agent Name</th>
                 <th>Phone</th>
                 <th>Address</th>
             </tr>
         </thead>
+        <?php
+            while($rows = mysqli_fetch_assoc($result))
+                {
+        ?>
         <tbody>
             <tr>
-                <td>Agent 1</td>
-                <td>0717389878</td>
-                <td>18/7, Bokundara, Piliyandala</td>
-            </tr>
-            <tr>
-                <td>Agent 1</td>
-                <td>0717389878</td>
-                <td>18/7, Bokundara, Piliyandala</td>
-            </tr>
-            <tr>
-                <td>Agent 1</td>
-                <td>0717389878</td>
-                <td>18/7, Bokundara, Piliyandala</td>
-            </tr>
-            <tr>
-                <td>Agent 1</td>
-                <td>0717389878</td>
-                <td>18/7, Bokundara, Piliyandala</td>
-            </tr>
-            <tr>
-                <td>Agent 1</td>
-                <td>0717389878</td>
-                <td>18/7, Bokundara, Piliyandala</td>
-            </tr>
+                <td><?php echo $rows['agentID'];?></td>
+                <td><?php echo $rows['companyName'];?></td>
+                <td><?php echo $rows['phone'];?></td>
+                <td><?php echo $rows['address'];?></td>
+            </tr> 
         </tbody>
+        <?php
+            }
+        ?>
       </table>
     
     <!-- Navigation Arrows -->
     <div class="navigation-table" id="nav_table">
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
+
+        <!--Popup Form - Add Agent-->
+    <div class="popup-container" id="popup_container_agent">
+        <div class="popup-modal">
+          <form method="post" action="agentsUi.php">
+            <label for="companyName">Company Name
+                <input type="string" id="companyName" name="companyName" required="required">
+            </label>
+            <label for="phone">Phone Number
+                <input type="string" id="phone" name="phone" required="required">
+            </label>
+            <label for="address">Address
+                <input type="string" id="address" name="address" required="required">
+            </label>
+            
+            <button class="cancel" id="close_agent" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_agent" type="submit" value="Submit" name="submit">Save</button>
+          </form>
+        </div>
+      </div>
     </div>
+
+    <script>
+        const agent_btn = document.getElementById('agent_btn');
+
+        const close_agent = document.getElementById('close_agent');
+        const save_agent = document.getElementById('save_agent');
+
+        const popup_container_agent = document.getElementById('popup_container_agent');
+
+        agent_btn.addEventListener('click', () => {
+            popup_container_agent.classList.add('show');
+        });
+
+        close_agent.addEventListener('click', () => {
+            popup_container_agent.classList.remove('show');
+        });
+
+        save_agent.addEventListener('click', () => {
+            popup_container_agent.classList.remove('show');
+        });
+
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
   </body>
 </html>

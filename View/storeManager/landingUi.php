@@ -99,8 +99,11 @@
         </div>
 
         <!--Quick actions buttons-->
-        <div class="btn_three">
+        <div class="btn_two">
           <button id="product_btn">Add<br>Product</button>
+        </div>
+        <div class="btn_three">
+          <button id="agent_btn">Add Agent</button>
         </div>
 
         <!--graphs-->
@@ -118,7 +121,7 @@
       </div>
     </main>
 
-    <!--Popup Form-->
+    <!--Popup Form - Add Product-->
     <div class="popup-container" id="popup_container">
         <div class="popup-modal">
           <form method="post" action="landingUi.php">
@@ -146,22 +149,60 @@
         </div>
       </div>
 
+      <!--Popup Form - Add Agent-->
+    <div class="popup-container" id="popup_container_agent">
+        <div class="popup-modal">
+          <form method="post">
+            <label for="companyName">Company Name
+                <input type="string" id="companyName" name="companyName" required="required">
+            </label>
+            <label for="phone">Phone Number
+                <input type="string" id="phone" name="phone" required="required">
+            </label>
+            <label for="address">Address
+                <input type="string" id="address" name="address" required="required">
+            </label>
+            
+            <button class="cancel" id="close_agent" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_agent" type="submit" value="Submit" name="submit">Save</button>
+          </form>
+        </div>
+      </div>
+
       <script>
         const product_btn = document.getElementById('product_btn');
+        const agent_btn = document.getElementById('agent_btn');
+
         const close = document.getElementById('close');
         const save = document.getElementById('save');
+        const close_agent = document.getElementById('close_agent');
+        const save_agent = document.getElementById('save_agent');
+
         const popup_container = document.getElementById('popup_container');
+        const popup_container_agent = document.getElementById('popup_container_agent');
 
         product_btn.addEventListener('click', () => {
             popup_container.classList.add('show');
+        });
+
+        agent_btn.addEventListener('click', () => {
+            popup_container_agent.classList.add('show');
         });
 
         close.addEventListener('click', () => {
             popup_container.classList.remove('show');
         });
 
+        close_agent.addEventListener('click', () => {
+            popup_container_agent.classList.remove('show');
+        });
+
         save.addEventListener('click', () => {
             popup_container.classList.remove('show');
+        });
+
+        save_agent.addEventListener('click', () => {
+            popup_container_agent.classList.remove('show');
         });
 
     </script>
