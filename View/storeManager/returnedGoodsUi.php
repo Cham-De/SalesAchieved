@@ -1,7 +1,3 @@
-<?php
-    require_once("../../Model/addAgentCRUD.php");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,8 +17,6 @@
     <link rel="stylesheet" href="../styles/tableSearch.css">
     <!--Stylesheet for tables-->
     <link rel="stylesheet" href="../styles/table.css">
-    <!--Stylesheet for quick actions buttons-->
-    <link rel="stylesheet" href="../styles/quickActions.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../styles/popupForm.css">
   </head>
@@ -60,8 +54,8 @@
           <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
           <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
           <li><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
-          <li class="active"><a href="agentsUi.php"><i class="fa-solid fa-user-group"></i>Agents</a></li>
-          <li><a href="returnedGoodsUi.php"><i class="fa-solid fa-user-group"></i>Returned Goods</a></li>
+          <li><a href="agentsUi.php"><i class="fa-solid fa-user-group"></i>Agents</a></li>
+          <li class="active"><a href="returnedGoodsUi.php"><i class="fa-solid fa-user-group"></i>Returned Goods</a></li>
       </ul>
       <ul class="profile">
           <li>
@@ -75,11 +69,6 @@
   </div>
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
-
-    <!--Quick actions buttons-->
-    <div class="btn_three">
-        <button id="agent_btn">Add Agent</button>
-    </div>
 
     <!--Table search bar-->
     <div class="search_container">
@@ -100,27 +89,50 @@
     <table class="content-table">
         <thead>
             <tr>
-                <th>Agent ID</th>
-                <th>Agent Name</th>
-                <th>Phone</th>
-                <th>Address</th>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Product</th>
+                <th>Reason</th>
+                <th>Delivery Date</th>
             </tr>
         </thead>
-        <?php
-            while($rows = mysqli_fetch_assoc($result))
-                {
-        ?>
         <tbody>
             <tr>
-                <td><?php echo $rows['agentID'];?></td>
-                <td><?php echo $rows['companyName'];?></td>
-                <td><?php echo $rows['phone'];?></td>
-                <td><?php echo $rows['address'];?></td>
-            </tr> 
+                <td>1</td>
+                <td>Senu Dilshara</td>
+                <td>Product 1</td>
+                <td>Damaged Goods</td>
+                <td>23/11/2022</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Senu Dilshara</td>
+                <td>Product 1</td>
+                <td>Damaged Goods</td>
+                <td>23/11/2022</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Senu Dilshara</td>
+                <td>Product 1</td>
+                <td>Damaged Goods</td>
+                <td>23/11/2022</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Senu Dilshara</td>
+                <td>Product 1</td>
+                <td>Damaged Goods</td>
+                <td>23/11/2022</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Senu Dilshara</td>
+                <td>Product 1</td>
+                <td>Damaged Goods</td>
+                <td>23/11/2022</td>
+            </tr>
         </tbody>
-        <?php
-            }
-        ?>
       </table>
     
     <!-- Navigation Arrows -->

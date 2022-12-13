@@ -58,6 +58,7 @@
           <li class="active"><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
           <li><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
           <li><a href="agentsUi.php"><i class="fa-solid fa-user-group"></i>Agents</a></li>
+          <li><a href="returnedGoodsUi.php"><i class="fa-solid fa-user-group"></i>Returned Goods</a></li>
       </ul>
       <ul class="profile">
           <li>
