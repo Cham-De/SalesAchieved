@@ -6,22 +6,24 @@
 }
 
 div.nav_bar{
-  margin-left: 15%;
+  margin-left: 18%;
   display: flex;
-  width: 85%;
+  width: 82%;
   justify-content: space-between;
   padding: 1rem;
+  /*border: 1px solid rgba(217, 217, 217, 0.87);*/
   border: 1px solid rgba(217, 217, 217, 0.87);
 }
 
 .search-container{
-  top: 5px;
+  top: 2%;
   position: relative;
-  background: #f1f0f0;
+  background: #ffffff;
   width: 300px;
   height: 50px;
   padding: 0px 10px;
   border-radius: 15px;
+  border: 1px solid rgb(235, 137, 58);
 }
 
 .element-container{
@@ -35,7 +37,7 @@ div.nav_bar{
   width: 100%;
   height: 100%;
   padding: 5px;
-  background: #f1f0f0;
+  background: #ffffff;
 }
 
 .search-container .fa-solid{
@@ -69,22 +71,21 @@ div.nav_bar .user-wrapper div h4{
 div.side_bar{
   text-decoration: none;
   position: fixed;
-  width: 15%;
+  width: 18%;
   height: 100%;
   left: 0px;
   top: 0px;
-  /* background: rgba(217, 217, 217, 0.61); */
-  /* background: #d9f1ff; */
-  background: #FFFFFF;
+  background: #1756c40e;
 }
 
-div.side_bar div.logo{
-  margin-top: 5%;
-  margin-left: 13%;
+
+.logo img{
+  margin-left: 15%;
 }
+
 div.side_bar ul li.active{
-  /* background: rgb(235, 137, 58); */
-  background: #296d98;
+  /*background: rgb(243, 113, 6);*/
+  background: #1757c4;
   opacity: 80%;
 }
 
@@ -95,14 +96,16 @@ div.side_bar ul li.active a{
 
 div.side_bar ul li a{
   text-decoration: none;
-  color:#000000;
-  font-size: 1vw;
+  /*color:#1757c4;*/
+  color: black;
+  font-size: 2.5vh;
 }
 
 div.side_bar ul li{
-  padding: 5%;
   text-align: left;
-  padding-left: 25%;
+  padding-left: 30%;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 
 div.side_bar i{
@@ -114,15 +117,25 @@ div.side_bar ul li:not(.active) a:hover{
 }
 
 div.side_bar ul{
-  padding-top: 20%;
+  padding-top: 10%;
 }
 
-ul.profile{
-  top: 18%;
-  position: relative;
-  padding-top: 0%;
+
+.icon-list{
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 20%;
 }
 
-div.side_bar ul.profile li a{
-  padding: 5px;
+.side-bar-icons{
+  margin: 0 auto;
+  border-spacing: 0px 10px;
+}
+
+.side-bar-icons td{
+  color: #1757c4;
+}
+
+.side-bar-icons td a{
+  text-decoration: none;
 }
