@@ -47,7 +47,7 @@
 
   <div class="side_bar">
       <div class="logo">
-          <img src="../assets/logosales.jpeg" width="65%" height="55%">
+          <img src="../assets/logosales.png" width="65%" height="55%">
       </div>
       <ul>
           <li class="active"><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
