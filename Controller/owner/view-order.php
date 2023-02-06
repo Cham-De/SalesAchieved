@@ -6,12 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Owner</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="../styles/filter-buttons.css">
-    <link rel="stylesheet" href="../styles/owner/owner-orders.css">
-    <link rel="stylesheet" href="../styles/owner/owner-view-order-inner-page.css">
+    <link rel="stylesheet" href="../../View/styles/navBar.css">
+    <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
+    <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <link rel="stylesheet" href="../../View/styles/cards-large.css">
+    <link rel="stylesheet" href="../../View/styles/stats.css">
+    <link rel="stylesheet" href="../../View/styles/owner/owner-view-order-inner-page.css">
+    
+    <style>
+    div.side_bar ul li{
+        text-align: left;
+        padding-left: 30%;
+        padding-top: 8%;
+        padding-bottom: 9%;
+    }
+    .wrapper{
+        position: absolute;
+        display: flex;
+        width: 70%;
+        top: 16%;
+        margin-left:25%;
+    }
+
+    .name{
+        margin-top: 2%;
+        margin-left:25%;
+    }
+
+    .view-card h1{
+        margin-top: 30%;
+        text-align: center;
+    }
+    .view-cards-wrapper{
+        border: none;
+    }
+    .view-card{
+        width: 28%;
+        margin-bottom: 5%;
+    }
+    </style>
 </head>
 <body>
-    <div class="nav_bar">
+<div class="nav_bar">
         <div class="search-container">
             <table class="element-container">
               <tr>
@@ -19,47 +55,46 @@
                   <input type="text" placeholder="Search..." class="search">
                 </td>
                 <td>
-                  <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
                 </td>
               </tr>
             </table>
         </div>
         <div class="user-wrapper">
-            <img src="../assets/man.png" width="50px" height="50px" alt="user image">
+            <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>Chamodi</h4>
-                <small>Owner</small>
+                <h4>John Doe</h4>
+                <small style="color:rgb(235, 137, 58)">Owner</small>
             </div>
         </div>
     </div>
+
     <div class="side_bar">
         <div class="logo">
-            <img src="../assets/logosales.jpeg" width= "65%" height="55%">
+            <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
         </div>
-        <ul>
-            <li><a href="owner-landing.html">Home</a></li>
-            <li><a href="owner-orders.html">Orders</a></li>
-            <li class="active"><a href="owner-payments.html">Payments</a></li>
-            <li><a href="#">Statistics</a></li>
-            <li><a href="#">Returned Goods</a></li>
-            <li></li>
-            <li>
-                <table class="side-bar-icons">
-                    <tr>
-                      <td><i class="fa-regular fa-circle-user"></i></td>
-                      <td><a href="profile.html">Profile</a></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-                      <td><a href="#">Log out</a></td>
-                    </tr>
-                  </table>
-            </li>
+        <ul class="icon-list">
+            <li><a href="owner-landing.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="owner-orders.php"><i style="margin-right: 2%;" class="fa-solid fa-cart-arrow-down"></i>Orders</a></li>
+            <li class="active"><a href="owner-payments.php"><i style="margin-right: 2%;" class="fa-solid fa-money-check-dollar"></i>Payments</a></li>
+            <li><a href="owner-stat.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li>
+            <li><a href="returned-goods.php"><i style="margin-right: 2%;" class="fa-solid fa-box-open"></i>Returned Goods</a></li>
         </ul>
+        <table class="side-bar-icons">
+          <tr>
+            <td><i class="fa-regular fa-circle-user"></i></td>
+            <td><a href="./profile.php">Profile</a></td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+            <td><a href="#">Log out</a></td>
+          </tr>
+        </table>
     </div>
-    <main>
+    
 
-        <div class="middle">
+
+    <div class="middle">
             <table class="prof-table">
                 <tr>
                     <td><p>Customer Name</p><b>Senu Dilshara</b></td>
@@ -135,11 +170,18 @@
             </table>
           </div>
     
+          <button id="back_btn">Back</button>
     
-          <button id="back_btn"><a href="owner-payments.html">Back</a></button>
     
-    
-        
+          <script>
+    const back_btn = document.getElementById('back_btn');
+
+    back_btn.addEventListener('click', () => {
+      location.href = "./owner-payments.php";
+    });
+
+</script>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
