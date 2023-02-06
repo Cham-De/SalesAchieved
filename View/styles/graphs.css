@@ -17,14 +17,14 @@ main div.graphs div:is(.gr1, .gr2){
 main div.graphs div.gr1{
     width: 35%;
     height: 60%;
-    left: 20%;
+    left: 22%;
     top: 60%;
 } 
     
 main div.graphs div.gr2{
     width: 35%;
     height: 60%;
-    left: 58%;
+    left: 60%;
     top: 60%;
 }
     

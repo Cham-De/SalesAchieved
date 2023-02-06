@@ -1,0 +1,38 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.btn_back button, .btn_uploadSlip button{
+    background: rgb(235, 137, 58);
+    color: #FFFFFF;
+    font-size: 1vw;
+    border: 2px solid #FFFFFF;
+    cursor: pointer;
+    border-radius: 15px;
+    position: absolute;
+    margin-top: 2%;
+    height: 8%;
+    width: 8%;
+    align-items: center;
+}
+
+:is(.btn_back button, .btn_uploadSlip button):hover{
+    background: #FFF;
+    color: rgb(235, 137, 58);
+    border: 2px solid rgb(235, 137, 58);
+}
+
+.btn_uploadSlip button{
+    margin-left: 71%;
+}
+
+.btn_back button{
+    margin-left: 33%;
+}
+
+a{
+    text-decoration: none;
+}
