@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +10,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Manager</title>
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="../styles/finance/prop.css">
-    <!--<link rel="stylesheet" href="index-filter-buttons.css">-->
-    <link rel="stylesheet" href="../styles/filter-buttons.css">
-    <link rel="stylesheet" href="../styles/finance/campaigns.css">
+    <!--stylesheet for icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../View/styles/navBar.css">
+    <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
+    <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <link rel="stylesheet" href="../../View/styles/cards-large.css">
+
+    <style>
+
+    .card1, .card2{
+        text-align: left;
+    }
+    .wrapper{
+        position: absolute;
+        display: flex;
+        width: 70%;
+        top: 16%;
+        margin-left:25%;
+    }
+
+    div.side_bar ul li{
+        padding-top: 8%;
+        padding-bottom: 6%;
+    }
+
+    #charge_btn{
+        cursor: pointer;
+        border: none;
+        background: #F8914A;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 12px;
+        margin-left: 45%;
+    }
+
+    #charge_btn:hover{
+        color: #F8914A;
+        border: 2px solid #F8914A;
+        background: white;
+    }
+
+    .graph-kpi{
+        margin-top: 2%;
+    }
+    </style>
+
 </head>
 <body>
-    <div class="nav_bar">
+  <!--common top nav and side bar content-->
+  <div class="nav_bar">
         <div class="search-container">
             <table class="element-container">
               <tr>
@@ -20,49 +67,47 @@
                   <input type="text" placeholder="Search..." class="search">
                 </td>
                 <td>
-                  <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
                 </td>
               </tr>
             </table>
-          </div>
+        </div>
         <div class="user-wrapper">
-            <img src="../cham2.png" width="50px" height="50px" alt="user image">
+            <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>Chamodi</h4>
-                <small>Finance Manager</small>
+                <h4>John Doe</h4>
+                <small style="color:rgb(235, 137, 58)">Finance Manager</small>
             </div>
         </div>
     </div>
+
     <div class="side_bar">
         <div class="logo">
-            <img src="../logosales.jpeg" width= "65%" height="55%">
+            <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
         </div>
-        <ul>
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="commissions.html">Commissions</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="sales.html">Sales</a></li>
-            <li><a href="#">Reports</a></li>
-            <li class="last-item">
-                <table class="side-bar-icons">
-                    <tr>
-                      <td><i class="fa-regular fa-circle-user"></i></td>
-                      <td><a href="profile.html">Profile</a></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-                      <td><a href="#">Log out</a></td>
-                    </tr>
-                  </table>
-            </li>
+        <ul class="icon-list">
+            <li class="active"><a href="index.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="commissions.php"><i style="margin-right: 2%;" class="fa-solid fa-money-check-dollar"></i>Commissions</a></li>
+            <li><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
+            <li><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
+            <li><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
+            <li><a href="#"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
         </ul>
+        <table class="side-bar-icons">
+          <tr>
+            <td><i class="fa-regular fa-circle-user"></i></td>
+            <td><a href="./profile.php">Profile</a></td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
+            <td><a href="../home/logout.php">Log out</a></td>
+          </tr>
+        </table>
     </div>
+    <!---end of side and nav bars-->
 
-    <button class="delivery" id="btn_del">Add delivery charges</button>
 
-        
-
-        <div class="wrapper">
+    <div class="wrapper">
             <div class="dropdown">
                 <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
                     <span class="button__icon" onclick="myFunction(this)">
@@ -76,11 +121,7 @@
                     <a href="#">2018</a>
                  </div>
              </div> 
-         
-         
-         
-         
-         <div class="dropdown">
+            <div class="dropdown">
                 <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
                     <span class="button__icon" onclick="myFunction(this)">
                         <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
@@ -93,45 +134,49 @@
                     <a href="#">April</a>
                  </div>
              </div> 
-         </div>
-        
 
-        <!--graphs-->
-        <div class="graphs">
-            <div class="sales">
-                <h2 class="card-title">Monthly Sales Revenue</h2>
-                <img src="../sales.png" width="80%" height="80%" alt="monthly sales">
-            </div>
-            <div class="products">
-                <h2 class="card-title">Products Sold Monthly</h2>
-                <img src="../products.png" width="80%" height="80%" alt="monthly sales">
-            </div>
-            <div class="orders">
-                <h2 class="card-title">Complete and Incomplete Orders</h2>
-                <img src="../orders.jpg" alt="monthly sales">
-            </div>
-        </div>
-
-        <div class="txt"><h2>Key Performance Indicators</h2></div>
-        <div class="last_card1">
-            <div class="KPIs">
-                <div class="card1">
-                    <h2>Sales</h2>
-                    <h4>Monthly</h4>
-                    <br><br><br><br><br><br>
-                    <h1>Rs.120,000</h1>
-                </div>
-                <div class="card2">
-                    <h2>GP Margin</h2>
-                    <h4>Monthly</h4>
-                    <br><br><br><br><br><br>
-                    <h1>48.09%</h1>
-                </div>
-            </div>
-        </div>
+             <button id="charge_btn">Add Delivery Charges</button>
+    </div>
     
 
-        <div class="popup-container" id="popup_container">
+    
+    
+    <div class="graphs-large">
+        <div class="sales">
+                <h2 class="card-title">Monthly Sales Revenue</h2>
+                <img src="../../View/assets/graph3.png" width="80%" height="80%" alt="monthly sales">
+        </div>
+        <div class="products">
+                <h2 class="card-title">Products Sold Monthly</h2>
+                <img src="../../View/assets/graph1.png" width="80%" height="80%" alt="monthly sales">
+        </div>  
+    </div>
+    
+    <div class="graph-kpi">
+        <div class="orders">
+                <h2 class="card-title">Complete and Incomplete Orders</h2>
+                <img src="../../View/assets/graph2.jpg" alt="monthly sales">
+        </div>
+
+        <div class="title-and-kpis">
+        <div class="txt"><h2>Key Performance Indicators</h2></div>
+            <div class="KPIs">
+                <div class="card1">
+                    <h3>Sales</h3>
+                    <h4>Monthly</h4>
+                    <h2>Rs.120,000</h2>
+                </div>
+                <div class="card2">
+                    <h3>GP Margin</h3>
+                    <h4>Monthly</h4>
+                    <h2>48.09%</h2>
+                </div>
+            </div>
+    </div>
+
+    </div>
+    
+    <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="padding: 60px 30px 40px 30px; max-width: 400px;">
               <form action="connect.php" method="post">
               <label for="colombo">Delivery Charge Within Colombo (Rs.)
@@ -148,10 +193,8 @@
               </form>
     
             </div>
-          </div>
-    
-
-
+    </div>
+        
 
     <script>
         var myFunction = function(target) {
@@ -174,12 +217,12 @@ window.onclick = function(event) {
     </script>
 
 <script>
-    const btn_del = document.getElementById('btn_del');
+    const charge_btn = document.getElementById('charge_btn');
     const close = document.getElementById('close');
     const save = document.getElementById('save');
     const popup_container = document.getElementById('popup_container');
 
-    btn_del.addEventListener('click', () => {
+    charge_btn.addEventListener('click', () => {
         popup_container.classList.add('show');
     });
 
@@ -192,9 +235,6 @@ window.onclick = function(event) {
     });
 
 </script>
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 </html>
