@@ -1,5 +1,5 @@
 <?php
-    require '../connect.php';
+    require 'connect.php';
     if(isset($_POST['submit'])){
         $orderID = $_POST["orderID"];
         $productCode = $_POST["productCode"];
