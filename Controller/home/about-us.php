@@ -5,17 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="stylesheet" href="../styles/home/about.css">
-    <link rel="stylesheet" href="../styles/home/home.css">
+    <link rel="stylesheet" href="../../View/styles/home/about.css">
+    <link rel="stylesheet" href="../../View/styles/home/home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" href="../../View/assets/saleslogo-final.png" type="image/gif/png">
 </head>
 <body>
     
     <nav>
-        <div class="logo"><img src="../assets/saleslogo-final.png" width="30%" height="30%"></div>
-        <button><a href="home-page.html"><b>Back to Home</b></a></button>
+        <div class="logo"><img src="../../View/assets/saleslogo-final.png" width="30%" height="30%"></div>
+        <button><a href="home-page.php"><b>Back to Home</b></a></button>
     </nav>
     <div class="background_img"></div>
 
