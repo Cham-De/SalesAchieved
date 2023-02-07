@@ -10,12 +10,12 @@ if(isset($_POST['delete_user'])){
 
     if($query){
         $_SESSION['message'] = "Deleted";
-        header("Location: '../../View/admin/admin-landing.php' ");
+        header("Location: '../../Controller/admin/admin_landing.php' ");
         exit(0);
     }
     else{
         $_SESSION['message'] = "Not Deleted";
-        header("Location: '../../View/admin/admin-landing.php'");
+        header("Location: '../../Controller/admin/admin_landing.php'");
         exit(0);
     }
 }
@@ -50,12 +50,12 @@ $query = mysqli_query($con, $sql);
 if($query){
 
     $_SESSION['message'] = "User added successfully";
-    header("Location: '../../View/admin/admin-landing.php' ");
+    header("Location: '../../Controller/admin/admin_landing.php' ");
     exit(0);
 }
 else{
     $_SESSION['message'] = "User not added";
-    header("Location: '../../View/admin/admin-landing.php' ");
+    header("Location: '../../Controller/admin/admin_landing.php' ");
     exit(0);
 }
 
