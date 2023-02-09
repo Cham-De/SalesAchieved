@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/customersUiCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +26,8 @@
     <link rel="stylesheet" href="../../View/styles/buttons.css">
     <!--Stylesheet for navigation arrows-->
     <link rel="stylesheet" href="../../View/styles/navButtons.css">
+    <!--Stylesheet for quick actoins buttons-->
+    <link rel="stylesheet" href="../../View/styles/quickActions.css">
 
     <style>
       div.side_bar ul li{
@@ -88,6 +94,11 @@
     </div>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
+
+    <!--Top right corner buttons-->
+    <div class="btn_three">
+        <button id="customer_btn">Add<br>Customer</button>
+    </div>
 
     <!--Table search bar-->
     <div class="search_container">
@@ -275,6 +286,28 @@
                 </div>
             </li>
         </ul>
+
+        <!--Popup Form-->
+        <div class="popup-container" id="popup_container_customer">
+            <div class="popup-modal">
+            <form method="post" action="customersUi.php">
+                <label for="name">Customer Name
+                    <input type="string" id="name" name="name" required="required">
+                </label>
+                <label for="address">Customer Address
+                    <input type="string" id="address" name="address" required="required">
+                </label>
+                <label for="phone">Phone Number
+                    <input type="string" id="phone" name="phone" required="required">
+                </label>
+                <label for="socialMediaPlatform">Social Media Platform
+                    <input type="string" id="socialMediaPlatform" name="socialMediaPlatform" required="required">
+                </label>
+                <button class="cancel" id="close_form" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_form" type="submit" value="Submit" name="submit">Save</button>
+            </form>
+            </div>
+        </div>
         
         <!--Popup Form-->
         <div class="popup-container" id="popup_container"> 
@@ -312,12 +345,20 @@
               </form>
             </div>
         </div>
+
         <script>
             const view = document.getElementById('view');
             const update = document.getElementById('update');
+            const customer_btn = document.getElementById('customer_btn');
+            
             const popup_container = document.getElementById('popup_container');
+            const popup_container_customer = document.getElementById('popup_container_customer');
+            
             const close = document.getElementById('close');
             const save = document.getElementById('save');
+            const close_customer = document.getElementById('close_customer');
+            const save_customer = document.getElementById('save_customer');
+
             const form_field = document.getElementById('form_field');
             
             view.addEventListener('click', () => {
@@ -328,9 +369,17 @@
             update.addEventListener('click', () => {
                 popup_container.classList.add('show');
             });
+
+            customer_btn.addEventListener('click', () => {
+                popup_container_customer.classList.add('show');
+            });
     
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
+            });
+
+            close_customer.addEventListener('click', () => {
+                popup_container_customer.classList.remove('show');
             });
     
             save.addEventListener('click', () => {
@@ -339,6 +388,10 @@
     
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
+            });
+
+            save_customer.addEventListener('click', () => {
+                popup_container_customer.classList.remove('show');
             });
         </script>
 
