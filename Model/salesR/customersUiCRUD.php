@@ -17,10 +17,10 @@
         unset($_POST);
     }
 
-    // $query = "SELECT * FROM complaint INNER JOIN orders ON orders.orderID = complaint.orderID;";
-    // $result = mysqli_query($con, $query);
-    // if (mysqli_error($con)) {
-    //     echo "Failed to connect to MySQL: " . mysqli_error($con);
-    //     exit();
-    // }
+    $query = "SELECT * FROM customer;";
+    $result = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
 ?>
