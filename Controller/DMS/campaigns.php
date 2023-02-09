@@ -36,12 +36,18 @@ $res = mysqli_query($con, $query);*/
     <!--<link rel="stylesheet" href="dms.css">-->
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/dms/campaigns.css">
+    <link rel="stylesheet" href="../../View/styles/searchNfilter.css">
 
     <style>
       #add_btn{
         background: rgb(235, 137, 58);
         border: none;
+        cursor: pointer;
         color: white;
+        width: 13%;
+        border-radius: 15px;
+        padding: 10px;
+        margin-left: 45%;
       }
       #add_btn:hover{
         background: white;
@@ -98,25 +104,33 @@ $res = mysqli_query($con, $query);*/
     </div>
     
 
-      <div class="btn_cmpg">
-        <div class="search_container">
-          <table class="element_container">
+      <div class="search_wrapper">
+          <div class="dropdown">
+              <select  name="dmsSelect" id="years">
+                <option value="ALl">All</option>
+                <option value="status">Status</option>
+                <option value="objective">Objective</option>
+              </select>
+          </div>
+      
+        <div class="search_bar">
+          <table class="icon_container">
             <tr>
               <form action="" method="GET">
               <td>
-                    <input type="text" name="searchVal" value="<?php if(isset($_GET['searchVal'])){ echo $_GET['searchVal']; } ?>" class="search" placeholder="Search Table...">
+                <input type="text" name="searchVal" value="<?php if(isset($_GET['searchVal'])){ echo $_GET['searchVal']; } ?>" class="search" placeholder="Search Customers...">
               </td>
-              <td>            
-                    <button type="submit">Search</button>              
+              <td>
+                <!--<a><i class="fa-solid fa-magnifying-glass"></i></a>-->
+                <button type="submit">Search</button>
               </td>
               </form>
             </tr>
           </table>
         </div>
 
-        <button id="add_btn" name="add_cmpg">Add Campaign</button>  
-
-      </div>
+        <button id="add_btn" name="add_cmpg">Add Campaign</button>
+    </div>
         
 
         <table class="content-table">
