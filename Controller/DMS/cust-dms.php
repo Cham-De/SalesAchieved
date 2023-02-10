@@ -78,13 +78,15 @@
         </div>-->
         <div class="search_container">
           <table class="element_container">
-            <tr>
+          <tr>
+              <form action="" method="GET">
               <td>
-                <input type="text" placeholder="Search Table..." class="search">
+                    <input type="text" name="searchVal" value="<?php if(isset($_GET['searchVal'])){ echo $_GET['searchVal']; } ?>" class="search" placeholder="Search Table...">
               </td>
-              <td>
-                <a><i class="fa-solid fa-magnifying-glass"></i></a>
+              <td>            
+                    <button type="submit">Search</button>              
               </td>
+              </form>
             </tr>
           </table>
         </div>

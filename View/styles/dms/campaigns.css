@@ -219,3 +219,10 @@
   .pagin_bar{
     margin-left: 400px;
   }
+
+  #searchBtn{
+    color: #fa7e2b;
+    border: none;
+    padding: 10px;
+    background: none;
+  }
