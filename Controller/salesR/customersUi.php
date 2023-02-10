@@ -246,8 +246,7 @@
             
             const close = document.getElementById('close');
             const save = document.getElementById('save');
-            const close_customer = document.getElementById('close_customer');
-            const save_customer = document.getElementById('save_customer');
+            const close_form = document.getElementById('close_form');
 
             const form_field = document.getElementById('form_field');
             
@@ -284,7 +283,7 @@
                 popup_container.classList.remove('show');
             });
 
-            close_customer.addEventListener('click', () => {
+            close_form.addEventListener('click', () => {
                 popup_container_customer.classList.remove('show');
             });
     
@@ -295,10 +294,6 @@
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
             });
-
-            save_customer.addEventListener('click', () => {
-                popup_container_customer.classList.remove('show');
-            });
         </script>
 
         <div class="navigation-table" id="nav_table">
@@ -306,5 +301,4 @@
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
         </div>
 </body>
-
 </html>
