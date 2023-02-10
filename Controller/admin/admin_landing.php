@@ -187,6 +187,7 @@ require '../../Model/db-con.php';
                             <option>Finance Manager</option>
                             <option>Digital Marketing Strategist</option>
                             <option>Courier</option>
+                            <option>Owner</option>
                         </select>
             <label for="name">Name</label>
             <input type="text" name="name">

@@ -43,7 +43,7 @@ if (empty($data['userrole']) ||
     die('Please fill all required fields!');
 }
 else{
-    $sql = "INSERT INTO user (name, email, user_role, gender, telephone, username, password) values ('$urole','$name','$email', '$gen', '$pho', '$uname', '$pwd')";
+    $sql = "INSERT INTO user (user_role, name, email, gender, telephone, username, password) values ('$urole','$name','$email', '$gen', '$pho', '$uname', '$pwd')";
 }
 
 $query = mysqli_query($con, $sql);
