@@ -11,7 +11,10 @@
 		}
 		else
 		{
-			echo "<script>window.alert('Please enter valid information');</script>";
+			echo "<script>
+            window.alert('Please enter valid information');
+            window.location.href='complaints.php';
+            </script>";
 		}
         unset($_POST);
     }

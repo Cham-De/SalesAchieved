@@ -12,12 +12,18 @@
                 header("Location:../../Controller/salesR/customersUi.php");
             }
             else{
-                echo "<script>window.alert('The phone number does not contain 10 digits');</script>";
+                echo "<script>
+                window.alert('The phone number does not contain 10 digits');
+                window.location.href='customersUi.php';
+                </script>";
             }
 		}
 		else
 		{
-			echo "<script>window.alert('Please enter valid information');</script>";
+			echo "<script>
+            window.alert('Please enter valid information');
+            window.location.href='customersUi.php';
+            </script>";
 		}
         unset($_POST);
     }
