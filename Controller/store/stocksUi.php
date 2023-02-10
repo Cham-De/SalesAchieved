@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/store/addProductCRUD.php");
+?>
+  
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -282,6 +286,7 @@
                 </div>
             </li>
         </ul>
+           
     
         <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
@@ -292,7 +297,7 @@
         <!--Popup Form - Add Product-->
     <div class="popup-container" id="popup_container_addProduct">
         <div class="popup-modal">
-          <form method="post" action="landingUi.php">
+          <form method="post" action="stocksUi.php">
             <label for="productName">Product Name
                 <input type="string" id="productName" name="productName" required="required">
             </label>

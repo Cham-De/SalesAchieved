@@ -118,7 +118,7 @@
                 <th>Agent ID</th>
                 <th>Agent Name</th>
                 <th>Phone</th>
-                <th>Address</th>
+                <th>Address</th>                                         
             </tr>
         </thead>
         <?php
