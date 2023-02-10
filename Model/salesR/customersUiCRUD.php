@@ -7,8 +7,13 @@
         $socialMediaPlatform = $_POST["socialMediaPlatform"];
         if(!empty($name) && !empty($address) && !empty($phone) && !empty($socialMediaPlatform))
 		{
-			mysqli_query($con, "INSERT INTO customer(name, address, phone, socialMediaPlatform) values('$name', '$address', '$phone', '$socialMediaPlatform')");
-            header("Location:../../Controller/salesR/customersUi.php");
+            if(strlen($phone) == 10){
+			    mysqli_query($con, "INSERT INTO customer(name, address, phone, socialMediaPlatform) values('$name', '$address', '$phone', '$socialMediaPlatform')");
+                header("Location:../../Controller/salesR/customersUi.php");
+            }
+            else{
+                echo "<script>window.alert('The phone number does not contain 10 digits');</script>";
+            }
 		}
 		else
 		{
