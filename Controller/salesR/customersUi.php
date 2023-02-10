@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/customersUiCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +26,8 @@
     <link rel="stylesheet" href="../../View/styles/buttons.css">
     <!--Stylesheet for navigation arrows-->
     <link rel="stylesheet" href="../../View/styles/navButtons.css">
+    <!--Stylesheet for quick actoins buttons-->
+    <link rel="stylesheet" href="../../View/styles/quickActions.css">
 
     <style>
       div.side_bar ul li{
@@ -89,6 +95,11 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
 
+    <!--Top right corner buttons-->
+    <div class="btn_three">
+        <button id="customer_btn">Add<br>Customer</button>
+    </div>
+
     <!--Table search bar-->
     <div class="search_container">
         <table class="element_container">
@@ -105,161 +116,39 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Orders Cards-->
+    <?php while ($row = mysqli_fetch_array($result)){ ?>
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2>Senu Dilshara</h2>
+                        <h2><?php echo $row['name'];?></h2>
                     </div>
                     <div class="dv">
+                        <div class="customerName">
+                            Customer ID: <?php echo $row['customerID'];?>
+                        </div>
                         <div class="button view">
                             <table>
                                 <tr>
+                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf">View</button></td>
+                                    <td><button id="view" class="perf" onclick='viewButton(
+                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`" ?>
+                                    )'>View</button></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="button update">
                             <table>
                                 <tr>
+                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Bethmi Navanjana</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf">View</button>
+                                    <td><button id="update" class="update-txt" onclick='updateButton(
+                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`" ?>
+                                    )'>Update</button></td>
+                                    <td>
                                     </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Binu De Silva</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf">View</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Kaveesha Perera</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Maleesha Fernando</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view" class="perf">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update" class="update-txt">Update</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -275,6 +164,37 @@
                 </div>
             </li>
         </ul>
+    </div>
+    <?php } ?>
+
+        <!--Popup Form-->
+        <div class="popup-container" id="popup_container_customer">
+            <div class="popup-modal">
+            <form method="post" action="customersUi.php">
+                <label for="name">Customer Name
+                    <input type="string" id="name" name="name" required="required">
+                </label>
+                <label for="address">Customer Address
+                    <input type="string" id="address" name="address" required="required">
+                </label>
+                <label for="phone">Phone Number
+                    <input type="string" id="phone" name="phone" required="required">
+                </label>
+                <!-- <label for="socialMediaPlatform">Social Media Platform
+                    <input type="string" id="socialMediaPlatform" name="socialMediaPlatform" required="required">
+                </label> -->
+                <label for="socialMediaPlatform" id="socialMediaPlatform">Social Media Platform
+                    <select name="socialMediaPlatform" id="socialMediaPlatform">
+                        <option value="Facebook">Facebook</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Whatsapp">WhatsApp</option>
+                    </select>
+                  </label>
+                <button class="cancel" id="close_form" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_form" type="submit" value="Submit" name="submit">Save</button>
+            </form>
+            </div>
+        </div>
         
         <!--Popup Form-->
         <div class="popup-container" id="popup_container"> 
@@ -282,25 +202,24 @@
               <form>
                 <fieldset id="form_field">
                   <label for="name">Customer Name
-                      <input type="text" value="Senu Dilshara">
+                      <input type="text" id="updateName">
+                  </label>
+
+                  <label for="phone">Phone Number
+                      <input type="text" id="updatePhone">
                   </label>
                   
       
                   <label for="address">Address
-                      <input type="text" value="23/A, Flower Road, Maharagama">
-                  </label>
-                  
-      
-                  <label for="phone">Phone Number
-                      <input type="text" value="0713648954">
+                      <input type="text" id="updateAddress">
                   </label>
                   
       
                   <label for="socialMediaPlatform">Social Media Platform
-                    <select id="socialMediaPlatform">
-                        <option value="facebook">Facebook</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="whatsapp">WhatsApp</option>
+                    <select name="socialMediaPlatform" id="updatesocialMediaPlatform">
+                        <option value="Facebook">Facebook</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Whatsapp">WhatsApp</option>
                     </select>
                   </label>
                 </fieldset>
@@ -312,25 +231,60 @@
               </form>
             </div>
         </div>
+
         <script>
-            const view = document.getElementById('view');
-            const update = document.getElementById('update');
+            //const view = document.getElementById('view');
+            // const update = document.getElementById('update');
+            const customer_btn = document.getElementById('customer_btn');
+            const updateName = document.getElementById('updateName');
+            const updatePhone = document.getElementById('updatePhone');
+            const updateAddress = document.getElementById('updateAddress');
+            const updateSocial = document.getElementById('updatesocialMediaPlatform');
+            
             const popup_container = document.getElementById('popup_container');
+            const popup_container_customer = document.getElementById('popup_container_customer');
+            
             const close = document.getElementById('close');
             const save = document.getElementById('save');
+            const close_form = document.getElementById('close_form');
+
             const form_field = document.getElementById('form_field');
             
-            view.addEventListener('click', () => {
-                popup_container.classList.add('show');
-                form_field.setAttribute('disabled', true);
-            });
+            // view.addEventListener('click', () => {
+            //     popup_container.classList.add('show');
+            //     form_field.setAttribute('disabled', true);
+            // });
 
-            update.addEventListener('click', () => {
+            // update.addEventListener('click', () => {
+            //     popup_container.classList.add('show');
+            // });
+
+            function updateButton(name, address, phone, social) {
                 popup_container.classList.add('show');
+                updateName.value = name;
+                updatePhone.value = phone;
+                updateAddress.value = address;
+                updateSocial.value = social;
+            }
+
+            function viewButton(name, address, phone, social) {
+                popup_container.classList.add('show');
+                updateName.value = name;
+                updatePhone.value = phone;
+                updateAddress.value = address;
+                updateSocial.value = social;
+            }
+
+            customer_btn.addEventListener('click', () => {
+                popup_container_customer.classList.add('show');
             });
     
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
+            });
+
+            close_form.addEventListener('click', () => {
+                popup_container_customer.classList.remove('show');
             });
     
             save.addEventListener('click', () => {
@@ -347,5 +301,4 @@
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
         </div>
 </body>
-
 </html>

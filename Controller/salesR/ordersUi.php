@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/ordersCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -356,40 +360,46 @@
         <!--Popup Form - Orders-->
     <div class="popup-container" id="popup_container_order">
       <div class="popup-modal">
-        <form method="post">
-          <div id="dynamicField">
-            <label for="customerID">Customer ID
+        <form method="post" action="ordersUi.php">
+             <label for="customerID">Customer ID
                 <input type="number" id="customerID" name="customerID" required="required">
             </label>
             <label for="orderDetails" id="productList">Order Details
-              <select id="orderDetails" name="orderDetails">
-                <option value="proOne">PR001</option>
-                <option value="proTwo">PR002</option>
-                <option value="proThree">PR003</option>
-                <option value="proFour">PR004</option>
-                <option value="proFive">PR005</option>
-                <option value="proSix">PR006</option>
-              </select>
+                <select id="orderDetails" name="orderDetails">
+                <option value="PR001">PR001</option>
+                <option value="PR002">PR002</option>
+                <option value="PR003">PR003</option>
+                <option value="PR004">PR004</option>
+                <option value="PR005">PR005</option>
+                <option value="PR006">PR006</option>
+                </select>
             </label>
-          </div>
             <div class="controls">
               <a href="#" id="add_more_fields">Add More</a>
               <a href="#" id="remove_fields">Remove Field</a>
             </div>
+            <label for="orderStatus" id="orderStatus">Order Status
+                <select id="orderStatus" name="orderStatus">
+                <option value="Pending">Pending</option>
+                <option value="Dispatched">Dispatched</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Completed">Completed</option>
+                </select>
+            </label>
             <label for="paymentMethod" id="payingMethods">Payment Method
                 <select id="paymentMethod" name="paymentMethod">
                   <option value="COD">Cash on Delivery</option>
                   <option value="BT">Bank Transaction</option>
                 </select>
-            </label>
+            </label> 
             <label for="deliveryDate">Delivery Date
                 <input type="date" id="deliveryDate" name="deliveryDate" required="required">
             </label>
             <label for="deliveryRegion" id="regions">Delivery Region
                 <select id="deliveryRegion" name="deliveryRegion">
-                  <option value="WC">Within Colombo</option>
-                  <option value="CS">Colombo Suburbs</option>
-                  <option value="OC">Out of Colombo</option>
+                  <option value="Within Colombo">Within Colombo</option>
+                  <option value="Colombo Suburbs">Colombo Suburbs</option>
+                  <option value="Out of Colombo">Out of Colombo</option>
                 </select>
             </label>
             <button class="cancel" id="close_order" type="reset" value="Reset">Cancel</button>
@@ -405,7 +415,6 @@
             const close_delete = document.getElementById('close_delete');
             const save_delete = document.getElementById('save_delete');
             const close_order = document.getElementById('close_order');
-            const save_order = document.getElementById('save_order');
 
             const popup_container_delete = document.getElementById('popup_container_delete');
             const popup_container_order = document.getElementById('popup_container_order');
@@ -429,15 +438,10 @@
             save_delete.addEventListener('click', () => {
                 popup_container_delete.classList.remove('show');
             });
-
-            save_order.addEventListener('click', () => {
-                popup_container_order.classList.remove('show');
-            });
         </script>
 
         <!--JavaScript for Dynamic form fields-->
         <script>
-            var dynamicField = document.getElementById('dynamicField');
             var add_more_fields = document.getElementById('add_more_fields');
             var remove_fields = document.getElementById('remove_fields');
             var productList = document.getElementById('productList');
