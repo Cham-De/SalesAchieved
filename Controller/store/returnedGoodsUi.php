@@ -78,7 +78,7 @@
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-            <td><a href="#">Log out</a></td>
+            <td><a href="../home/logout.php">Log out</a></td>
           </tr>
         </table>
   </div>
