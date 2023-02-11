@@ -154,16 +154,7 @@ require '../../Model/db-con.php';
     <div class="graphs-large">
         <div class="sales">
                 <h2 class="card-title">Audience</h2>
-                <?php
-                
-                if($query->num_rows>0){
-                  while($row=$query->fetch_assoc()){?>
-                    <!--<img src="../sales.png" width="80%" height="80%" alt="monthly sales">-->
-                    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['chartImg']); ?>" /> 
-                  <?php
-                    }
-                  }
-                  ?>
+                <img src="../../View/assets/graph3.png" width="80%" height="80%" alt="monthly sales">
                 
                 
                 
