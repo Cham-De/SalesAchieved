@@ -1,0 +1,33 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.viewSlip_btn{
+    background: #FFF;
+    color: rgb(235, 137, 58);
+    font-size: 1vw;
+    border: 2px solid rgb(235, 137, 58);
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 5%;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+    /* align-items: center; */
+}
+
+.viewSlip_btn:hover{
+    background: rgb(235, 137, 58);
+    color: #FFF;
+    border: 2px solid rgb(235, 137, 58);
+}
+
+.viewBtn{
+    /* margin:auto;
+    display:block; */
+    align-items: center;
+    text-align: center;
+}

@@ -139,3 +139,7 @@ div.side_bar ul{
 .side-bar-icons td a{
   text-decoration: none;
 }
+
+small{
+  color:rgb(235, 137, 58);
+}

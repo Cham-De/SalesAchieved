@@ -1,12 +1,4 @@
-.side-bar-icons{
-    margin-top: 295px;
-    padding-left: 10%;
-}
 
-.side-bar-icons a{
-    text-decoration: none;
-    color:#000000
-}
 .middle{
     box-sizing: border-box;
     width: 700px;
@@ -161,7 +153,7 @@ input[type=submit]{
     pointer-events: auto;
     opacity: 1;
 }
-#back_btn{
+/*#back_btn{
     background: rgb(235, 137, 58);
     color: #FFFFFF;
     border: none;
@@ -178,7 +170,7 @@ input[type=submit]{
 #back_btn a{
     text-decoration: none;
     color: #ffffff;
-}
+}*/
 
 .table-bottom {
     border-collapse: collapse;

@@ -16,23 +16,23 @@
 }
 
 .card1{
-    left: 20%;
+    left: 22%;
 }
     
 .card2{
-    left: 35%;
+    left: 37%;
 }
 
 .card3{
-    left: 50%;
+    left: 52%;
 }
   
 .card4{
-    left: 65%;
+    left: 67%;
 }
 
 .card5{
-    left: 80%;
+    left: 82%;
 }
 
 :is(.card1, .card2, .card3, .card4, .card5) :is(h2,h4){

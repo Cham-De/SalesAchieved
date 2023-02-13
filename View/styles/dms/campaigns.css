@@ -30,6 +30,7 @@
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     
+    
 }
 
 .content-table thead tr {
@@ -98,7 +99,7 @@
     height: 50px;
     color: #F8914A;
     cursor: pointer;
-}
+}   
 
 .btn_cmpg{
     display: flex;
@@ -109,7 +110,8 @@
     justify-content: space-between;
     
 }
-.btn_cmpg button{
+
+.btn_cmpg #add_btn{
     background: rgb(235, 137, 58);
     color: #FFFFFF;
     border: none;
@@ -212,4 +214,8 @@
   }
   .search:focus{
     outline: none;
+  }
+
+  .pagin_bar{
+    margin-left: 400px;
   }
