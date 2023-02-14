@@ -1,5 +1,6 @@
 <?php
 session_start();
+require '../../Model/db-con.php';
 
 ?>
 
@@ -143,12 +144,11 @@ session_start();
                  </div>
              </div> 
 
-             <button id="charge_btn">Add Delivery Charges</button>
+
+             <button id="charge_btn">Update Delivery Charges</button>
     </div>
     
-
-    
-    
+ 
     <div class="graphs-large">
         <div class="sales">
                 <h2 class="card-title">Monthly Sales Revenue</h2>
@@ -184,26 +184,41 @@ session_start();
 
     </div>
     
+    <?php
+          $sql = "SELECT * FROM delivery";
+          $query = mysqli_query($con, $sql);
+             
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+    
+    ?>
     <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="max-width: 400px;">
               <div class="topic">Delivery Charges</div>
               <form action="../../Model/finance/fin-crud.php" method="post">
               <label for="colombo">Within Colombo (Rs.)
-                <input type="number" id="s-date" name="wCol">
+                <input type="number" id="s-date" name="wCol" value="<?=$thing['withCol']; ?>">
               </label>
               <label for="suburbs">Colombo Suburbs (Rs.)
-                <input type="number" id="s-date" name="sCol">
+                <input type="number" id="s-date" name="sCol" value="<?=$thing['subCol']; ?>">
               </label> 
               <label for="outofcolombo">Out of Colombo (Rs.)
-                <input type="number" id="budget" name="oCol">
+                <input type="number" id="budget" name="oCol" value="<?=$thing['outCol']; ?>">
+              </label>
+              <label for="outofcolombo">
+                <input type="hidden" name="id" value="<?=$thing['chargeID']; ?>">
               </label>
               <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
-              <button class="submit" id="save" type="submit" value="Submit" name="save">Save</button>
+              <button class="submit" id="save" type="submit" value="Submit" name="update">Update</button>
               </form>
     
             </div>
     </div>
-        
+    <?php
+        }
+
+    }
+    ?>
 
     <script>
         var myFunction = function(target) {
