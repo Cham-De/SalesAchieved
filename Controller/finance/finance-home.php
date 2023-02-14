@@ -52,8 +52,16 @@ session_start();
     }
 
     .graph-kpi{
-        margin-top: 2%;
+      margin-top: 2%;
     }
+    
+    .topic {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 3.5vh;
+    }
+
+
     </style>
 
 </head>
@@ -177,19 +185,20 @@ session_start();
     </div>
     
     <div class="popup-container" id="popup_container">
-            <div class="popup-modal" style="padding: 60px 30px 40px 30px; max-width: 400px;">
-              <form action="connect.php" method="post">
-              <label for="colombo">Delivery Charge Within Colombo (Rs.)
-                <input type="number" id="s-date">
+            <div class="popup-modal" style="max-width: 400px;">
+              <div class="topic">Delivery Charges</div>
+              <form action="../../Model/finance/fin-crud.php" method="post">
+              <label for="colombo">Within Colombo (Rs.)
+                <input type="number" id="s-date" name="wCol">
               </label>
-              <label for="suburbs">Delivery Charge For Colombo Suburbs (Rs.)
-                <input type="number" id="s-date">
+              <label for="suburbs">Colombo Suburbs (Rs.)
+                <input type="number" id="s-date" name="sCol">
               </label> 
-              <label for="outofcolombo">Delivery Charge Out of Colombo (Rs.)
-                <input type="number" id="budget">
+              <label for="outofcolombo">Out of Colombo (Rs.)
+                <input type="number" id="budget" name="oCol">
               </label>
               <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
-              <button class="submit" id="save" type="submit" value="Submit">Save</button>
+              <button class="submit" id="save" type="submit" value="Submit" name="save">Save</button>
               </form>
     
             </div>
