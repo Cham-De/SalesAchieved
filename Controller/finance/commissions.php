@@ -47,7 +47,7 @@
         margin-left: 25%;
       }
 
-      #add_btn_ex{
+      #btnRate{
         cursor: pointer;
         border: none;
         background: #F8914A;
@@ -57,7 +57,7 @@
         margin-left: 2%;
       }
 
-      #add_btn_ex:hover{
+      #btnRate:hover{
         font-weight: 200;
         color: #F8914A;
         border: 2px solid #F8914A;
@@ -68,6 +68,11 @@
         padding-top: 8%;
         padding-bottom: 6%;
       }
+      .topic {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 3.5vh;
+    }
     </style>
 
 </head>
@@ -139,25 +144,13 @@
           <h4>Commission Rate = 5%</h4>
         </div>
 
-        <button id="add_btn_ex">Change Rate</button>
+        <button id="btnRate">Change Rate</button>
         </div>
         
 
       </div>
 
-    <!--<div class="search_box">
-      <input type="text" class="input" placeholder="Search...">
-      <div class="icon">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
-    </div>
-
-    <div class="commission">
-      <h4>Commission Rate :</h4>
-      <h2>5%</h2>
-      <button class="chg_com">Change</button>
-    </div>-->
-
+    
     <!--table-->
     <table class="content-table">
         <thead>
@@ -205,6 +198,39 @@
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
       </div>
-      <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+      <div class="popup-container" id="popup_container">
+            <div class="popup-modal" style="max-width: 400px;  margin-left:10px;">
+              <div class="topic">Commission Rate</div>
+              <form action="../../Model/finance/fin-crud.php" method="post">
+              <input type="number" id="s-date" name="rate">
+              <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
+              <button class="submit" id="save" type="submit" value="Submit" name="update">Update</button>
+              </form>
+    
+            </div>
+    </div>
+
+    <script>
+      const btnRate = document.getElementById('btnRate');
+      const close = document.getElementById('close');
+    const save = document.getElementById('save');
+    const popup_container = document.getElementById('popup_container');
+
+    btnRate.addEventListener('click', () => {
+        popup_container.classList.add('show');
+    });
+
+    close.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    save.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    </script>
+
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 </html>
