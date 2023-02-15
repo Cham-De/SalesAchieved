@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/store/addProductCRUD.php");
+?>
+  
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,7 +85,7 @@
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-            <td><a href="#">Log out</a></td>
+            <td><a href="../home/logout.php">Log out</a></td>
           </tr>
         </table>
   </div>
@@ -282,6 +286,7 @@
                 </div>
             </li>
         </ul>
+           
     
         <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
@@ -292,7 +297,7 @@
         <!--Popup Form - Add Product-->
     <div class="popup-container" id="popup_container_addProduct">
         <div class="popup-modal">
-          <form method="post" action="landingUi.php">
+          <form method="post" action="stocksUi.php">
             <label for="productName">Product Name
                 <input type="string" id="productName" name="productName" required="required">
             </label>

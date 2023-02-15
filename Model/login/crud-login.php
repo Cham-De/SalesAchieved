@@ -88,7 +88,7 @@ if(isset($_POST['uname']) && isset($_POST['pwd'])){
                     exit(0);
                 }
 
-                else if($row['user_role'] == 'owner'){
+                else if($row['user_role'] == 'Owner'){
                     header("Location: ../../Controller/owner/owner-landing.php");
                     exit(0);
                 }

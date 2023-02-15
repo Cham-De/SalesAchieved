@@ -30,12 +30,12 @@ $query = mysqli_query($con, $sql);
 if($query){
 
     $_SESSION['message'] = "User added successfully";
-    header("Location: '../../Controller/DMS/campaigns.php' ");
+    header("Location: ../../Controller/DMS/campaigns.php");
     exit(0);
 }
 else{
     $_SESSION['message'] = "User not added";
-    header("Location: '../../Controller/DMS/campaigns.php' ");
+    header("Location: ../../Controller/DMS/campaigns.php ");
     exit(0);
 }
 

@@ -95,7 +95,7 @@ require '../../Model/db-con.php';
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-            <td><a href="#">Log out</a></td>
+            <td><a href="../home/logout.php">Log out</a></td>
           </tr>
         </table>
     </div>
@@ -187,6 +187,7 @@ require '../../Model/db-con.php';
                             <option>Finance Manager</option>
                             <option>Digital Marketing Strategist</option>
                             <option>Courier</option>
+                            <option>Owner</option>
                         </select>
             <label for="name">Name</label>
             <input type="text" name="name">

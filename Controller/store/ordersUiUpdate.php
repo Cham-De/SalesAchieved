@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/store/OrdersUpdate.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +76,7 @@
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
-            <td><a href="#">Log out</a></td>
+            <td><a href="../home/logout.php">Log out</a></td>
           </tr>
         </table>
     </div>
@@ -98,7 +102,7 @@
                     <td>
                         <div class="orderForm">
                             <label for="paymentStatus">Payment Status
-                                <select id="paymentStatus">
+                                <select id="paymentStatus" name="paymentStatus">
                                     <option value="pending">Pending</option>
                                     <option value="done">Done</option>
                                     <option value="fault">Fault</option>
@@ -132,7 +136,7 @@
                     <td>
                         <div class="orderForm">
                             <label for="phoneNumber">Phone Number
-                                <input type="text" id="phoneNumber" name="phoneNumber" value="0717483988">
+                                <input type="text" id="phoneNumber" name="phone" value="0717483988">
                             </label>
                         </div>
                     </td>
@@ -158,7 +162,7 @@
                     <td>
                         <div class="orderForm">
                             <label for="paymentMethod">Payment Method
-                                <select id="paymentMethod">
+                                <select id="paymentMethod" name="paymentMethod">
                                     <option value="cod">Cash on Delivery</option>
                                     <option value="bt">Bank Transactions</option>
                                 </select>
@@ -168,7 +172,7 @@
                     <td>
                         <div class="orderForm">
                             <label for="deliveryRegion">Delivery Region
-                                <select id="deliveryRegion">
+                                <select id="deliveryRegion" name="deliveryRegion">
                                     <option value="withinColombo">Within Colombo</option>
                                     <option value="suburbs">Colombo Suburbs</option>
                                     <option value="outOfColombo">Out of Colombo</option>
@@ -238,7 +242,7 @@
         <button id="Cancel_btn">Cancel</button>
       </div>
       <div class="btn_update">
-        <button id="Update_btn">Update</button>
+        <button id="Update_btn" type="Submit" value="Submit" name="submit">Update</button>
       </div>
 </body>
 </html>
