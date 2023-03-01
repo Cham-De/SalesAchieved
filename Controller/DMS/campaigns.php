@@ -39,26 +39,7 @@ $res = mysqli_query($con, $query);*/
     <link rel="stylesheet" href="../../View/styles/dms/campaigns.css">
     <link rel="stylesheet" href="../../View/styles/searchNfilter.css">
 
-    <style>
-      #add_btn{
-        background: rgb(235, 137, 58);
-        border: none;
-        cursor: pointer;
-        color: white;
-        width: 13%;
-        border-radius: 15px;
-        padding: 10px;
-        margin-left: 45%;
-      }
-      #add_btn:hover{
-        background: white;
-        border: 2px solid rgb(235, 137, 58);
-        color: rgb(235, 137, 58);
-      }
-      #status{
-        border: 1px solid rgb(235, 137, 58);
-      }
-    </style>
+    
 </head>
 <body id="whole">
     <div class="nav_bar">
@@ -104,18 +85,32 @@ $res = mysqli_query($con, $query);*/
         </table>
     </div>
     
-
+    <form action="" method="GET">
       <div class="search_wrapper">
           <div class="dropdown">
-              <select  name="dmsSelect" id="stats">
+              <select  name="dmsSelect1" id="stats">
                 <option value="" disabled="" selected="">Select Status</option>
                 <option value="ongoing">Ongoing</option>
                 <option value="tobelaunched">To be launched</option>
                 <option value="complete">Complete</option>
               </select>
           </div>
+
+          <div class="dropdown2">
+              <select  name="dmsSelect2" id="obj">
+                <option value="" disabled="" selected="">Select Objective</option>
+                <option value="sales">Sales</option>
+                <option value="leads">Leads</option>
+                <option value="awareness">Awareness</option>
+                <option value="engagement">Engagement</option>
+              </select>
+          </div>
+
+          <button type="submit" id="btnFilter">Filter</button>
+          
+          <!--<button id="resetFilter">Reset</button>-->
       
-        <div class="search_bar">
+        <!--<div class="search_bar">
           <table class="icon_container">
             <tr>
               <form action="" method="GET">
@@ -123,17 +118,16 @@ $res = mysqli_query($con, $query);*/
                 <input type="text" name="searchVal" value="<?php if(isset($_GET['searchVal'])){ echo $_GET['searchVal']; } ?>" class="search" placeholder="Search Customers...">
               </td>
               <td>
-                <!--<a><i class="fa-solid fa-magnifying-glass"></i></a>-->
                 <button type="submit">Search</button>
               </td>
               </form>
             </tr>
           </table>
-        </div>
+        </div>-->
 
         <button id="add_btn" name="add_cmpg">Add Campaign</button>
     </div>
-        
+    </form> 
 
         <table class="content-table">
             <thead>
@@ -148,15 +142,29 @@ $res = mysqli_query($con, $query);*/
             <tbody>
             <?php
 
-                    if(isset($_GET['searchVal'])){
-                      $filterVal = $_GET['searchVal'];
-                      $sql = "SELECT * FROM campaign WHERE CONCAT(objective, cmpg_stat) LIKE '%$filterVal%' limit $start_from, $num_per_page";
-                    }
-                    elseif(isset($_POST['request'])){
+                    // if(isset($_GET['searchVal'])){
+                    //   $filterVal = $_GET['searchVal'];
+                    //   $sql = "SELECT * FROM campaign WHERE CONCAT(objective, cmpg_stat) LIKE '%$filterVal%' limit $start_from, $num_per_page";
+                    // }
+                    if(isset($_GET['dmsSelect1']) && isset($_GET['dmsSelect2'])){
+                          $filterVal1 = $_GET['dmsSelect1'];
+                          $filterVal2 = $_GET['dmsSelect2'];
 
-                      $request = $_POST['request'];
-                      $sql = "SELECT * FROM campaign WHERE cmpg_stat ='$request' ";
+                          $sql = "SELECT * FROM campaign WHERE cmpg_stat = '$filterVal1' AND objective = '$filterVal2' limit $start_from, $num_per_page";
                     }
+                    elseif(isset($_GET['dmsSelect1'])){
+                          $filterVal1 = $_GET['dmsSelect1'];
+                          $sql = "SELECT * FROM campaign WHERE cmpg_stat = '$filterVal1' limit $start_from, $num_per_page";
+                    }
+                    elseif(isset($_GET['dmsSelect2'])){
+                          $filterVal2 = $_GET['dmsSelect2'];
+                          $sql = "SELECT * FROM campaign WHERE objective = '$filterVal2' limit $start_from, $num_per_page";
+                }
+                    // elseif(isset($_POST['request'])){
+
+                    //   $request = $_POST['request'];
+                    //   $sql = "SELECT * FROM campaign WHERE cmpg_stat ='$request' ";
+                    // }
                     else{
                       $sql = "SELECT * FROM campaign limit $start_from, $num_per_page";
                     }
@@ -262,9 +270,7 @@ $res = mysqli_query($con, $query);*/
 
   </div>
 
-    
-      
-
+  
     <script>
         const add_btn = document.getElementById('add_btn');
         const close = document.getElementById('close');
@@ -285,29 +291,7 @@ $res = mysqli_query($con, $query);*/
 
     </script>
 
-<script type="text/javascript">
-      $(document).ready(function(){
-          $("#stats").on('change', function(){
-              var value = $(this).val();
-              //alert(value);
 
-              $ajax({
-                url:"campaigns.php",
-                type:"POST",
-                data:'request=' + value,
-
-                success:function(){
-                  $("#whole").html(data);
-                }
- 
-              });
-
-          });
-       
-
-      });
-
-</script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

@@ -13,5 +13,14 @@ if(isset($_POST['update'])){
 
     header("Location: ../../Controller/finance/finance-home.php ");
 }
+elseif(isset($_POST['updateC'])){
+    $id = mysqli_real_escape_string($con, $_POST['id']);
+    $rate = mysqli_real_escape_string($con, $_POST['rate']);
+
+    $result = mysqli_query($con, "UPDATE commissions SET commRate = '$rate' WHERE commID = $id");
+
+    header("Location: ../../Controller/finance/commissions.php ");
+}
 
 ?>
+

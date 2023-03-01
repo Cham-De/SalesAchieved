@@ -1,3 +1,10 @@
+<?php
+session_start();
+require '../../Model/db-con.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,11 +146,23 @@
           </table>
         </div>
 
+        <?php
+          $sql = "SELECT * FROM commissions";
+          $query = mysqli_query($con, $sql);
+             
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+    
+        ?>
         <div class="rightmost-items">
         <div class="chng_rate">
-          <h4>Commission Rate = 5%</h4>
+          <h4>Commission Rate: <?php echo $thing['commRate']; ?>%</h4>
         </div>
+        <?php
+        }
 
+      }
+      ?>
         <button id="btnRate">Change Rate</button>
         </div>
         
@@ -199,18 +218,32 @@
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
       </div>
 
+
+      <?php
+          $sql = "SELECT * FROM commissions";
+          $query = mysqli_query($con, $sql);
+             
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+    
+    ?>
       <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="max-width: 400px;  margin-left:10px;">
               <div class="topic">Commission Rate</div>
               <form action="../../Model/finance/fin-crud.php" method="post">
-              <input type="number" id="s-date" name="rate">
+              <input type="number" id="s-date" name="rate" value="<?=$thing['commRate']; ?>">
+              <input type="hidden" name="id" value="<?=$thing['commID']; ?>">
               <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
-              <button class="submit" id="save" type="submit" value="Submit" name="update">Update</button>
+              <button class="submit" id="save" type="submit" value="Submit" name="updateC">Update</button>
               </form>
     
             </div>
     </div>
+    <?php
+        }
 
+    }
+    ?>
     <script>
       const btnRate = document.getElementById('btnRate');
       const close = document.getElementById('close');

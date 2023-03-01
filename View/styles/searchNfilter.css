@@ -53,5 +53,71 @@
 .dropdown {
     position: relative;
     display: flex;
-    width: 12%;
+    width: 17%;
+  }
+
+.dropdown2 {
+    position: relative;
+    display: flex;
+    width: 17%;
+    margin-left: 20px;
+  }
+
+#btnFilter{
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 8%;
+    background: #2609cc;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 6%;
+    margin-top: 1.2%;
+
+}
+
+#add_btn{
+    background: rgb(235, 137, 58);
+    border: none;
+    cursor: pointer;
+    color: white;
+    width: 13%;
+    border-radius: 15px;
+    padding: 10px;
+    margin-left: 45%;
+  }
+  #add_btn:hover{
+    background: white;
+    border: 2px solid rgb(235, 137, 58);
+    color: rgb(235, 137, 58);
+  }
+
+  #status{
+    border: 1px solid rgb(235, 137, 58);
+  }
+
+  #btnFilter:hover{
+    background: white;
+    border: 1px solid #2609cc;
+    color: #2609cc;
+  }
+
+  #resetFilter{
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 8%;
+    background: #2609cc;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 6%;
+    margin-top: 1.2%;
+  }
+
+  #resetFilter:hover{
+    background: white;
+    border: 1px solid #2609cc;
+    color: #2609cc;
   }

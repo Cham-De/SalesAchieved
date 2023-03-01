@@ -1,3 +1,9 @@
+<?php
+session_start();
+require '../../Model/db-con.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -126,9 +132,27 @@
               </tbody>
         </table>
       </div>
+
+
       <div class="slip">
-        <img src="../../View/assets/slip.jpg" alt="bank slip">
+        <!--<img src="../../View/assets/slip.jpg" alt="bank slip">-->
+
+        <form action="../../Model/finance/uploadSlip.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="paymentSlip">
+            <input type="submit" name="submit" value="Upload Slip">
+        </form>
       </div>
+
+      <!-- <div class="slip">
+      <img src="../../View/assets/slip.jpg" alt="bank slip">
+      </div> -->
+
+      <?php
+        if(isset($_GET['details'])){
+        $fileDetails = urldecode($_GET['details']);
+        echo "<div class='slip'>$fileDetails</div>";
+        }
+      ?>
 
       <!--Buttons-->
       <div class="btn_back">
