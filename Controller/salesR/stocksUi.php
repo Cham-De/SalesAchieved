@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/stocksUiCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -109,43 +113,22 @@
                 <th>Available Quantity</th>
             </tr>
         </thead>
+        <?php
+          while($rows = mysqli_fetch_assoc($result))
+            {
+          ?>
         <tbody>
             <tr>
-                <td>Cat 1</td>
-                <td>PR001</td>
-                <td>Product 1</td>
-                <td>2,750.00</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td>Cat 1</td>
-                <td>PR001</td>
-                <td>Product 1</td>
-                <td>2,750.00</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td>Cat 1</td>
-                <td>PR001</td>
-                <td>Product 1</td>
-                <td>2,750.00</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td>Cat 1</td>
-                <td>PR001</td>
-                <td>Product 1</td>
-                <td>2,750.00</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td>Cat 1</td>
-                <td>PR001</td>
-                <td>Product 1</td>
-                <td>2,750.00</td>
-                <td>24</td>
+                <td><?php echo $rows['productCategory'];?></td>
+                <td><?php echo $rows['productCode'];?></td>
+                <td><?php echo $rows['productName'];?></td>
+                <td><?php echo $rows['sellingPrice'];?></td>
+                <td><?php echo $rows['quantity'];?></td>
             </tr>
         </tbody>
+        <?php
+            }
+          ?>
       </table>
 
       <!--Table navigation-->
