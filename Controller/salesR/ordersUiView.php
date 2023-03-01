@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/ordersViewCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,8 +69,8 @@
             <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
         </div>
         <ul>
-            <li><a href="#"><i class="fa-solid fa-house"></i>Home</a></li>
-            <li class="active"><a href="#"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+            <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li class="active"><a href="ordersUI.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
             <li><a href="customersUi.php"><i class="fa-solid fa-user-group"></i>Customers</a></li>
             <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
             <li><a href="salesUi.php"><i class="fa-solid fa-sack-dollar"></i>Sales</a></li>
@@ -91,28 +95,28 @@
     <h1 class="orderNo">
         Order: 23
     </h1>
-    
+    <?php $row = mysqli_fetch_array($result)?>
     <!--Cards with details-->
     <div class="middle">
         <table class="prof-table">
             <tr>
-                <td><p>Customer Name</p><b>Senu Dilshara</b></td>
-                <td><p>Payment Status</p><b>Pending</b></td>
+                <td><p>Customer Name</p><b><?php echo $row['name'];?></b></td>
+                <td><p>Payment Status</p><b><?php echo $row['orderStatus'];?></b></td>
             </tr>
             <tr>
-                <td><p>Address</p><b>23/B, Flower Road, Maharagama</b></td>
-                <td><p>Order Status</p><b>Complete</b></td>
+                <td><p>Address</p><b><?php echo $row['address'];?></b></td>
+                <td><p>Order Status</p><b><?php echo $row['orderStatus'];?></b></td>
             </tr>
             <tr>
-                <td><p>Phone Number</p><b>0786546567</b></td>
-                <td><p>Delivery Date</p><b>02/11/2022</b></td>
+                <td><p>Phone Number</p><b><?php echo $row['phone'];?></b></td>
+                <td><p>Delivery Date</p><b><?php echo $row['deliveryDate'];?></b></td>
             </tr>
             <tr>
-                <td><p>Order Date</p><b>08/10/2022</b></td>
-                <td><p>Dispatch Date</p><b>12/10/2022</b></td>
+                <td><p>Order Date</p><b><?php echo $row['orderDate'];?></b></td>
+                <td><p>Dispatch Date</p><b><?php echo $row['dispatchDate'];?></b></td>
             </tr>
             <tr>
-                <td><p>Payment Method</p><b>Bank Transfer</b></td>
+                <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
                 <td><p>Approved</p><b>Yes</b></td>
             </tr>
         </table>

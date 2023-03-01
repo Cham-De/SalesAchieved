@@ -39,7 +39,22 @@
     font-size: 1vw;
     display: flex;
     align-items: center;
+}
+
+.orderStatus > .pending{
     color: #F42222;
+}
+
+.orderStatus > .dispatched{
+    color: #FFA701;
+}
+
+.orderStatus > .delivered{
+    color: #0044FF;
+}
+
+.orderStatus > .completed{
+    color: #00AB41;
 }
 
 /*Customer name and Order date on Cards*/
