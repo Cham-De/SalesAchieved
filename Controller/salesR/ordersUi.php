@@ -119,26 +119,40 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Orders Cards-->
+    <?php while ($row = mysqli_fetch_array($result)){?>
+        <?php $orderID = $row['orderID']; ?>
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2>Order 23</h2>
+                        <h2>Order <?php echo $row['orderID'];?></h2>
                         <div class="orderStatus">
-                            <h5>Pending</h5>
+                        <?php 
+                        if($row['orderStatus'] == 'Pending'){?>
+                            <h5 class="pending"><?php echo $row['orderStatus'];?></h5>
+                        <?php } 
+                        elseif($row['orderStatus'] == 'Dispatched'){?>
+                            <h5 class="dispatched"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
+                        elseif($row['orderStatus'] == 'Delivered'){?>
+                            <h5 class="delivered"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
+                        else{?>
+                            <h5 class="completed"><?php echo $row['orderStatus'];?></h5>
+                        <?php } ?>
                         </div>
                     </div>
                     <div class="dv">
                         <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
+                            <?php echo $row['name'];?><br>
+                            <?php echo $row['orderDate'];?>
                         </div>
                         <div class="button view">
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a href="ordersUiView.php">View</a></button></td>
+                                    <td><button id="performance" class="view-txt"><?php echo "<a href=\"ordersUiView.php?orderID=$orderID\">View</a>";?></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -150,184 +164,17 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="button uploadSlip">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-angles-up"></i></td>
-                                    <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 24</h2>
-                        <div class="orderStatus">
-                            <h5>Pending</h5>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Bethmi Navanjana<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 25</h2>
-                        <div class="orderStatus">
-                            <h5>Pending</h5>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Binu De Silva<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 26</h2>
-                        <div class="orderStatus">
-                            <h5 style="color: green;">Complete</h5>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a
-                                                href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button uploadSlip">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-file"></i></td>
-                                    <td><button id="performance" class="uploadSlip-txt"><a href="viewSlip.php">View Slip</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 27</h2>
-                        <div class="orderStatus">
-                            <h5>Pending</h5>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a
-                                                href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
+                        <?php
+                            if($row['paymentMethod'] == 'BT'){?>
+                                <div class="button uploadSlip">
+                                    <table>
+                                        <tr>
+                                            <td><i class="fa-solid fa-angles-up"></i></td>
+                                            <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                        <?php } ?>
                         <div class="button delete">
                             <table>
                                 <tr>
@@ -340,6 +187,7 @@
                 </div>
             </li>
         </ul>
+        <?php }?>
         <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
