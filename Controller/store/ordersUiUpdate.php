@@ -1,5 +1,16 @@
 <?php
-    require_once("../../Model/store/OrdersUpdate.php");
+    require_once("ordersUiUpdate.php");
+    if(isset($_POST['submit'])){
+        $orderID=$_POST['orderID'];
+        $orderDate=$_POST['orderDate'];
+        $customerID=$_POST['customerID'];
+        $orderDetails=$_POST['orderDetails'];
+        $orderStatus=$_POST['orderStatus'];
+        $paymentMethod=$_POST['paymentMethod'];
+        $deliveryDate=$_POST['deliveryDate'];
+        $dispatchDate=$_POST['dispatchDate'];
+        $deliveryRegion=$_POST['deliveryRegion'];
+    }
 ?>
 
 <!DOCTYPE html>

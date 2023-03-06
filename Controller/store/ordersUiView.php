@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/ordersCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +48,8 @@
                 </tr>
             </table>
         </div>
+
+        <?php $order_id = $_GET['order_id']; $cus_id = $_GET['cus_id'];?>
   
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
@@ -77,35 +83,54 @@
         </table>
     </div>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+    <?php $filtered_results_for_get_customer_details = array();
+      while ($row = mysqli_fetch_assoc($result_for_get_customer_details)) {
+        if ($row['customerID'] == $cus_id) {
+          $filtered_results_for_get_customer_details[] = $row;
+        }
+      } 
+    ?>
+
+    <?php $filtered_result_for_get_all_orders = array();
+      while ($row = mysqli_fetch_assoc($result_for_get_all_orders)) {
+        if ($row['orderID'] == $order_id) {
+          $filtered_result_for_get_all_orders[] = $row;
+        }
+      } 
+    ?>
+
+
+
     <!---end of side and nav bars-->
 
     <!--Card Topic-->
     <h1 class="orderNo">
-        Order: 23
+        Order: <?php echo $order_id ?>
     </h1>
     
     <!--Cards with details-->
     <div class="middle">
         <table class="prof-table">
             <tr>
-                <td><p>Customer Name</p><b>Senu Dilshara</b></td>
-                <td><p>Payment Status</p><b>Pending</b></td>
+                <td><p>Customer Name</p><b><?php echo $filtered_results_for_get_customer_details[0]['name']?></b></td>
+                <td><p>Payment Status</p><b><?php echo $filtered_result_for_get_all_orders[0]['orderStatus']?></b></td> <!--payment status eka danna -->
             </tr>
             <tr>
-                <td><p>Address</p><b>23/B, Flower Road, Maharagama</b></td>
-                <td><p>Order Status</p><b>Complete</b></td>
+                <td><p>Address</p><b><?php echo $filtered_results_for_get_customer_details[0]['address']?></b></td>
+                <td><p>Order Status</p><b><?php echo $filtered_result_for_get_all_orders[0]['orderStatus']?></b></td>
             </tr>
             <tr>
-                <td><p>Phone Number</p><b>0786546567</b></td>
-                <td><p>Delivery Date</p><b>02/11/2022</b></td>
+                <td><p>Phone Number</p><b><?php echo $filtered_results_for_get_customer_details[0]['phone']?></b></td>
+                <td><p>Delivery Date</p><b><?php echo $filtered_result_for_get_all_orders[0]['deliveryDate']?></b></td>
             </tr>
             <tr>
-                <td><p>Order Date</p><b>08/10/2022</b></td>
-                <td><p>Dispatch Date</p><b>12/10/2022</b></td>
+                <td><p>Order Date</p><b><?php echo $filtered_result_for_get_all_orders[0]['orderDate']?></b></td>
+                <td><p>Dispatch Date</p><b><?php echo $filtered_result_for_get_all_orders[0]['dispatchDate']?></b></td>
             </tr>
             <tr>
-                <td><p>Payment Method</p><b>Bank Transfer</b></td>
-                <td><p>Approved</p><b>Yes</b></td>
+                <td><p>Payment Method</p><b><?php echo $filtered_result_for_get_all_orders[0]['paymentMethod']?></b></td>
+                <td><p>Approved</p><b><?php echo $filtered_result_for_get_all_orders[0]['orderStatus']?></b></td> <!--Approved eka danna -->
             </tr>
         </table>
       </div>

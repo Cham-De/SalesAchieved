@@ -32,10 +32,19 @@
         unset($_POST);
     }
 
-    // $query = "SELECT * FROM complaint INNER JOIN orders ON orders.orderID = complaint.orderID;";
-    // $result = mysqli_query($con, $query);
-    // if (mysqli_error($con)) {
-    //     echo "Failed to connect to MySQL: " . mysqli_error($con);
-    //     exit();
-    // }
+    //functions required for store views to view data
+    $query_for_get_all_orders = "SELECT * FROM orders;";
+    $result_for_get_all_orders = mysqli_query($con, $query_for_get_all_orders);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
+
+    //functions required for store views to view data
+    $query_for_get_customer_details = "SELECT * FROM customer;";
+    $result_for_get_customer_details = mysqli_query($con, $query_for_get_customer_details);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
 ?>

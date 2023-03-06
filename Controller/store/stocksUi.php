@@ -97,204 +97,81 @@
         <button id="product_btn">Add Product</button>
     </div>
 
-    <!--Customer Cards-->
-    <div class="cards-middle" id="cards_middle">
-        <ul class="middle-cards">
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>PR001</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Product 1<br>
-                            Category 1
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update_btn" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>PR002</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Product 2<br>
-                            Category 2
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update_btn" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>PR003</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Product 3<br>
-                            Category 3
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update_btn" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                        <td><i class="fa-solid fa-trash"></i></td>
-                                        <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>PR004</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Product 4<br>
-                            Category 4
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update_btn" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>PR005</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Product 5<br>
-                            Category 5
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="update_btn" class="update-txt">Update</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-           
-    
-        <!-- Navigation Arrows -->
-        <div class="navigation-table" id="nav_table">
-            <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-            <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-        </div>
 
-        <!--Popup Form - Add Product-->
+       <!--Customer Cards-->
+       <?php
+        $sql="Select * from stocks";
+        $result=mysqli_query($con,$sql);
+        if($result){
+            while($row=mysqli_fetch_assoc($result)){
+                $id=$row['id'];
+                $productName=$row['productName'];
+                $productCategory=$row['productCategory'];
+                $productCode=$row['productCode'];
+                $buyingPrice=$row['buyingPrice'];
+                $sellingPrice=$row['sellingPrice'];
+                $quantity=$row['quantity']; 
+                echo '
+               <div class="cards-middle" id="cards_middle">
+                <ul class="middle-cards">
+                    <li>
+                        <div class="cards">
+                            <div class="cmpg">
+                                <h2>'.$productCode.'</h2>
+                            </div>
+                        <div class="dv">
+                            <div class="customerName">
+                                '.$productName.'<br>
+                                '.$productCategory.'
+                        </div>
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>';
+                                    ?>
+                                    <!-- <td><button onclick="viewPopup(`$productName`)" class="view-txt" >View</button></td> -->
+                                    <td><button class="view-txt" onclick='viewPopup(
+                                        <?php  echo "`$productName`, `$productCategory`, `$productCode`, `$buyingPrice`, `$sellingPrice`, `$quantity`" ?>
+                                    )'>View</button></td>
+                       
+                       <?php echo '
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button update">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-pen-to-square"></i></td>';
+                                    ?>
+                                    <!-- <td><button onclick="viewPopup(`$productName`)" class="view-txt" >View</button></td> -->
+                                    <td><button class="view-txt" onclick='updateButton(
+                                        <?php  echo "`$productName`, `$productCategory`, `$productCode`, `$buyingPrice`, `$sellingPrice`, `$quantity`" ?>
+                                    )'>Update</button></td>
+                       
+                       <?php echo '
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="button delete">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-trash"></i></td>';
+                                    ?>
+                                    <td><button id="delete" class="delete-txt"><a href="../../Model/store/addProductCRUD.php?deleteid='.$id.'">Delete</a></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            </ul>
+            </div>
+            <?php }
+        }
+    ?>
+    
+    <!--Popup Form - Add Product-->
+    <!-- viewButton('.$productName.', '.$productCategory.', '.$productCode.', '.$buyingPrice.', '.$sellingPrice.', '.$quantity.') -->
     <div class="popup-container" id="popup_container_addProduct">
         <div class="popup-modal">
           <form method="post" action="stocksUi.php">
@@ -332,29 +209,62 @@
       <div class="popup-container" id="popup_container_view"> 
             <div class="popup-modal">
               <form>
-                <fieldset id="form_field">
-                <label for="productName">Product Name
-                <input type="string" id="productName" name="productName" required="required" value="Product 1">
-                </label>
-                <label for="productCategory">Product Category
-                    <input type="string" id="productCategory" name="productCategory" required="required" value="Cat 1">
-                </label>
+                <!--<fieldset id="form_field">-->
+                <label for="productName">Product Name</label>
+                <input type="string" id="u_productName" name="productName" required="required" value='' disabled>
+                
+                <label for="productCategory">Product Category</label>
+                    <input type="string" id="u_productCategory" name="productCategory" required="required" value='' disabled>
+                
                 <label for="productCode">Product Code
-                    <input type="string" id="productCode" name="productCode" required="required" value="PR002">
+                    <input type="string" id="u_productCode" name="productCode" required="required" value='' disabled>
                 </label>
                 <label for="buyingPrice">Buying Price(Rs.)
-                    <input type="number" id="buyingPrice" name="buyingPrice" required="required" value="1000.00">
+                    <input type="number" id="u_buyingPrice" name="buyingPrice" required="required" value='' disabled>
                 </label>
                 <label for="sellingPrice">Selling Price(Rs.)
-                    <input type="number" id="sellingPrice" name="sellingPrice" required="required" value="1500.00">
+                    <input type="number" id="u_sellingPrice" name="sellingPrice" required="required" value='' disabled>
                 </label>
                 <label for="quantity">Quantity
-                    <input type="number" id="quantity" name="quantity" required="required" value="56">
+                    <input type="number" id="u_quantity" name="quantity" required="required" value='' disabled>
                 </label>
-                </fieldset>
+                <!--</fieldset>-->
                   
                 <label class="sp-label">
-                    <button class="cancelOne" id="close">Cancel</button>
+                    <button class="cancel" id="close">Cancel</button>
+                </label>  
+              </form>
+            </div>
+        </div>
+
+        <!--Popup Form - Update Product Details-->
+        <div class="popup-container" id="popup_container_update"> 
+            <div class="popup-modal">
+              <form>
+                <!--<fieldset id="form_field">-->
+                <label for="productName">Product Name</label>
+                <input type="string" id="u_productName" name="productName" required="required" value=''>
+                
+                <label for="productCategory">Product Category</label>
+                    <input type="string" id="u_productCategory" name="productCategory" required="required" value=''>
+                
+                <label for="productCode">Product Code
+                    <input type="string" id="u_productCode" name="productCode" required="required" value=''>
+                </label>
+                <label for="buyingPrice">Buying Price(Rs.)
+                    <input type="number" id="u_buyingPrice" name="buyingPrice" required="required" value=''>
+                </label>
+                <label for="sellingPrice">Selling Price(Rs.)
+                    <input type="number" id="u_sellingPrice" name="sellingPrice" required="required" value=''>
+                </label>
+                <label for="quantity">Quantity
+                    <input type="number" id="u_quantity" name="quantity" required="required" value=''>
+                </label>
+                <!--</fieldset>-->
+                  
+                <label class="sp-label">
+                    <button class="cancel" id="close">Cancel</button>
+                    <button class="submit" id="save">Update</button>
                 </label>  
               </form>
             </div>
@@ -381,36 +291,91 @@
         const save = document.getElementById('save');
         const close_delete = document.getElementById('close_delete');
         const save_delete = document.getElementById('save_delete');
+        
+        const productName = document.getElementById('productName');
+        const productCategory = document.getElementById('productCategory');
+        const productCode = document.getElementById('productCode');
+        const buyingPrice = document.getElementById('buyingPrice');
+        const sellingPrice = document.getElementById('sellingPrice');
+        const quantity = document.getElementById('quantity');
 
         const popup_container_addProduct = document.getElementById('popup_container_addProduct');
         const popup_container_view = document.getElementById('popup_container_view');
         const form_field = document.getElementById('form_field');
         const popup_container_delete = document.getElementById('popup_container_delete');
 
-        view_btn.addEventListener('click', () => {
+        function viewPopup(productName,productCategory,productCode,buyingPrice,sellingPrice,quantity) {
                 popup_container_view.classList.add('show');
-                form_field.setAttribute('disabled', true);
-        });
+                document.getElementById('u_productName').value = productName;
+                document.getElementById('u_productCategory').value = productCategory;
+                document.getElementById('u_productCode').value = productCode;
+                document.getElementById('u_buyingPrice').value = buyingPrice;
+                document.getElementById('u_sellingPrice').value = sellingPrice;
+                document.getElementById('u_quantity').value = quantity;
+            }
 
-        update_btn.addEventListener('click', () => {
+        function updateButton(productName, productCategory, productCode, buyingPrice, sellingPrice, quantity) {
                 popup_container_view.classList.add('show');
-        });
+                document.getElementById('u_productName').value = productName;
+                document.getElementById('u_productCategory').value = productCategory;
+                document.getElementById('u_productCode').value = productCode;
+                document.getElementById('u_buyingPrice').value = buyingPrice;
+                document.getElementById('u_sellingPrice').value = sellingPrice;
+                document.getElementById('u_quantity').value = quantity;
+            }
+            function click(){
+                alert("click");
+            }
 
+            function viewButton(productName, productCategory, productCode, buyingPrice, sellingPrice, quantity) {
+                alert("click");
+                popup_container_view.classList.add('show');
+            //     document.getElementById('productName').value = productName;
+            //     document.getElementById('productCategory').value = productCategory;
+            //     document.getElementById('productCode').value = productCode;
+            //     document.getElementById('buyingPrice').value = buyingPrice;
+            //     document.getElementById('sellingPrice').value = sellingPrice;
+            // document.getElementById('quantity').value = quantity;
+            }
+            // view_btn.addEventListener('click', () => {
+            // popup_container_view.classList.add('show');
+            // // popup_container_view.classList.add('show');
+            //     document.getElementById('productName').value = "product";
+            //     document.getElementById('productCategory').value = productCategory;
+            //     document.getElementById('productCode').value = productCode;
+            //     document.getElementById('buyingPrice').value = buyingPrice;
+            //     document.getElementById('sellingPrice').value = sellingPrice;
+            //     document.getElementById('quantity').value = quantity;
+            
+            // });
+
+            
         product_btn.addEventListener('click', () => {
             popup_container_addProduct.classList.add('show');
-        });
-
-        view_btn.addEventListener('click', () => {
-            popup_container_view.classList.add('show');
-        });
-
-        delete_btn.addEventListener('click', () => {
-            popup_container_delete.classList.add('show');
         });
 
         close.addEventListener('click', () => {
             popup_container_addProduct.classList.remove('show');
         });
+
+        // view_btn.addEventListener('click', () => {
+        //         popup_container_view.classList.add('show');
+        //         form_field.setAttribute('disabled', true);
+        // });
+
+        // update_btn.addEventListener('click', () => {
+        //         popup_container_view.classList.add('show');
+        // });
+
+        // view_btn.addEventListener('click', () => {
+        //     popup_container_view.classList.add('show');
+        // });
+
+        delete_btn.addEventListener('click', () => {
+            popup_container_delete.classList.add('show');
+        });
+
+
 
         close.addEventListener('click', () => {
             popup_container_view.classList.remove('show');

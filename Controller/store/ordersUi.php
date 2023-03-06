@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/ordersCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,13 +23,11 @@
     <link rel="stylesheet" href="../../View/styles/navButtons.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
-
     <style>
         .search-wrap-container{
         display: flex;
         justify-content: space-between;
       }
-
       .search_container{
         margin-left: 24%;
       }
@@ -33,7 +35,6 @@
         padding-top: 8%;
         padding-bottom: 8%;
     }
-
     .side-bar-icons{
       margin-top: 15%;
     }
@@ -67,7 +68,6 @@
               </tr>
           </table>
       </div>
-
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
@@ -76,7 +76,6 @@
           </div>
       </div>
   </div>
-
   <div class="side_bar">
       <div class="logo">
           <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
@@ -101,7 +100,6 @@
   </div>
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
-
     <div class="search-wrap-container">
         <div class="search_container">
           <table class="element_container">
@@ -115,7 +113,6 @@
             </tr>
           </table>
         </div>
-
         <div class="wrapper">
         <div class="dropdown">
                 <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
@@ -145,27 +142,35 @@
              </div> 
      </div>
       </div>
-
-
-
     <!--Orders Cards-->
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
+        <?php
+            while($rows_orders = mysqli_fetch_assoc($result_for_get_all_orders)){
+        ?>
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2>Order 23</h2>
+                        <h2>Order <?php echo $rows_orders['orderID'];?></h2>
                     </div>
                     <div class="dv">
                         <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
+                            <?php
+                                while($rows_customers = mysqli_fetch_assoc($result_for_get_customer_details)){
+                            ?>
+                                <?php if($rows_customers['customerID'] == $rows_orders['customerID']){
+                                     $name_customer = $rows_customers['name'];
+                                     break;
+                                }?>
+                            <?php }?>
+                            <?php echo $name_customer ?><br>
+                            <?php echo $rows_orders['orderDate'];?>
                         </div>
                         <div class="button view">
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a href="ordersUiView.php">View</a></button></td>
+                                    <td><button id="performance" class="view-txt"><a href="ordersUiView.php?order_id=<?php echo $rows_orders['orderID'];?>&cus_id=<?php echo $rows_orders['customerID'];?>">View</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -173,131 +178,14 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php?order_id=<?php echo $rows_orders['orderID'];?>&cus_id=<?php echo $rows_orders['customerID'];?>">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 24</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Bethmi Navanjana<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 25</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Binu De Silva<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 26</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a
-                                                href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 27</h2>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">
-                            Senu Dilshara<br>
-                            15/11/2022
-                        </div>
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="performance" class="view-txt"><a
-                                                href="ordersUiView.php">View</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
+        <?php }?>
         </ul>
     
         <!-- Navigation Arrows -->
