@@ -47,6 +47,14 @@
     text-align: center;
 }
 
+.popup-modal .hide {
+    display: none;
+}
+
+.sp-label {
+    text-align: center;
+}
+
 .cancel, .submit, .cancelOne{
     display: inline-block;
     border-radius: 15px;
@@ -58,7 +66,7 @@
     border: 2px solid #F8914A;
     color: #F8914A;
     background: #FFFFFF;
-    margin-left: 20%;
+    /* margin-left: 20%; */
 }
 
 .cancelOne{
