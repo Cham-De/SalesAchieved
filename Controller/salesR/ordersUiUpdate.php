@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/salesR/ordersUpdateCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,6 +40,7 @@
 </head>
 
 <body>
+    <form method="post">
     <!--common top nav and side bar content-->
     <div class="nav_bar">
         <div class="search-container">
@@ -66,7 +71,7 @@
         </div>
         <ul>
             <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
-            <li class="active"><a href="#"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+            <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
             <li><a href="customersUi.php"><i class="fa-solid fa-user-group"></i>Customers</a></li>
             <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
             <li><a href="salesUi.php"><i class="fa-solid fa-sack-dollar"></i>Sales</a></li>
@@ -88,8 +93,11 @@
     <!---end of side and nav bars-->
 
     <!--Card Topic-->
+    <?php $row = mysqli_fetch_array($result);
+        $orderID = $row['orderID'];?>
+    
     <h1 class="orderNo">
-        Order: 23
+        Order No: <?php echo $row['orderID'];?>
     </h1>
     
     <!--Cards with details-->
@@ -99,18 +107,15 @@
                     <td>
                         <div class="orderForm">
                             <label for="customerName">Customer Name
-                            <input type="text" id="customerName" name="customerName" value="Senu Dilshara">
+                                <p class="noEdit"><?php echo $row['name']; ?></p>
+                                
                             </label>
                         </div>
                     </td>
                     <td>
                         <div class="orderForm">
                             <label for="paymentStatus">Payment Status
-                                <select id="paymentStatus">
-                                    <option value="pending">Pending</option>
-                                    <option value="done">Done</option>
-                                    <option value="fault">Fault</option>
-                                </select>
+                                <p class="noEdit"><?php echo $row['paymentStatus']; ?></p>
                             </label>
                         </div>
                     </td>
@@ -119,19 +124,14 @@
                     <td>
                         <div class="orderForm">
                             <label for="address">Address
-                                <input type="text" id="address" name="address" value="23/A, Flower Road, Maharagama">
+                                <p class="noEdit"><?php echo $row['address']; ?></p>
                             </label>
                         </div>
                     </td>
                     <td>
                         <div class="orderForm">
                             <label for="orderStatus">Order Status
-                                <select id="orderStatus">
-                                    <option value="inProgress">In progress</option>
-                                    <option value="dispatched">Dispatched</option>
-                                    <option value="delivered">Delivered</option>
-                                    <option value="completed">Completed</option>
-                                </select>
+                                <p class="noEdit"><?php echo $row['orderStatus']; ?></p>
                             </label>
                         </div>
                     </td>
@@ -140,35 +140,44 @@
                     <td>
                         <div class="orderForm">
                             <label for="phoneNumber">Phone Number
-                                <input type="text" id="phoneNumber" name="phoneNumber" value="0717483988">
+                                <p class="noEdit"><?php echo $row['phone']; ?></p>
                             </label>
                         </div>
                     </td>
                     <td>
                         <label for="deliveryDate">Delivery Date
-                            <input type="date" id="deliveryDate" name="deliveryDate" value="2022-11-02">
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="orderDate">Order Date
-                            <input type="date" id="orderDate" name="orderDate" value="2022-11-02">
-                        </label>
-                    </td>
-                    <td>
-                        <label for="dispatchDate">Dispatch Date
-                            <input type="date" id="dispatchDate" name="dispatchDate" value="2022-11-02">
+                            <input type="date" id="deliveryDate" name="updateDeliveryDate" value=<?php echo '"'.$row['deliveryDate'].'"'; ?>>
                         </label>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="orderForm">
+                            <label for="orderDate">Order Date
+                                <p class="noEdit"><?php echo $row['orderDate']; ?></p>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="orderForm">
+                            <label for="dispatchDate">Dispatched Date
+                                <?php if($row['dispatchDate'] == NULL){?>
+                                    <p class="noEdit">Not yet Dispatched</p>
+                                <?php }
+                                else{?>
+                                    <p class="noEdit"><?php echo $row['dispatchDate']; ?></p>
+                                <?php } ?>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="orderForm">
                             <label for="paymentMethod">Payment Method
-                                <select id="paymentMethod">
-                                    <option value="cod">Cash on Delivery</option>
-                                    <option value="bt">Bank Transactions</option>
+                                <select id="paymentMethod" name="updatePaymentMethod" value=<?php echo '"'.$row['paymentMethod'].'"'; ?>>
+                                    <option value="COD">Cash on Delivery</option>
+                                    <option value="BT">Bank Transactions</option>
                                 </select>
                             </label>
                         </div>
@@ -176,10 +185,10 @@
                     <td>
                         <div class="orderForm">
                             <label for="deliveryRegion">Delivery Region
-                                <select id="deliveryRegion">
-                                    <option value="withinColombo">Within Colombo</option>
-                                    <option value="suburbs">Colombo Suburbs</option>
-                                    <option value="outOfColombo">Out of Colombo</option>
+                                <select id="deliveryRegion" name="updateDeliveryRegion" value=<?php echo '"'.$row['deliveryRegion'].'"'; ?>>
+                                    <option value="Within Colombo">Within Colombo</option>
+                                    <option value="Colombo Suburbs">Colombo Suburbs</option>
+                                    <option value="Out of Colombo">Out of Colombo</option>
                                 </select>
                             </label>
                         </div>
@@ -246,7 +255,8 @@
         <button id="Cancel_btn">Cancel</button>
       </div>
       <div class="btn_update">
-        <button id="Update_btn">Update</button>
+        <button id="Update_btn" name="update">Update</button>
       </div>
+</form>
 </body>
 </html>

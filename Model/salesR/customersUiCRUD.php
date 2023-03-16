@@ -68,4 +68,21 @@
         echo "Failed to connect to MySQL: " . mysqli_error($con);
         exit();
     }
+
+    //Delete - Delete a customer from the system
+    // if(isset($_POST['submit_delete'])){
+    //     $customerID=$_POST['deleteid'];
+
+    //     $sql="UPDATE orders SET customerID='10'";
+    //     $result=mysqli_query($con,$sql);
+    //     $sql="DELETE FROM customer WHERE customerID='$customerID'";
+    //     $result=mysqli_query($con,$sql);
+    //     if($result){
+    //         echo "Deleted successfully";
+    //         header("location:../../Controller/salesR/customersUi.php");
+    //     }else{
+    //         echo "Delete unsuccessful: " . mysqli_error($con);
+    //         // die(mysqli_error($con));
+    //     }
+    // }
 ?>

@@ -117,7 +117,9 @@
 
     <!--Orders Cards-->
     <?php while ($row = mysqli_fetch_array($result)){ 
-        $customerID = $row['customerID'];?>
+        $customerID = $row['customerID'];
+        // if ($customerID == 10) continue;?>
+
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
@@ -148,19 +150,10 @@
                                     <td><button id="update" class="update-txt" onclick='updateButton(
                                         <?php  echo "`$name`, `$address`, `$phone`, `$social`, `$customerID`" ?>
                                     )'>Update</button></td>
-                                    <td>
-                                    </td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
+                        
                     </div>
                 </div>
             </li>
@@ -236,10 +229,24 @@
             </div>
         </div>
 
+        <!--Popup Form - Delete-->
+        <!-- <div class="popup-container" id="popup_container_delete">
+            <div class="popup-modal">
+            <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
+                <p>Do you want to delete order?</p>
+                <input type="hidden" id="deleteid" name="deleteid"></input>
+                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit_delete">Delete</button>
+            </form>
+            </div>
+        </div> -->
+
         <script>
             //const view = document.getElementById('view');
             // const update = document.getElementById('update');
+            // const delete_btn = document.getElementById('delete');
             const customer_btn = document.getElementById('customer_btn');
+            // const deleteID = document.getElementById('deleteid');
             const updateCusID = document.getElementById('updateCustomerID');
             const updateName = document.getElementById('updateName');
             const updatePhone = document.getElementById('updatePhone');
@@ -248,10 +255,13 @@
             
             const popup_container = document.getElementById('popup_container');
             const popup_container_customer = document.getElementById('popup_container_customer');
+            // const popup_container_delete = document.getElementById('popup_container_delete');
             
             const close = document.getElementById('close');
             const save = document.getElementById('save');
             const close_form = document.getElementById('close_form');
+            // const close_delete = document.getElementById('close_delete');
+            // const save_delete = document.getElementById('save_delete');
 
             const form_field = document.getElementById('form_field');
             
@@ -284,9 +294,23 @@
                 updateSocial.value = social;
             }
 
+            // function deleteButton(customerID) {
+            //     popup_container_delete.classList.add('show');
+            //     deleteID.value = customerID;
+            //     // form_field.setAttribute('disabled', true);
+            //     // updateName.value = name;
+            //     // updatePhone.value = phone;
+            //     // updateAddress.value = address;
+            //     // updateSocial.value = social;
+            // }
+
             customer_btn.addEventListener('click', () => {
                 popup_container_customer.classList.add('show');
             });
+
+            // delete_btn.addEventListener('click', () => {
+            //     popup_container_delete.classList.add('show');
+            // });
     
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -295,6 +319,10 @@
             close_form.addEventListener('click', () => {
                 popup_container_customer.classList.remove('show');
             });
+
+            // close_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
     
             save.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -303,6 +331,10 @@
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
             });
+
+            // save_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
         </script>
 
         <div class="navigation-table" id="nav_table">
