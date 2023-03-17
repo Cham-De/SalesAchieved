@@ -22,6 +22,7 @@
     outline: none;
     margin-top: 1%;
     width: 100%;
+    font-size: 85%;
 }
 
 .btn_back button, .btn_cancel button, .btn_update button{
@@ -71,4 +72,9 @@
 
 a{
     text-decoration: none;
+}
+
+.noEdit{
+    font-size: 85%;
+    color: black;
 }

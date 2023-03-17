@@ -1,3 +1,7 @@
+<?php
+    require_once("../../Model/courier/ordersCRUD.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -118,20 +122,22 @@
              </div> 
     </div>
   <!--Orders Cards-->
+  <?php while ($row = mysqli_fetch_array($result)){?>
+    <?php $orderID = $row['orderID']; ?>
   <div class="cards-middle" id="cards_middle">
     <ul class="middle-cards">
         <li>
             <div class="cards">
                 <div class="cmpg">
-                    <h2>Order 23</h2>
+                    <h2>Order <?php echo $row['orderID'];?></h2>
                     <div class="orderStatus">
                         <h4>Pending</h4>
                     </div>
                 </div>
                 <div class="dv">
                     <div class="customerName">
-                        Senu Dilshara<br>
-                        15/11/2022
+                        <?php echo $row['name'];?><br>
+                        <?php echo $row['deliveryDate'];?>
                     </div>
                     <div class="button view">
                         <table>
@@ -152,15 +158,15 @@
                     <div class="button uploadSlip">
                         <table>
                             <tr>
-                                    <td><i class="fa-solid fa-angles-up"></i></td>
-                                    <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+                                <td><i class="fa-solid fa-angles-up"></i></td>
+                                <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
         </li>
-        <li>
+        <!-- <li>
             <div class="cards">
                 <div class="cmpg">
                     <h2>Order 24</h2>
@@ -298,8 +304,9 @@
                     </div>
                     </div>
             </div>
-        </li>
+        </li> -->
     </ul>
+    <?php }?>
     
     <script>
         var myFunction = function(target) {

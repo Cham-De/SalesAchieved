@@ -1,5 +1,5 @@
 <?php
-    require 'connect.php';
+    require __DIR__.'/../connect.php';
     if(isset($_POST['submit'])){
         $customerID = $_POST["customerID"];
         $orderDetails = $_POST["orderDetails"];

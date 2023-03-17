@@ -116,7 +116,10 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Orders Cards-->
-    <?php while ($row = mysqli_fetch_array($result)){ ?>
+    <?php while ($row = mysqli_fetch_array($result)){ 
+        $customerID = $row['customerID'];
+        // if ($customerID == 10) continue;?>
+
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
@@ -145,21 +148,12 @@
                                     <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
                                     <td><button id="update" class="update-txt" onclick='updateButton(
-                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`" ?>
+                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`, `$customerID`" ?>
                                     )'>Update</button></td>
-                                    <td>
-                                    </td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="button delete">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-trash"></i></td>
-                                    <td><button id="delete" class="delete-txt">Delete</button></td>
-                                </tr>
-                            </table>
-                        </div>
+                        
                     </div>
                 </div>
             </li>
@@ -190,8 +184,10 @@
                         <option value="Whatsapp">WhatsApp</option>
                     </select>
                   </label>
-                <button class="cancel" id="close_form" type="reset" value="Reset">Cancel</button>
-                <button class="submit" id="save_form" type="submit" value="Submit" name="submit">Save</button>
+                <div class="sp-label">
+                    <button class="cancel" id="close_form" type="button" value="Reset">Cancel</button>
+                    <button class="submit" id="save_form" type="submit" value="Submit" name="submit">Save</button>
+                </div>
             </form>
             </div>
         </div>
@@ -199,24 +195,25 @@
         <!--Popup Form-->
         <div class="popup-container" id="popup_container"> 
             <div class="popup-modal">
-              <form>
+              <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
                 <fieldset id="form_field">
+                    <input type="hidden" name="customerID" id="updateCustomerID" >
                   <label for="name">Customer Name
-                      <input type="text" id="updateName">
+                      <input type="text" name="name" id="updateName" required="required">
                   </label>
 
                   <label for="phone">Phone Number
-                      <input type="text" id="updatePhone">
+                      <input type="text" name="phone" id="updatePhone" required="required">
                   </label>
                   
       
                   <label for="address">Address
-                      <input type="text" id="updateAddress">
+                      <input type="text" name="address" id="updateAddress" required="required">
                   </label>
                   
       
                   <label for="socialMediaPlatform">Social Media Platform
-                    <select name="socialMediaPlatform" id="updatesocialMediaPlatform">
+                    <select name="socialMediaPlatform" id="updatesocialMediaPlatform" required="required">
                         <option value="Facebook">Facebook</option>
                         <option value="Instagram">Instagram</option>
                         <option value="Whatsapp">WhatsApp</option>
@@ -224,18 +221,33 @@
                   </label>
                 </fieldset>
                   
-                <label class="sp-label">
-                    <button class="cancel" id="close">Cancel</button>
-                    <button class="submit" id="save">Update</button>
-                </label>  
+                <div class="sp-label">
+                    <button class="cancel" type="button" id="close">Cancel</button>
+                    <button class="submit hide" id="save" name="update">Update</button>
+                </div>  
               </form>
             </div>
         </div>
 
+        <!--Popup Form - Delete-->
+        <!-- <div class="popup-container" id="popup_container_delete">
+            <div class="popup-modal">
+            <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
+                <p>Do you want to delete order?</p>
+                <input type="hidden" id="deleteid" name="deleteid"></input>
+                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit_delete">Delete</button>
+            </form>
+            </div>
+        </div> -->
+
         <script>
             //const view = document.getElementById('view');
             // const update = document.getElementById('update');
+            // const delete_btn = document.getElementById('delete');
             const customer_btn = document.getElementById('customer_btn');
+            // const deleteID = document.getElementById('deleteid');
+            const updateCusID = document.getElementById('updateCustomerID');
             const updateName = document.getElementById('updateName');
             const updatePhone = document.getElementById('updatePhone');
             const updateAddress = document.getElementById('updateAddress');
@@ -243,10 +255,13 @@
             
             const popup_container = document.getElementById('popup_container');
             const popup_container_customer = document.getElementById('popup_container_customer');
+            // const popup_container_delete = document.getElementById('popup_container_delete');
             
             const close = document.getElementById('close');
             const save = document.getElementById('save');
             const close_form = document.getElementById('close_form');
+            // const close_delete = document.getElementById('close_delete');
+            // const save_delete = document.getElementById('save_delete');
 
             const form_field = document.getElementById('form_field');
             
@@ -259,8 +274,11 @@
             //     popup_container.classList.add('show');
             // });
 
-            function updateButton(name, address, phone, social) {
+            function updateButton(name, address, phone, social, customerID) {
                 popup_container.classList.add('show');
+                save.classList.remove('hide')
+                form_field.removeAttribute('disabled');
+                updateCusID.value = customerID;
                 updateName.value = name;
                 updatePhone.value = phone;
                 updateAddress.value = address;
@@ -269,15 +287,30 @@
 
             function viewButton(name, address, phone, social) {
                 popup_container.classList.add('show');
+                form_field.setAttribute('disabled', true);
                 updateName.value = name;
                 updatePhone.value = phone;
                 updateAddress.value = address;
                 updateSocial.value = social;
             }
 
+            // function deleteButton(customerID) {
+            //     popup_container_delete.classList.add('show');
+            //     deleteID.value = customerID;
+            //     // form_field.setAttribute('disabled', true);
+            //     // updateName.value = name;
+            //     // updatePhone.value = phone;
+            //     // updateAddress.value = address;
+            //     // updateSocial.value = social;
+            // }
+
             customer_btn.addEventListener('click', () => {
                 popup_container_customer.classList.add('show');
             });
+
+            // delete_btn.addEventListener('click', () => {
+            //     popup_container_delete.classList.add('show');
+            // });
     
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -286,6 +319,10 @@
             close_form.addEventListener('click', () => {
                 popup_container_customer.classList.remove('show');
             });
+
+            // close_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
     
             save.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -294,6 +331,10 @@
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
             });
+
+            // save_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
         </script>
 
         <div class="navigation-table" id="nav_table">

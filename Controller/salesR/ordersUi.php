@@ -160,7 +160,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><?php echo "<a href=\"ordersUiUpdate.php?orderID=$orderID\">Update</a>";?></button></td>
                                 </tr>
                             </table>
                         </div>
