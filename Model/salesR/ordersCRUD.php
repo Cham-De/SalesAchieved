@@ -2,17 +2,34 @@
     require __DIR__.'/../connect.php';
     if(isset($_POST['submit'])){
         $customerID = $_POST["customerID"];
-        $orderDetails = $_POST["orderDetails"];
-        $orderStatus = $_POST["orderStatus"];
+        // $orderStatus = $_POST["orderStatus"];
         $paymentMethod = $_POST["paymentMethod"];
         $deliveryDate = $_POST["deliveryDate"];
         $deliveryRegion = $_POST["deliveryRegion"];
-        if(!empty($customerID) && !empty($orderDetails) && !empty($orderStatus) && !empty($paymentMethod) && !empty($deliveryDate) && !empty($deliveryRegion))
+        if(!empty($customerID) && !empty($paymentMethod) && !empty($deliveryDate) && !empty($deliveryRegion))
 		{
             $check_customerID = mysqli_query($con, "SELECT customerID FROM customer where customerID = '$customerID'");
             if(mysqli_num_rows($check_customerID) > 0){
-			    mysqli_query($con, "INSERT INTO orders(customerID, orderDetails, orderStatus, paymentMethod, deliveryDate, deliveryRegion) values('$customerID', '$orderDetails', '$orderStatus', '$paymentMethod', '$deliveryDate', '$deliveryRegion')");
-			    // echo("Error description: " . mysqli_error($con));
+			    mysqli_query($con, "INSERT INTO orders(customerID, paymentMethod, deliveryDate, deliveryRegion) values('$customerID', '$paymentMethod', '$deliveryDate', '$deliveryRegion')");
+                $orderid = mysqli_insert_id($con);
+
+                $orderDetails = $_POST["orderDetails"];
+                $quantityDetails = $_POST["quantityDetails"];
+                mysqli_query($con, "INSERT INTO order_product(orderID, productCode, quantity) values('$orderid', '$orderDetails', '$quantityDetails')");
+                
+                if (mysqli_connect_errno()) {
+                    echo("Error description: " . mysqli_error($con) . ". Product ID: ". $orderDetails);
+                    exit();
+                }
+
+                $i = 1;
+                while (isset($_POST['orderDetails'.$i])) {
+                    $orderDetails = $_POST["orderDetails".$i];
+                    $quantityDetails = $_POST["quantityDetails".$i];
+                    mysqli_query($con, "INSERT INTO order_product(orderID, productCode, quantity) values('$orderid', '$orderDetails', '$quantityDetails')");
+                    $i += 1;
+                }
+			    
                 header("Location:../../Controller/salesR/ordersUi.php");
             }
             else{

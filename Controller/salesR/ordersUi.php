@@ -119,10 +119,10 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Orders Cards-->
-    <?php while ($row = mysqli_fetch_array($result)){?>
-        <?php $orderID = $row['orderID']; ?>
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
+        <?php while ($row = mysqli_fetch_array($result)){
+            $orderID = $row['orderID']; ?>
             <li>
                 <div class="cards">
                     <div class="cmpg">
@@ -186,8 +186,8 @@
                     </div>
                 </div>
             </li>
-        </ul>
         <?php }?>
+        </ul>
         <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
@@ -200,7 +200,7 @@
             <form method="post">
                 <p>Do you want to delete order?</p>
                 <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
-                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit">Delete</button>
+                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit_delete">Delete</button>
             </form>
             </div>
         </div>
@@ -221,19 +221,20 @@
                 <option value="PR005">PR005</option>
                 <option value="PR006">PR006</option>
                 </select>
+                <input id="quantityDetails" name="quantityDetails" type="number" value=1 min=1></input>
             </label>
             <div class="controls">
               <a href="#" id="add_more_fields">Add More</a>
               <a href="#" id="remove_fields">Remove Field</a>
             </div>
-            <label for="orderStatus" id="orderStatus">Order Status
+            <!-- <label for="orderStatus" id="orderStatus">Order Status
                 <select id="orderStatus" name="orderStatus">
                 <option value="Pending">Pending</option>
                 <option value="Dispatched">Dispatched</option>
                 <option value="Delivered">Delivered</option>
                 <option value="Completed">Completed</option>
                 </select>
-            </label>
+            </label> -->
             <label for="paymentMethod" id="payingMethods">Payment Method
                 <select id="paymentMethod" name="paymentMethod">
                   <option value="COD">Cash on Delivery</option>
@@ -263,6 +264,7 @@
             const close_delete = document.getElementById('close_delete');
             const save_delete = document.getElementById('save_delete');
             const close_order = document.getElementById('close_order');
+            const save_order = document.getElementById('save_order');
 
             const popup_container_delete = document.getElementById('popup_container_delete');
             const popup_container_order = document.getElementById('popup_container_order');
@@ -286,6 +288,10 @@
             save_delete.addEventListener('click', () => {
                 popup_container_delete.classList.remove('show');
             });
+
+            save_order.addEventListener('click', () => {
+                popup_container_order.classList.remove('show');
+            });
         </script>
 
         <!--JavaScript for Dynamic form fields-->
@@ -294,20 +300,28 @@
             var remove_fields = document.getElementById('remove_fields');
             var productList = document.getElementById('productList');
             var orderDetails = document.getElementById('orderDetails');
+            var quantityDetails = document.getElementById('quantityDetails');
             var count = 1;
 
             add_more_fields.onclick = function(){
                 var newField = orderDetails.cloneNode(true);
                 newField.setAttribute('id', 'orderDetails' + count);
+                newField.setAttribute('name', 'orderDetails' + count);
+                productList.appendChild(newField);
+                var newField = quantityDetails.cloneNode(true);
+                newField.setAttribute('id', 'quantityDetails' + count);
+                newField.setAttribute('name', 'quantityDetails' + count);
+                productList.appendChild(newField);
                 count += 1;
                 // newField.setAttribute('placeholder','Another Field');
-                productList.appendChild(newField);
             }
 
             remove_fields.onclick = function(){
                 var select_tags = productList.getElementsByTagName('select');
                 if(select_tags.length > 1) {
                 productList.removeChild(select_tags[(select_tags.length) - 1]);
+                var input_tags = productList.getElementsByTagName('input');
+                productList.removeChild(input_tags[(input_tags.length) - 1]);
                 }
             }
         </script>
