@@ -113,7 +113,9 @@
             </tr>
             <tr>
                 <td><p>Order Date</p><b><?php echo $row['orderDate'];?></b></td>
-                <td><p>Dispatch Date</p><b><?php echo $row['dispatchDate'];?></b></td>
+                <td><p>Dispatch Date</p><b><?php if ($row['dispatchDate'] == NULL)
+                                                    echo 'Not yet set';
+                                                  else echo $row['dispatchDate'];?></b></td>
             </tr>
             <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
@@ -132,44 +134,36 @@
                   <th>Quantity</th>
                   <th>Total Price<br>(Rs.)</th>
                 </tr>
-              </thead>
+              </thead> 
               <tbody>
+              <?php
+                $charge = 0;
+                $totalPrice = 0;
+                while($rows = mysqli_fetch_assoc($resultOrder))
+                  {
+              ?>
                 <tr>
-                  <td>001</td>
-                  <td>Bag</td>
-                  <td>1000.00</td>
-                  <td>1</td>
-                  <td>1000.00</td>
+                  <td><?php echo $rows['productCode'];?></td>
+                  <td><?php echo $rows['productName'];?></td>
+                  <td><?php echo $rows['sellingPrice'];?></td>
+                  <td><?php echo $rows['quantity'];?></td>
+                  <td><?php echo $rows['sellingPrice'] * $rows['quantity'];?></td>
+                </tr>
+                <?php
+                  $charge = $rows['charges'];
+                  $totalPrice = $totalPrice + $rows['sellingPrice'] * $rows['quantity'];
+                  }
+                ?>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
+                  <td><?php echo $charge;?><hr /></td>
                 </tr>
                 <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
+                  <td colspan="4" style="text-align:right"><b>Total Charges</b></td>
+                  <td><?php echo $charge + $totalPrice;?><hr /><hr /></td>
+                </tr>
               </tbody>
+              
         </table>
       </div>
       
