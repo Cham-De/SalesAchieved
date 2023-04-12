@@ -1,3 +1,9 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    require_once("../../Model/salesR/salesUiCRUD.php");
+    $username = check_login("Sales Representative");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

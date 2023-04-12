@@ -5,6 +5,7 @@
 	$dbpass = "";
 	$dbname = "salesachieved";
 	// $dbname = "test";
+	$con = NULL;
 	
 	if(!$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname))
 	{

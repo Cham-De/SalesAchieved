@@ -1,5 +1,7 @@
 <?php
+    require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/salesR/ordersCRUD.php");
+    $username = check_login("Sales Representative");
 ?>
 
 <!DOCTYPE html>

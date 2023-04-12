@@ -56,7 +56,7 @@ if(isset($_POST['uname']) && isset($_POST['pwd'])){
             $row = mysqli_fetch_assoc($result);
             if($row['username'] == $uname && $row['password'] == $pwd){
 
-                $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $uname;
 
                 if($row['user_role'] == 'Digital Marketing Strategist'){
                     header("Location: ../../Controller/DMS/dms.php");
