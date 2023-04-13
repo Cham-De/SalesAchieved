@@ -125,7 +125,7 @@
                 <td><?php echo $rows['productCode'];?></td>
                 <td><?php echo $rows['productName'];?></td>
                 <td><?php echo $rows['sellingPrice'];?></td>
-                <td><?php echo $rows['quantity'];?></td>
+                <td><?php echo $rows['availableQuantity'];?></td>
             </tr>
         </tbody>
         <?php
