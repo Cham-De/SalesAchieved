@@ -68,6 +68,14 @@ div.nav_bar .user-wrapper div h4{
   font-size: 1.2vw;
 }
 
+div.nav_bar .user-wrapper i{
+  margin-right: 1rem;
+}
+
+div.nav_bar .user-wrapper a{
+  text-decoration: none;
+}
+
 div.side_bar{
   text-decoration: none;
   position: fixed;

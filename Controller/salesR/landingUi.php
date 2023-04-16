@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="../../View/styles/graphs.css">
     <!--Stylesheet for popup forms-->
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
       div.side_bar ul li{
@@ -54,8 +56,39 @@
       </div>
 
       <div class="user-wrapper">
+        <!-- Notifications -->
+        <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span>5</span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span>5</span></h2>
+          <div class="notifi-item">
+            <img src="../../View/assets/man.png" alt="img">
+            <div class="text">
+              <h4>Elias Adurrahman</h4>
+              <p>@lorem ipsum, dolor sit amet</p>
+            </div>
+          </div>
+
+          <div class="notifi-item">
+            <img src="../../View/assets/man.png" alt="img">
+            <div class="text">
+              <h4>Elias Adurrahman</h4>
+              <p>@lorem ipsum, dolor sit amet</p>
+            </div>
+          </div>
+
+          <div class="notifi-item">
+            <img src="../../View/assets/man.png" alt="img">
+            <div class="text">
+              <h4>Elias Adurrahman</h4>
+              <p>@lorem ipsum, dolor sit amet</p>
+            </div>
+          </div>
+          
+        </div>
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
-          <div>
+        <div>
               <h4>John Doe</h4>
               <small>Sales Representative</small>
           </div>
@@ -310,5 +343,7 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+    <!-- Script for notifications functionality -->
+    <script src="../../View/notification.js"></script>
   </body>
 </html>
