@@ -1,7 +1,10 @@
 <?php 
   require __DIR__.'/../../Model/utils.php';
+  require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
-  $username = check_login("Sales Representative");
+  $role = "Sales Representative";
+  $username = check_login($role);
+  $notifData = get_notification_data($role, $username);
 ?>
 
 <!DOCTYPE html>
@@ -56,35 +59,27 @@
       </div>
 
       <div class="user-wrapper">
+
         <!-- Notifications -->
         <div class="icon" onclick="toggleNotifi()">
-          <i class="fa-solid fa-bell"></i><span>5</span>
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
         </div>
         <div class="notifi-box" id="box">
-          <h2>Notifications <span>5</span></h2>
-          <div class="notifi-item">
-            <img src="../../View/assets/man.png" alt="img">
-            <div class="text">
-              <h4>Elias Adurrahman</h4>
-              <p>@lorem ipsum, dolor sit amet</p>
-            </div>
-          </div>
-
-          <div class="notifi-item">
-            <img src="../../View/assets/man.png" alt="img">
-            <div class="text">
-              <h4>Elias Adurrahman</h4>
-              <p>@lorem ipsum, dolor sit amet</p>
-            </div>
-          </div>
-
-          <div class="notifi-item">
-            <img src="../../View/assets/man.png" alt="img">
-            <div class="text">
-              <h4>Elias Adurrahman</h4>
-              <p>@lorem ipsum, dolor sit amet</p>
-            </div>
-          </div>
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+          <?php 
+          while ($row = mysqli_fetch_array($notifData)){
+            $title = $row['title'];
+            $message = $row['message'];
+            echo  "
+            <div class='notifi-item'>
+            <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+              <div class='text'>
+                <h4>$title</h4>
+                <p>$message</p>
+              </div>
+            </div>";
+          }
+          ?>
           
         </div>
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
