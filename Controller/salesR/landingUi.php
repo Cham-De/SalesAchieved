@@ -3,8 +3,8 @@
   require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
   $role = "Sales Representative";
-  $username = check_login($role);
-  $notifData = get_notification_data($role, $username);
+  $userData = check_login($role);
+  $notifData = get_notification_data($role, $userData["username"]);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Sales Rep-Dashboard</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -80,12 +80,11 @@
             </div>";
           }
           ?>
-          
         </div>
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
         <div>
-              <h4>John Doe</h4>
-              <small>Sales Representative</small>
+              <h4><?php echo $userData['name'];?></h4>
+              <small><?php echo $userData['user_role'];?></small>
           </div>
       </div>
   </div>

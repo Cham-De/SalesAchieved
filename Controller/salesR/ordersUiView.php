@@ -120,12 +120,16 @@
                                                   else echo $row['dispatchDate'];?></b></td>
             </tr>
             <tr>
-                <td><p>Order Placement</p><b>Through <?php echo $row['source'];?></b></td>
+                <td><p>Order Placement</p><b>Through <?php if ($row['source']!= NULL)
+                                                            echo $row['source'];
+                                                           else echo 'chatbot';?></b></td>
                 <td><p>Approved</p><b><?php echo $row['approvalStatus'];?></b></td>
             </tr>
             <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
-                <td><p>Approved</p><b><?php echo $row['approvalStatus'];?></b></td>
+                <td><p>Sales Representative</p><b><?php if ($row['source'] == "Call")
+                                                          echo $row['salesRepresentative'];
+                                                        else echo '-';?></b></td>
             </tr>
         </table>
       </div>

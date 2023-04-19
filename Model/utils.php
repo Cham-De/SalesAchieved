@@ -12,9 +12,9 @@ function check_login($role)
 		$result = mysqli_query($GLOBALS['con'], $query);
 		if($result && mysqli_num_rows($result) > 0)
 		{
-			$user_data = mysqli_fetch_assoc($result);
-			if ($user_data['user_role'] == $role)
-				return $user_data['username'];
+			$userData = mysqli_fetch_assoc($result);
+			if ($userData['user_role'] == $role)
+				return $userData;
 		}
 	}
 	
