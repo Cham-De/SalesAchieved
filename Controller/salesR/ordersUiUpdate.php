@@ -105,11 +105,11 @@
     <!--Cards with details-->
     <div class="middle">
             <table class="prof-table">
-                <tr>
-                    <td>
+                <!-- <tr>
+                     <td>
                         <div class="orderForm">
                             <label for="customerName">Customer Name
-                                <p class="noEdit"><?php echo $row['name']; ?></p>
+                                <p class="noEdit"><?php //echo $row['name']; ?></p>
                                 
                             </label>
                         </div>
@@ -117,88 +117,97 @@
                     <td>
                         <div class="orderForm">
                             <label for="paymentStatus">Payment Status
-                                <p class="noEdit"><?php echo $row['paymentStatus']; ?></p>
+                                <p class="noEdit"><?php //echo $row['paymentStatus']; ?></p>
                             </label>
                         </div>
                     </td>
-                </tr>
-                <tr>
+                </tr> -->
+                <!-- <tr>
                     <td>
                         <div class="orderForm">
                             <label for="address">Address
-                                <p class="noEdit"><?php echo $row['address']; ?></p>
+                                <p class="noEdit"><?php //echo $row['address']; ?></p>
                             </label>
                         </div>
                     </td>
                     <td>
                         <div class="orderForm">
                             <label for="orderStatus">Order Status
-                                <p class="noEdit"><?php echo $row['orderStatus']; ?></p>
+                                <p class="noEdit"><?php //echo $row['orderStatus']; ?></p>
                             </label>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
-                    <td>
+                    <!-- <td>
                         <div class="orderForm">
                             <label for="phoneNumber">Phone Number
-                                <p class="noEdit"><?php echo $row['phone']; ?></p>
+                                <p class="noEdit"><?php //echo $row['phone']; ?></p>
                             </label>
                         </div>
-                    </td>
+                    </td> -->
                     <td>
                         <label for="deliveryDate">Delivery Date
                             <input type="date" id="deliveryDate" name="updateDeliveryDate" value=<?php echo '"'.$row['deliveryDate'].'"'; ?>>
                         </label>
                     </td>
-                </tr>
-                <tr>
                     <td>
                         <div class="orderForm">
+                            <label for="orderStatus">Order Status
+                                <select id="orderStatus" name="updateOrderStatus" value=<?php echo '"'.$row['orderStatus'].'"'; ?>>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Cancel">Cancel</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                    <!-- <td>
+                        <div class="orderForm">
                             <label for="orderDate">Order Date
-                                <p class="noEdit"><?php echo $row['orderDate']; ?></p>
+                                <p class="noEdit"><?php //echo $row['orderDate']; ?></p>
                             </label>
                         </div>
                     </td>
                     <td>
                         <div class="orderForm">
                             <label for="dispatchDate">Dispatched Date
-                                <?php if($row['dispatchDate'] == NULL){?>
+                                <?php //if($row['dispatchDate'] == NULL){?>
                                     <p class="noEdit">Not yet Dispatched</p>
-                                <?php }
-                                else{?>
-                                    <p class="noEdit"><?php echo $row['dispatchDate']; ?></p>
-                                <?php } ?>
+                                <?php //}
+                                //else{?>
+                                    <p class="noEdit"><?php //echo $row['dispatchDate']; ?></p>
+                                <?php //} ?>
                             </label>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td>
                         <div class="orderForm">
                             <label for="paymentMethod">Payment Method
-                                <select id="paymentMethod" name="updatePaymentMethod" value=<?php echo '"'.$row['paymentMethod'].'"'; ?>>
+                                <select id="paymentMethod" name="updatePaymentMethod" value=<?php //echo '"'.$row['paymentMethod'].'"'; ?>>
                                     <option value="COD">Cash on Delivery</option>
                                     <option value="BT">Bank Transactions</option>
                                 </select>
                             </label>
                         </div>
-                    </td>
-                    <td>
+                    </td> -->
+                    <!-- <td>
                         <div class="orderForm">
                             <label for="deliveryRegion">Delivery Region
-                                <select id="deliveryRegion" name="updateDeliveryRegion" value=<?php echo '"'.$row['deliveryRegion'].'"'; ?>>
+                                <select id="deliveryRegion" name="updateDeliveryRegion" value=<?php //echo '"'.$row['deliveryRegion'].'"'; ?>>
                                     <option value="Within Colombo">Within Colombo</option>
                                     <option value="Colombo Suburbs">Colombo Suburbs</option>
                                     <option value="Out of Colombo">Out of Colombo</option>
                                 </select>
                             </label>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             </table>
       </div>
-      <div class="middle">
+      <!-- <div class="middle">
         <table class="table-bottom">
             <thead>
                 <tr>
@@ -247,7 +256,7 @@
                   </tr>
               </tbody>
         </table>
-      </div>
+      </div> -->
 
       <!--Buttons-->
       <div class="btn_back">

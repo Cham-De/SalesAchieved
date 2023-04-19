@@ -131,15 +131,16 @@
                     </div>
                     <div class="dv">
                         <div class="customerName">
-                            Customer ID: <?php echo $row['customerID'];?>
+                            Customer ID: <?php echo $row['customerID'];?><br />
+                            Email Address: <?php echo $row['email'];?>
                         </div>
                         <div class="button view">
                             <table>
                                 <tr>
-                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $social = $row['socialMediaPlatform']?>
+                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-eye"></i></td>
                                     <td><button id="view" class="perf" onclick='viewButton(
-                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`" ?>
+                                        <?php  echo "`$name`, `$address`, `$phone`, `$email`, `$social`" ?>
                                     )'>View</button></td>
                                 </tr>
                             </table>
@@ -147,10 +148,10 @@
                         <div class="button update">
                             <table>
                                 <tr>
-                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $social = $row['socialMediaPlatform']?>
+                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
                                     <td><button id="update" class="update-txt" onclick='updateButton(
-                                        <?php  echo "`$name`, `$address`, `$phone`, `$social`, `$customerID`" ?>
+                                        <?php  echo "`$name`, `$address`, `$phone`, `$email`, `$social`, `$customerID`" ?>
                                     )'>Update</button></td>
                                 </tr>
                             </table>
@@ -175,6 +176,9 @@
                 </label>
                 <label for="phone">Phone Number
                     <input type="string" id="phone" name="phone" required="required">
+                </label>
+                <label for="email">Email Address
+                    <input type="string" id="email" name="email" required="required">
                 </label>
                 <!-- <label for="socialMediaPlatform">Social Media Platform
                     <input type="string" id="socialMediaPlatform" name="socialMediaPlatform" required="required">
@@ -206,6 +210,10 @@
 
                   <label for="phone">Phone Number
                       <input type="text" name="phone" id="updatePhone" required="required">
+                  </label>
+
+                  <label for="email">Email Address
+                      <input type="text" name="email" id="updateEmail" required="required">
                   </label>
                   
       
@@ -252,6 +260,7 @@
             const updateCusID = document.getElementById('updateCustomerID');
             const updateName = document.getElementById('updateName');
             const updatePhone = document.getElementById('updatePhone');
+            const updateEmail = document.getElementById('updateEmail');
             const updateAddress = document.getElementById('updateAddress');
             const updateSocial = document.getElementById('updatesocialMediaPlatform');
             
@@ -276,22 +285,24 @@
             //     popup_container.classList.add('show');
             // });
 
-            function updateButton(name, address, phone, social, customerID) {
+            function updateButton(name, address, phone, email, social, customerID) {
                 popup_container.classList.add('show');
                 save.classList.remove('hide')
                 form_field.removeAttribute('disabled');
                 updateCusID.value = customerID;
                 updateName.value = name;
                 updatePhone.value = phone;
+                updateEmail.value = email;
                 updateAddress.value = address;
                 updateSocial.value = social;
             }
 
-            function viewButton(name, address, phone, social) {
+            function viewButton(name, address, phone, email, social) {
                 popup_container.classList.add('show');
                 form_field.setAttribute('disabled', true);
                 updateName.value = name;
                 updatePhone.value = phone;
+                updateEmail.value = email;
                 updateAddress.value = address;
                 updateSocial.value = social;
             }

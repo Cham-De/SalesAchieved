@@ -140,6 +140,9 @@
                         elseif($row['orderStatus'] == 'Delivered'){?>
                             <h5 class="delivered"><?php echo $row['orderStatus'];?></h5>
                         <?php }
+                        elseif($row['orderStatus'] == 'Cancel'){?>
+                            <h5 class="canceled"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
                         else{?>
                             <h5 class="completed"><?php echo $row['orderStatus'];?></h5>
                         <?php } ?>
@@ -177,14 +180,14 @@
                                     </table>
                                 </div>
                         <?php } ?>
-                        <div class="button delete">
+                        <!-- <div class="button delete">
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-trash"></i></td>
                                     <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </li>
@@ -197,7 +200,7 @@
         </div>
 
         <!--Popup Form - Delete-->
-        <div class="popup-container" id="popup_container_delete">
+        <!-- <div class="popup-container" id="popup_container_delete">
             <div class="popup-modal">
             <form method="post">
                 <p>Do you want to delete order?</p>
@@ -205,7 +208,7 @@
                 <button class="submit" id="save_delete" type="submit" value="Submit" name="submit_delete">Delete</button>
             </form>
             </div>
-        </div>
+        </div> -->
 
         <!--Popup Form - Orders-->
     <div class="popup-container" id="popup_container_order">

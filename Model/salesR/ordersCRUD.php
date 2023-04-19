@@ -10,7 +10,7 @@
 		{
             $check_customerID = mysqli_query($con, "SELECT customerID FROM customer where customerID = '$customerID'");
             if(mysqli_num_rows($check_customerID) > 0){
-			    mysqli_query($con, "INSERT INTO orders(customerID, paymentMethod, deliveryDate, deliveryRegion) values('$customerID', '$paymentMethod', '$deliveryDate', '$deliveryRegion')");
+			    mysqli_query($con, "INSERT INTO orders(customerID, paymentMethod, deliveryDate, deliveryRegion, source) values('$customerID', '$paymentMethod', '$deliveryDate', '$deliveryRegion', 'call')");
                 $orderid = mysqli_insert_id($con);
 
                 $orderDetails = $_POST["orderDetails"];

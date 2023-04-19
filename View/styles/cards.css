@@ -53,6 +53,10 @@
     color: #0044FF;
 }
 
+.orderStatus > .canceled{
+    color: #23252d;
+}
+
 .orderStatus > .completed{
     color: #00AB41;
 }

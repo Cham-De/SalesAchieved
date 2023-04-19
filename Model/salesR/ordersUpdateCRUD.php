@@ -16,10 +16,10 @@
         $orderID = $_GET['orderID'];
         $deliveryDate = htmlspecialchars($_POST["updateDeliveryDate"]);
         $paymentMethod = htmlspecialchars($_POST["updatePaymentMethod"]);
-        $deliveryRegion = htmlspecialchars($_POST["updateDeliveryRegion"]);
+        $orderStatus = htmlspecialchars($_POST["updateOrderStatus"]);
 
         $sql = "UPDATE orders SET 
-        deliveryDate='$deliveryDate', paymentMethod='$paymentMethod', deliveryRegion='$deliveryRegion' WHERE orderID='$orderID'";
+        deliveryDate='$deliveryDate', paymentMethod='$paymentMethod', orderStatus='$orderStatus' WHERE orderID='$orderID'";
         mysqli_query($con, $sql);
         header("Location:../../Controller/salesR/ordersUi.php");
     }

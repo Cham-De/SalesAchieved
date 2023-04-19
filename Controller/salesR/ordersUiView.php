@@ -120,8 +120,12 @@
                                                   else echo $row['dispatchDate'];?></b></td>
             </tr>
             <tr>
+                <td><p>Order Placement</p><b>Through <?php echo $row['source'];?></b></td>
+                <td><p>Approved</p><b><?php echo $row['approvalStatus'];?></b></td>
+            </tr>
+            <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
-                <td><p>Approved</p><b>Yes</b></td>
+                <td><p>Approved</p><b><?php echo $row['approvalStatus'];?></b></td>
             </tr>
         </table>
       </div>
@@ -156,6 +160,10 @@
                   $totalPrice = $totalPrice + $rows['sellingPrice'] * $rows['quantity'];
                   }
                 ?>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Order Value</b></td>
+                  <td><?php echo $totalPrice;?></td>
+                </tr>
                 <tr>
                   <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
                   <td><?php echo $charge;?><hr /></td>
