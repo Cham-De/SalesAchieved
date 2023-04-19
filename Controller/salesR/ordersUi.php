@@ -1,7 +1,7 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/salesR/ordersCRUD.php");
-    $username = check_login("Sales Representative");
+    $userData = check_login("Sales Representative");
 ?>
 
 <!DOCTYPE html>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="dv">
                         <div class="customerName">
-                            <?php echo $row['name'];?><br>
+                            <?php echo $row['customerName'];?><br>
                             <?php echo $row['orderDate'];?>
                         </div>
                         <div class="button view">
@@ -256,6 +256,7 @@
                   <option value="Out of Colombo">Out of Colombo</option>
                 </select>
             </label>
+            <input type="hidden" name="username"  value=<?php echo '"'.$userData['username'].'"' ?>>
             <button class="cancel" id="close_order" type="reset" value="Reset">Cancel</button>
             <button class="submit" id="save_order" type="submit" value="Submit" name="submit">Save</button>
           </form>
@@ -263,36 +264,36 @@
     </div>
 
         <script>
-            const delete_btn = document.getElementById('delete');
+            // const delete_btn = document.getElementById('delete');
             const order_btn = document.getElementById('order_btn');
 
-            const close_delete = document.getElementById('close_delete');
-            const save_delete = document.getElementById('save_delete');
+            // const close_delete = document.getElementById('close_delete');
+            // const save_delete = document.getElementById('save_delete');
             const close_order = document.getElementById('close_order');
             const save_order = document.getElementById('save_order');
 
             const popup_container_delete = document.getElementById('popup_container_delete');
             const popup_container_order = document.getElementById('popup_container_order');
 
-            delete_btn.addEventListener('click', () => {
-                popup_container_delete.classList.add('show');
-            });
+            // delete_btn.addEventListener('click', () => {
+            //     popup_container_delete.classList.add('show');
+            // });
 
             order_btn.addEventListener('click', () => {
                 popup_container_order.classList.add('show');
             });
 
-            close_delete.addEventListener('click', () => {
-                popup_container_delete.classList.remove('show');
-            });
+            // close_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
 
             close_order.addEventListener('click', () => {
                 popup_container_order.classList.remove('show');
             });
 
-            save_delete.addEventListener('click', () => {
-                popup_container_delete.classList.remove('show');
-            });
+            // save_delete.addEventListener('click', () => {
+            //     popup_container_delete.classList.remove('show');
+            // });
 
             save_order.addEventListener('click', () => {
                 popup_container_order.classList.remove('show');

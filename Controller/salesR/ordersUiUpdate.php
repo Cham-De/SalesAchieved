@@ -155,8 +155,10 @@
                         <div class="orderForm">
                             <label for="orderStatus">Order Status
                                 <select id="orderStatus" name="updateOrderStatus" value=<?php echo '"'.$row['orderStatus'].'"'; ?>>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Cancel">Cancel</option>
+                                    <?php
+                                        echo "<option value='Pending' ".(($row["orderStatus"] == "Pending") ? "selected" : "").">Pending</option>";
+                                        echo "<option value='Cancel' ".(($row["orderStatus"] == "Cancel") ? "selected" : "").">Cancel</option>";
+                                    ?>
                                 </select>
                             </label>
                         </div>

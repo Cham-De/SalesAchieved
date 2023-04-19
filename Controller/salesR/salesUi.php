@@ -1,7 +1,8 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/salesR/salesUiCRUD.php");
-    $username = check_login("Sales Representative");
+    $userData = check_login("Sales Representative");
+    $result = getOrderDetails($userData['username']);
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +117,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <?php while ($row = mysqli_fetch_array($result)){
+              $orderID = $row['orderID'];
+              $orderDate = $row['orderDate'];
+              $revenue = $row['revenue'];
+
+              echo "
+              <tr>
+                  <td>$orderID</td>
+                  <td>$orderDate</td>
+                  <td>$revenue</td>
+                  <td>2,750.00</td>
+              </tr>";
+            }?>
+            
+            <!-- <tr>
                 <td>23</td>
                 <td>25/11/2022</td>
                 <td>25,600.00</td>
@@ -145,7 +160,7 @@
                 <td>25/11/2022</td>
                 <td>25,600.00</td>
                 <td>2,750.00</td>
-            </tr>
+            </tr> -->
         </tbody>
       </table>
 

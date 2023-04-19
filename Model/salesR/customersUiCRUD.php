@@ -2,15 +2,15 @@
     require 'connect.php';
     //Create - Form to enter customer details to the system
     if(isset($_POST['submit'])){
-        $name = $_POST["name"];
+        $customerName = $_POST["customerName"];
         $address = $_POST["address"];
         $phone = $_POST["phone"];
         $email = $_POST["email"];
         $socialMediaPlatform = $_POST["socialMediaPlatform"];
-        if(!empty($name) && !empty($address) && !empty($phone) && !empty($socialMediaPlatform))
+        if(!empty($customerName) && !empty($address) && !empty($phone) && !empty($socialMediaPlatform))
 		{
             if(strlen($phone) == 10){
-			    mysqli_query($con, "INSERT INTO customer(name, address, phone, email, socialMediaPlatform) values('$name', '$address', '$phone', '$email', '$socialMediaPlatform')");
+			    mysqli_query($con, "INSERT INTO customer(customerName, address, phone, email, socialMediaPlatform) values('$customerName', '$address', '$phone', '$email', '$socialMediaPlatform')");
                 header("Location:../../Controller/salesR/customersUi.php");
             }
             else{
@@ -33,16 +33,16 @@
     //Update - Update customer details
     if(isset($_POST['update'])) {
         $cusID = htmlspecialchars($_POST["customerID"]);
-        $name = htmlspecialchars($_POST["name"]);
+        $customerName = htmlspecialchars($_POST["customerName"]);
         $address = htmlspecialchars($_POST["address"]);
         $phone = htmlspecialchars($_POST["phone"]);
         $email = htmlspecialchars($_POST["email"]);
         $socialMediaPlatform = htmlspecialchars($_POST["socialMediaPlatform"]);
 
-        if(!empty($name) && !empty($address) && !empty($phone) && !empty($email) && !empty($socialMediaPlatform))
+        if(!empty($customerName) && !empty($address) && !empty($phone) && !empty($email) && !empty($socialMediaPlatform))
 		{
             if(strlen($phone) == 10){
-                $sql = "UPDATE customer set name='$name', address='$address', phone='$phone', email='$email', socialMediaPlatform='$socialMediaPlatform' WHERE customerID = $cusID";
+                $sql = "UPDATE customer set customerName='$customerName', address='$address', phone='$phone', email='$email', socialMediaPlatform='$socialMediaPlatform' WHERE customerID = $cusID";
 			    mysqli_query($con, $sql);
                 header("Location:../../Controller/salesR/customersUi.php");
             }

@@ -127,7 +127,7 @@
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2><?php echo $row['name'];?></h2>
+                        <h2><?php echo $row['customerName'];?></h2>
                     </div>
                     <div class="dv">
                         <div class="customerName">
@@ -137,7 +137,7 @@
                         <div class="button view">
                             <table>
                                 <tr>
-                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
+                                    <?php $name = $row['customerName']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-eye"></i></td>
                                     <td><button id="view" class="perf" onclick='viewButton(
                                         <?php  echo "`$name`, `$address`, `$phone`, `$email`, `$social`" ?>
@@ -148,7 +148,7 @@
                         <div class="button update">
                             <table>
                                 <tr>
-                                    <?php $name = $row['name']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
+                                    <?php $name = $row['customerName']; $address = $row['address']; $phone = $row['phone']; $email = $row['email']; $social = $row['socialMediaPlatform']?>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
                                     <td><button id="update" class="update-txt" onclick='updateButton(
                                         <?php  echo "`$name`, `$address`, `$phone`, `$email`, `$social`, `$customerID`" ?>
@@ -168,8 +168,8 @@
         <div class="popup-container" id="popup_container_customer">
             <div class="popup-modal">
             <form method="post" action="customersUi.php">
-                <label for="name">Customer Name
-                    <input type="string" id="name" name="name" required="required">
+                <label for="customerName">Customer Name
+                    <input type="string" id="customerName" name="customerName" required="required">
                 </label>
                 <label for="address">Customer Address
                     <input type="string" id="address" name="address" required="required">
@@ -204,8 +204,8 @@
               <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
                 <fieldset id="form_field">
                     <input type="hidden" name="customerID" id="updateCustomerID" >
-                  <label for="name">Customer Name
-                      <input type="text" name="name" id="updateName" required="required">
+                  <label for="customerName">Customer Name
+                      <input type="text" name="customerName" id="updateName" required="required">
                   </label>
 
                   <label for="phone">Phone Number

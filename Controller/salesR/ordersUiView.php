@@ -102,8 +102,8 @@
     <div class="middle">
         <table class="prof-table">
             <tr>
-                <td><p>Customer Name</p><b><?php echo $row['name'];?></b></td>
-                <td><p>Payment Status</p><b><?php echo $row['orderStatus'];?></b></td>
+                <td><p>Customer Name</p><b><?php echo $row['customerName'];?></b></td>
+                <td><p>Payment Status</p><b><?php echo $row['paymentStatus'];?></b></td>
             </tr>
             <tr>
                 <td><p>Address</p><b><?php echo $row['address'];?></b></td>
@@ -128,7 +128,7 @@
             <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
                 <td><p>Sales Representative</p><b><?php if ($row['source'] == "Call")
-                                                          echo $row['salesRepresentative'];
+                                                          echo $row['name'];
                                                         else echo '-';?></b></td>
             </tr>
         </table>

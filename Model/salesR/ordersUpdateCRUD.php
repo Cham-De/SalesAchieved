@@ -15,11 +15,11 @@
     if(isset($_POST['update'])){
         $orderID = $_GET['orderID'];
         $deliveryDate = htmlspecialchars($_POST["updateDeliveryDate"]);
-        $paymentMethod = htmlspecialchars($_POST["updatePaymentMethod"]);
+        //$paymentMethod = htmlspecialchars($_POST["updatePaymentMethod"]);
         $orderStatus = htmlspecialchars($_POST["updateOrderStatus"]);
 
         $sql = "UPDATE orders SET 
-        deliveryDate='$deliveryDate', paymentMethod='$paymentMethod', orderStatus='$orderStatus' WHERE orderID='$orderID'";
+        deliveryDate='$deliveryDate', orderStatus='$orderStatus' WHERE orderID='$orderID'";
         mysqli_query($con, $sql);
         header("Location:../../Controller/salesR/ordersUi.php");
     }
