@@ -51,6 +51,7 @@ div.nav_bar{
 div.nav_bar .user-wrapper{
   display: flex;
   align-items: center;
+  margin-left: 80%;
 }
 
 div.nav_bar .user-wrapper img{

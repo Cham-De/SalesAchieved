@@ -1,3 +1,23 @@
+<?php
+session_start();
+require '../../Model/db-con.php';
+
+
+if(isset($_GET['page'])){
+
+  $page = $_GET['page'];
+
+}
+else{
+  $page = 1;
+}
+
+$num_per_page = 05;
+$start_from = ($page-1)*05;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +88,7 @@
             <li class="active"><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
             <li><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
             <li><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
-            <li><a href="#"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
+            <li><a href="reports.php"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
         </ul>
         <table class="side-bar-icons">
           <tr>
@@ -145,68 +165,79 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cat 1</td>
-            <td>PR001</td>
-            <td>Product 1</td>
-            <td>1000.00</td>
-            <td>1500.00</td>
-            <td>24</td>
-            <td>36,000.00</td>
-            <td>24,000.00</td>
-            <td>12,000.00</td>
-          </tr>
-          <tr>
-            <td>Cat 2</td>
-            <td>PR002</td>
-            <td>Product 2</td>
-            <td>1,400.00</td>
-            <td>2,500.00</td>
-            <td>32</td>
-            <td>64,000.00</td>
-            <td>76,000.00</td>
-            <td>54,000.00</td>
-          </tr>
-          <tr>
-            <td>Cat 3</td>
-            <td>PR003</td>
-            <td>Product 3</td>
-            <td>800.00</td>
-            <td>1,350.00</td>
-            <td>72</td>
-            <td>75,000.00</td>
-            <td>74,000.00</td>
-            <td>33,000.00</td>
-          </tr>
-          <tr>
-            <td>Cat 4</td>
-            <td>PR004</td>
-            <td>Product 4</td>
-            <td>800.00</td>
-            <td>1,350.00</td>
-            <td>72</td>
-            <td>75,000.00</td>
-            <td>74,000.00</td>
-            <td>33,000.00</td>
-          </tr>
-          <tr>
-            <td>Cat 1</td>
-            <td>PR005</td>
-            <td>Product 5</td>
-            <td>800.00</td>
-            <td>1,350.00</td>
-            <td>72</td>
-            <td>75,000.00</td>
-            <td>74,000.00</td>
-            <td>33,000.00</td>
-          </tr>
+          <?php
+          
+          $sql = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(o.orderQuantity) as totalQuantity, (p.sellingPrice * SUM(o.orderQuantity)) as totalRevenue, (p.buyingPrice * SUM(o.orderQuantity)) as totalCost, 
+          (p.sellingPrice * SUM(o.orderQuantity)) - (p.buyingPrice * SUM(o.orderQuantity)) as grossProfit
+      FROM product p
+      JOIN orders o ON p.productCode = o.productCode
+      GROUP BY p.productCategory, p.productName limit $start_from, $num_per_page
+      ";
+
+
+$query = mysqli_query($con, $sql);
+
+      if(mysqli_num_rows($query) > 0 ){
+        foreach($query as $thing){
+          ?>
+              <tr>
+                    <td scope="row"><?=$thing['productCategory']; ?></td>
+                    <td><?=$thing['productCode']; ?></td>
+                    <td><?=$thing['productName']; ?></td>
+                    <td><?=$thing['buyingPrice']; ?></td>
+                    <td><?=$thing['sellingPrice']; ?></td>
+                    <td> <?=$thing['totalQuantity']; ?></td>
+                    <td> <?=$thing['totalRevenue']; ?></td>
+                    <td> <?=$thing['totalCost']; ?></td>
+                    <td> <?=$thing['grossProfit']; ?></td>
+              </tr>
+          <?php
+        }
+      }
+      else{
+        echo "<h4>No records</h4>";
+    }
+          ?>
         </tbody>
       </table>
 
-      <div class="navigation-table">
+      <!-- <div class="navigation-table">
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-      </div>
+      </div> -->
+
+      <?php
+  $pr_query = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(o.orderQuantity) as totalQuantity, (p.sellingPrice * SUM(o.orderQuantity)) as totalRevenue, (p.buyingPrice * SUM(o.orderQuantity)) as totalCost, 
+  (p.sellingPrice * SUM(o.orderQuantity)) - (p.buyingPrice * SUM(o.orderQuantity)) as grossProfit
+  FROM product p
+  JOIN orders o ON p.productCode = o.productCode
+  GROUP BY p.productCategory, p.productName";
+  $pr_res = mysqli_query($con, $pr_query);
+
+  $total_records = mysqli_num_rows($pr_res);
+
+  $total_pages = ceil($total_records/$num_per_page);
+?>
+
+<div style="margin-left: 750px; margin-bottom:30px;">
+
+    <?php
+      if($page>1){
+        echo " <button style='margin-left:10px; border: none; outline: none;' ><a href='payment.php?page=".($page-1)." '><i class='fa-solid fa-circle-chevron-left fa-lg' style='color:#F8914A;'></i></a></button>";
+      } 
+
+      for($i = 1; $i < $total_pages; $i++){
+
+        echo " <button style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;' ><a href='payment.php?page=".$i." ' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+
+      }
+
+      if($i>$page){
+        echo " <button style='margin-left:10px; border: none; outline: none;' ><a href='payment.php?page=".($page+1)." '><i class='fa-solid fa-circle-chevron-right fa-lg' style='color:#F8914A;'></i></a></button>";
+      } 
+    ?>
+
+  </div>
 
 
      <script>

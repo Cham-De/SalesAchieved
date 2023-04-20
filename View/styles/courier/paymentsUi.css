@@ -6,6 +6,7 @@
 }
 
 .viewSlip_btn{
+    display: inline-block;
     background: #FFF;
     color: rgb(235, 137, 58);
     font-size: 1vw;

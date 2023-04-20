@@ -1,13 +1,40 @@
 .search_wrapper{
     display: flex;
     /*border: 1px solid black;*/
-    margin-top: 4%;
+    margin-top: 0.5%;
     margin-left: 22%;
     width: 75%;
     /*justify-content: space-between;*/
     
 }
-
+#fetchval{
+  width: 15%;
+}
+.filter2{
+  width: 15%;
+  margin-left: 2%;
+}
+#submit_query{
+  margin-left: 22%;
+}
+.budgetRange, .dateRange{
+  margin-left: 2%;
+}
+.budgetRange input, .dateRange input{
+  padding: 5%;
+  height: 35%;
+  border-radius: 5px;
+  margin-bottom: 4%;
+}
+.budgetRange button, .dateRange button{
+  cursor: pointer;
+  padding: 2%;
+  border-radius: 5px;
+  width: 30%;
+  border: none;
+  background: #2609cc;
+  color: white;
+}
 .search_bar{
     margin-left: 2%;
     background: none;
@@ -77,21 +104,6 @@
 
 }
 
-#add_btn{
-    background: rgb(235, 137, 58);
-    border: none;
-    cursor: pointer;
-    color: white;
-    width: 13%;
-    border-radius: 15px;
-    padding: 10px;
-    margin-left: 45%;
-  }
-  #add_btn:hover{
-    background: white;
-    border: 2px solid rgb(235, 137, 58);
-    color: rgb(235, 137, 58);
-  }
 
   #status{
     border: 1px solid rgb(235, 137, 58);

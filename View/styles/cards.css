@@ -9,7 +9,7 @@
     box-sizing: border-box;
     position: absolute;
     width: 75%;
-    height: 18%;
+    height: auto;
     margin-left: 20%;
     margin-top: 7%;
     background: #FFFFFF;
@@ -61,7 +61,7 @@
 .customerName{
     position: absolute;
     left: 2%;
-    top: 60%;
+    top: 40%;
     font-family: 'Open Sans';
     font-style: normal;
     font-size: 1vw;
@@ -70,4 +70,14 @@
     align-items: center;
     color: rgba(137, 137, 137, 0.82);
     white-space: nowrap;
+}
+.reason{
+    margin-left: 2%;
+    margin-bottom: 1%;
+    color: #970808;
+    font-weight: bold;
+    cursor: pointer;
+}
+.reasonText{
+    margin-left: 2%;
 }

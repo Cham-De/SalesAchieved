@@ -3,7 +3,7 @@
 	$dbhost = "localhost";
 	$dbuser = "root";
 	$dbpass = "";
-	$dbname = "salesachieved";
+	$dbname = "salesachieved_test";
 	// $dbname = "test";
 	
 	if(!$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname))

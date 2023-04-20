@@ -1,3 +1,23 @@
+<?php
+session_start();
+require '../../Model/db-con.php';
+
+
+if(isset($_GET['page'])){
+
+  $page = $_GET['page'];
+
+}
+else{
+  $page = 1;
+}
+
+$num_per_page = 05;
+$start_from = ($page-1)*05;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,12 +54,23 @@
     .content-table{
       margin-left: 21%;
     }
+    .button-link{
+      background: none;
+  border: 1px solid rgb(235, 137, 58);
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 5px;
+    }
+    .button-link a{
+      text-decoration: none;
+      color: rgb(235, 137, 58);
+    }
     </style>
   </head>
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
+      <!-- <div class="search-container">
           <table class="element-container">
               <tr>
                   <td>
@@ -50,7 +81,7 @@
                   </td>
               </tr>
           </table>
-      </div>
+      </div> -->
 
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
@@ -71,7 +102,7 @@
             <li><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
             <li><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
             <li class="active"><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
-            <li><a href="#"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
+            <li><a href="reports.php"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
       </ul>
       <table class="side-bar-icons">
           <tr>
@@ -114,87 +145,100 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button id="v_slip" class="viewSlip_btn">View Slip</button></td>
-            <td>
-                <select id="status" name="stat">
-                    <option value="approve">Approved</option>
-                    <option value="napprove">Not Approved</option>
-                </select>   
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>
-                <select id="status" name="stat">
-                    <option value="approve">Approved</option>
-                    <option value="napprove">Not Approved</option>
-                </select>   
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>
-                <select id="status" name="stat">
-                    <option value="approve">Approved</option>
-                    <option value="napprove">Not Approved</option>
-                </select>   
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>
-                <select id="status" name="stat">
-                    <option value="approve">Approved</option>
-                    <option value="napprove">Not Approved</option>
-                </select>   
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>
-                <select id="status" name="stat">
-                    <option value="approve">Approved</option>
-                    <option value="napprove">Not Approved</option>
-                </select>   
-            </td>
-        </tr>
+
+    <?php
+      $sql = "SELECT o.orderID, o.deliveryDate, SUM(o.orderQuantity * p.sellingPrice) as orderAmount, s.paymentStatus
+      FROM orders o
+      JOIN product p ON o.productCode = p.productCode
+      LEFT JOIN slips s ON o.orderID = s.orderID
+      WHERE s.slipID IS NOT NULL
+      GROUP BY o.orderID, o.deliveryDate limit $start_from, $num_per_page
+      ";
+
+      $query = mysqli_query($con, $sql);
+
+      if(mysqli_num_rows($query) > 0 ){
+        foreach($query as $thing){
+          ?>
+              <tr>
+                    <td scope="row"><?=$thing['orderID']; ?></td>
+                    <td><?=$thing['orderAmount']; ?></td>
+                    <td><?=$thing['deliveryDate']; ?></td>
+                    <!-- <td><a href="view-slip.php?orderID=<?php echo $thing['orderID']; ?>">View Slip</a></td> -->
+                    <td><button class="button-link"><a href="view-slip.php?orderID=<?php echo $thing['orderID']; ?>">View Slip</a></button></td>
+                    <td> <?=$thing['paymentStatus']; ?>
+                      <!-- <select id="status" name="stat">
+                      <option value="approve">Approved</option>
+                      <option value="napprove">Not Approved</option>
+                      </select>    -->
+                    </td>
+              </tr>
+          <?php
+        }
+      }
+      else{
+        echo "<h4>No records</h4>";
+    }
+
+    
+    ?>
+        
     </tbody>
   </table>
 
   <!--Table navigation-->
-  <div class="navigation-table" id="nav_table">
+  <!-- <div class="navigation-table" id="nav_table">
     <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
     <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-</div>
+</div> -->
     
+<?php
+  $pr_query = "SELECT o.orderID, o.deliveryDate, SUM(o.orderQuantity * p.sellingPrice) as orderAmount
+  FROM orders o
+  JOIN product p ON o.productCode = p.productCode
+  GROUP BY o.orderID, o.deliveryDate";
+  $pr_res = mysqli_query($con, $pr_query);
 
+  $total_records = mysqli_num_rows($pr_res);
 
-<script>
+  $total_pages = ceil($total_records/$num_per_page);
+?>
+
+<div style="margin-left: 750px; margin-bottom:30px;">
+
+    <?php
+      if($page>1){
+        echo " <button style='margin-left:10px; border: none; outline: none;' ><a href='payment.php?page=".($page-1)." '><i class='fa-solid fa-circle-chevron-left fa-lg' style='color:#F8914A;'></i></a></button>";
+      } 
+
+      for($i = 1; $i < $total_pages; $i++){
+
+        echo " <button style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;' ><a href='payment.php?page=".$i." ' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+
+      }
+
+      if($i>$page){
+        echo " <button style='margin-left:10px; border: none; outline: none;' ><a href='payment.php?page=".($page+1)." '><i class='fa-solid fa-circle-chevron-right fa-lg' style='color:#F8914A;'></i></a></button>";
+      } 
+    ?>
+
+  </div>
+
+<!-- <script>
     const v_slip = document.getElementById('v_slip');
 
     v_slip.addEventListener('click', () => {
-      location.href = "./view-slip.php";
+      const orderId = v_slip.getAttribute('data-order-id');
+      location.href = `./view-slip.php?orderID=` + orderId;
+
+      //location.href = "./view-slip.php";
     });
 
 
-</script>
+</script> -->
 
-<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
   </body>
 </html>

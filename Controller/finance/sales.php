@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="nav_bar">
-        <div class="search-container">
+        <!-- <div class="search-container">
             <table class="element-container">
               <tr>
                 <td>
@@ -48,7 +48,7 @@
                 </td>
               </tr>
             </table>
-        </div>
+        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -68,7 +68,7 @@
             <li><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
             <li  class="active"><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
             <li><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
-            <li><a href="#"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
+            <li><a href="reports.php"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
         </ul>
         <table class="side-bar-icons">
           <tr>

@@ -1,5 +1,9 @@
 <?php
-    require_once("../../Model/salesR/ordersCRUD.php");
+    session_start();
+    print_r($_SESSION);
+    require '../../Model/db-con.php';
+    require __DIR__.'/../../Model/utils.php';
+    $username = check_login("Sales Representative");
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +54,7 @@
 <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-        <div class="search-container">
+        <!-- <div class="search-container">
             <table class="element-container">
                 <tr>
                     <td>
@@ -61,7 +65,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div> -->
   
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
@@ -119,7 +123,15 @@
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Orders Cards-->
-    <?php while ($row = mysqli_fetch_array($result)){?>
+    <?php 
+    //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
+     $query = "SELECT orders.*, customer.*, slips.rejectedReason 
+          FROM orders 
+          INNER JOIN customer ON orders.customerID = customer.customerID 
+          INNER JOIN slips ON orders.orderID = slips.orderID";
+     $result = mysqli_query($con, $query);
+     
+    while ($row = mysqli_fetch_array($result)){?>
         <?php $orderID = $row['orderID']; ?>
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
@@ -160,7 +172,7 @@
                             <table>
                                 <tr>
                                     <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    <td><button id="performance" class="update-txt"><a href="ordersUiUpdate.php">Update</a></button></td>
+                                    <td><button id="performance" class="update-txt"><a href="uploadSlip.php?orderID=<?php echo $orderID; ?>">Update</a></button></td>
                                 </tr>
                             </table>
                         </div>
@@ -170,7 +182,20 @@
                                     <table>
                                         <tr>
                                             <td><i class="fa-solid fa-angles-up"></i></td>
-                                            <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+
+                                            <?php
+  $quer = "SELECT * FROM slips WHERE orderID = $orderID";
+  $res = mysqli_query($con, $quer);
+
+  if (mysqli_num_rows($res) > 0) {
+    // image already exists, set parameter to "view"
+    $param = "view Slip";
+  } else {
+    // image does not exist, set parameter to "upload"
+    $param = "upload Slip";
+  }
+?>
+                                            <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php?orderID=<?php echo $orderID; ?>"><?php echo $param; ?></a></button></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -184,9 +209,17 @@
                             </table>
                         </div>
                     </div>
+                    <?php
+                        if ($row['rejectedReason']) {
+                            // Show the div if there's a rejectedReason value
+                            echo '<div class="reason" onclick="toggleReason(this)">Payment Rejected</div>';
+                            echo '<div class="reasonText" style="display: none;">'.$row['rejectedReason'].'</div>';
+                          }
+                    ?>
                 </div>
             </li>
         </ul>
+    </div>
         <?php }?>
         <!-- Navigation Arrows -->
         <div class="navigation-table" id="nav_table">
@@ -212,8 +245,8 @@
              <label for="customerID">Customer ID
                 <input type="number" id="customerID" name="customerID" required="required">
             </label>
-            <label for="orderDetails" id="productList">Order Details
-                <select id="orderDetails" name="orderDetails">
+            <label for="productCode" id="productList">Order Details
+                <select id="productCode" name="productCode">
                 <option value="PR001">PR001</option>
                 <option value="PR002">PR002</option>
                 <option value="PR003">PR003</option>
@@ -293,12 +326,12 @@
             var add_more_fields = document.getElementById('add_more_fields');
             var remove_fields = document.getElementById('remove_fields');
             var productList = document.getElementById('productList');
-            var orderDetails = document.getElementById('orderDetails');
+            var productCode = document.getElementById('productCode');
             var count = 1;
 
             add_more_fields.onclick = function(){
-                var newField = orderDetails.cloneNode(true);
-                newField.setAttribute('id', 'orderDetails' + count);
+                var newField = productCode.cloneNode(true);
+                newField.setAttribute('id', 'productCode' + count);
                 count += 1;
                 // newField.setAttribute('placeholder','Another Field');
                 productList.appendChild(newField);
@@ -311,6 +344,17 @@
                 }
             }
         </script>
+
+<script>
+function toggleReason(element) {
+  var rejectedReason = element.nextElementSibling;
+  if (rejectedReason.style.display === "none") {
+    rejectedReason.style.display = "block";
+  } else {
+    rejectedReason.style.display = "none";
+  }
+}
+</script>
 
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

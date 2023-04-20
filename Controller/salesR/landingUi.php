@@ -1,3 +1,11 @@
+<?php
+    // require_once("../../Model/salesR/ordersCRUD.php");
+    session_start();
+    require '../../Model/db-con.php';
+    require __DIR__.'/../../Model/utils.php';
+    $username = check_login("Sales Representative");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

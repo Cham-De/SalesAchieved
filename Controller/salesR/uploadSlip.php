@@ -1,3 +1,9 @@
+<?php 
+  include "../../Model/db-con.php"; 
+  require __DIR__.'/../../Model/utils.php';
+  $username = check_login("Sales Representative");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,6 +21,7 @@
     <link rel="stylesheet" href="../../View/styles/orderDetailsCards.css">
     <!--Stylesheet for buttons-->
     <link rel="stylesheet" href="../../View/styles/salesR/uploadSlip.css">
+    <link rel="stylesheet" href="../../View/styles/courier/viewSlip.css">
 
     <style>
       div.side_bar ul li{
@@ -98,61 +105,119 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>001</td>
-                  <td>Bag</td>
-                  <td>1000.00</td>
-                  <td>1</td>
-                  <td>1000.00</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
+              <?php
+
+$id = $_GET['orderID'];
+
+$sql = "SELECT p.productCode, p.productName, p.sellingPrice, o.orderQuantity, (p.sellingPrice * o.orderQuantity) as totalPrice
+FROM orders o
+JOIN product p ON o.productCode = p.productCode
+WHERE o.orderID = $id;
+";
+
+$query = mysqli_query($con, $sql);
+
+if(mysqli_num_rows($query) > 0 ){
+  foreach($query as $thing){
+    ?>
+        <tr>
+              <td scope="row"><?=$thing['productCode']; ?></td>
+              <td><?=$thing['productName']; ?></td>
+              <td><?=$thing['sellingPrice']; ?></td>
+              <td> <?=$thing['orderQuantity']; ?></td>
+              <td> <?=$thing['totalPrice']; ?></td>
+        </tr>
+    <?php
+  }
+}
+else{
+  echo "<h4>No records</h4>";
+}
+
+
+?>
               </tbody>
         </table>
       </div>
-      <div class="uploadSlip">
+      <!-- <div class="uploadSlip">
         <table class="slipTable">
           <td>
             <tr>
-              <form>
-                <input type="file" id="slip" name="slip">
-              </form>
+            <form action="../../Model/salesR/uploadSlip.php" method="POST" enctype="multipart/form-data">
+                <input type="file" name="paymentSlip">
+                <input type="submit" name="submit" value="Upload Slip">
+            </form>
             </tr>
           </td>
         </table>
-        <!-- <img src="../assets/slip.jpg" alt="bank slip"> -->
-      </div>
+        <img src="../assets/slip.jpg" alt="bank slip">
+      </div> -->
+
+      <?php 
+          $id = $_GET['orderID'];
+
+          $sql = "SELECT * FROM slips WHERE orderID=$id";
+          $res = mysqli_query($con,  $sql);
+
+          if (mysqli_num_rows($res) > 0) {
+          	while ($images = mysqli_fetch_assoc($res)) {  ?>
+             
+             <div class="slip">
+             	<img src="../../uploads/<?=$images['slipUrl']?>">
+             </div>
+          		
+    <?php } }?>
+
+      
+        <!--<img src="../../View/assets/slip.jpg" alt="bank slip">-->
+        <!-- <?php
+              //$id = $_GET['orderID'];
+            ?> -->
+
+<div class="form-container">
+
+<!-- <a href="ordersUi.php"><button id="Back_btn">Back</button></a> -->
+<button id="Back_btn" onclick="window.history.back()">Back</button>
+        <form action="../../Model/salesR/uploadSlipBack.php?orderID=<?php echo $id; ?>" method="POST" enctype="multipart/form-data">
+            
+            <input type="hidden" name="orderID" value="<?php echo $id; ?>">
+            <input type="file" name="my_image">
+
+            <?php
+              $query = "SELECT * FROM slips WHERE orderID = $id";
+              $result = mysqli_query($con, $query);
+
+              if (mysqli_num_rows($result) > 0) {
+                // image already exists, change submit button text
+                echo '<input type="submit" name="submitAgain" value="Re-Upload Slip" id="submitFile">';
+              } else {
+                // image does not exist, show regular submit button
+                echo '<input type="submit" name="submit" value="Upload Slip" id="submitFile">';
+              }
+            ?>
+            
+            <!-- <input type="submit" name="submit" value="Upload Slip"> -->
+            <input type="reset" value="Reset" id="resetFile">
+        </form>
+
+        <!-- <div class="btn_back">
+        <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
+      </div> -->
+
+        </div>
+
+      
+
+    <!-- <div class="slip">
+      <p>Hello</p>
+    </div> -->
+
+
 
       <!--Buttons-->
-      <div class="btn_back">
+      <!-- <div class="btn_back">
         <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
-      </div>
+      </div> -->
       <!-- <div class="btn_uploadSlip">
         <button id="uploadSlip_btn">Upload Slip</button>
       </div> -->

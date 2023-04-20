@@ -1,5 +1,8 @@
 <?php
     require_once("../../Model/salesR/complaintsCRUD.php");
+    require '../../Model/db-con.php';
+    require __DIR__.'/../../Model/utils.php';
+    $username = check_login("Sales Representative");
 ?>
 
 
