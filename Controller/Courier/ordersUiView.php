@@ -1,3 +1,6 @@
+<?php
+  require_once("../../Model/courier/ordersUiViewCRUD.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,6 +76,7 @@
     <!---end of side and nav bars-->
 
     <!--Card Topic-->
+    <?php $row = mysqli_fetch_array($result)?>
     <h1 class="orderNo">
         Order: 23
     </h1>
@@ -81,19 +85,22 @@
       <div class="middle">
         <table class="prof-table">
             <tr>
-                <td><p>Customer Name</p><b>Senu Dilshara</b></td>
-                <td><p>Order Status</p><b>Dispatched</b></td>
+                <td><p>Customer Name</p><b><?php echo $row['customerName'];?></b></td>
+                <td><p>Order Status</p><b><?php echo $row['orderStatus'];?></b></td>
             </tr>
             <tr>
-                <td><p>Address</p><b>23/B, Flower Road, Maharagama</b></td>
-                <td><p>Delivery Date</p><b>02/11/2022</b></td>
+                <td><p>Address</p><b><?php echo $row['address'];?></b></td>
+                <td><p>Delivery Date</p><b><?php echo $row['deliveryDate'];?></b></td>
             </tr>
             <tr>
-                <td><p>Phone Number</p><b>0786546567</b></td>
-                <td><p>Dispatch Date</p><b>12/10/2022</b></td>
+                <td><p>Phone Number</p><b><?php echo $row['phone'];?></b></td>
+                <td><p>Dispatch Date</p><b><?php if($row['dispatchDate'] == NULL){
+                                                          echo 'Not yet set';}
+                                                      else{
+                                                          echo $row['dispatchDate'];}?></b></td>
             </tr>
             <tr>
-                <td><p>Payment Method</p><b>Bank Transfer</b></td>
+                <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
             </tr>
         </table>
       </div>

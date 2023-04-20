@@ -93,12 +93,12 @@
 
 
 
-  <div class="wrapper">
+  <!-- <div class="wrapper">
             <div class="dropdown">
                 <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)">
+                    <span class="button__icon" onclick="myFunction(this)"> -->
                         <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
+                        <!-- <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
                     </span>
                 </button>
                  <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
@@ -109,9 +109,9 @@
              </div> 
             <div class="dropdown">
                 <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)">
+                    <span class="button__icon" onclick="myFunction(this)"> -->
                         <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
+                        <!-- <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
                     </span>
                 </button>
                  <div id="myDropdown2" class="dropdown-content">
@@ -120,7 +120,7 @@
                     <a href="#">April</a>
                  </div>
              </div> 
-    </div>
+    </div> -->
   <!--Orders Cards-->
   <?php while ($row = mysqli_fetch_array($result)){?>
     <?php $orderID = $row['orderID']; ?>
@@ -131,19 +131,34 @@
                 <div class="cmpg">
                     <h2>Order <?php echo $row['orderID'];?></h2>
                     <div class="orderStatus">
-                        <h4>Pending</h4>
+                    <?php 
+                    if($row['orderStatus'] == 'Pending'){?>
+                        <h5 class="pending"><?php echo $row['orderStatus'];?></h5>
+                    <?php } 
+                    elseif($row['orderStatus'] == 'Dispatched'){?>
+                        <h5 class="dispatched"><?php echo $row['orderStatus'];?></h5>
+                    <?php }
+                    elseif($row['orderStatus'] == 'Delivered'){?>
+                        <h5 class="delivered"><?php echo $row['orderStatus'];?></h5>
+                    <?php }
+                    elseif($row['orderStatus'] == 'Cancel'){?>
+                        <h5 class="canceled"><?php echo $row['orderStatus'];?></h5>
+                    <?php }
+                    else{?>
+                        <h5 class="completed"><?php echo $row['orderStatus'];?></h5>
+                    <?php } ?>
                     </div>
                 </div>
                 <div class="dv">
                     <div class="customerName">
-                        <?php echo $row['name'];?><br>
+                        <?php echo $row['customerName'];?><br>
                         <?php echo $row['deliveryDate'];?>
                     </div>
                     <div class="button view">
                         <table>
                             <tr>
                                 <td><i class="fa-solid fa-eye"></i></td>
-                                <td><button id="performance" class="view-txt"><a href="ordersUiView.php">View</a></button></td>
+                                <td><button id="performance" class="view-txt"><?php echo "<a href=\"ordersUiView.php?orderID=$orderID\">View</a>";?></button></td>
                             </tr>
                         </table>
                     </div>
@@ -166,145 +181,6 @@
                 </div>
             </div>
         </li>
-        <!-- <li>
-            <div class="cards">
-                <div class="cmpg">
-                    <h2>Order 24</h2>
-                    <div class="orderStatus">
-                        <h4 style="color: green;">Complete</h4>
-                    </div>
-                </div>
-                <div class="dv">
-                    <div class="customerName">
-                        Bethmi Navanjana<br>
-                        15/11/2022
-                    </div>
-                    <div class="button view">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-eye"></i></td>
-                                <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="button delivered" style="background: blue;">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check" style="color: white;"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#" style="color: white;">Delivered</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
-            </div>
-        </li>
-        <li>
-            <div class="cards">
-                <div class="cmpg">
-                    <h2>Order 25</h2>
-                    <div class="orderStatus">
-                        <h4>Pending</h4>
-                    </div>
-                </div>
-                <div class="dv">
-                    <div class="customerName">
-                        Binu De Silva<br>
-                        15/11/2022
-                    </div>
-                    <div class="button view">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-eye"></i></td>
-                                <td><button class="view-txt"><a href="ordersUiView.php">View</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="button delivered">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#">Delivered</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
-            </div>
-        </li>
-        <li>
-            <div class="cards">
-                <div class="cmpg">
-                    <h2>Order 26</h2>
-                    <div class="orderStatus">
-                        <h4 style="color: green;">Complete</h4>
-                    </div>
-                </div>
-                <div class="dv">
-                    <div class="customerName">
-                        Senu Dilshara<br>
-                        15/11/2022
-                    </div>
-                    <div class="button view">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-eye"></i></td>
-                                <td><button id="performance" class="view-txt"><a
-                                            href="ordersUiView.php">View</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="button delivered" style="background: blue;">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check" style="color: white;"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#" style="color: white;">Delivered</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="button uploadSlip">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-file"></i></td>
-                                <td><button id="performance" class="uploadSlip-txt"><a
-                                            href="viewSlip.php">View Slip</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
-            </div>
-        </li>
-        <li>
-            <div class="cards">
-                <div class="cmpg">
-                    <h2>Order 27</h2>
-                    <div class="orderStatus">
-                        <h4>Pending</h4>
-                    </div>
-                </div>
-                <div class="dv">
-                    <div class="customerName">
-                        Senu Dilshara<br>
-                        15/11/2022
-                    </div>
-                    <div class="button view">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-eye"></i></td>
-                                <td><button id="performance" class="view-txt"><a
-                                            href="ordersUiView.php">View</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="button delivered">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#">Delivered</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
-            </div>
-        </li> -->
     </ul>
     <?php }?>
     
