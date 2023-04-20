@@ -42,25 +42,10 @@
         background: #0E31AD;
         color: #E1EAF5;
       }
-      .view-cards-wrapper{
-        border: none;
-      }
     </style>
 </head>
 <body>
 <div class="nav_bar">
-        <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div>
         <div class="user-wrapper">
             <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
             <div>
@@ -90,9 +75,6 @@
           </tr>
         </table>
     </div>
-
-
-    
 
 
     <!--stat cards-->
@@ -143,7 +125,7 @@
       
     </div>
 
-    <div style="margin-top: 2%;" class="view-cards-wrapper">
+    <div style="margin-top: 2%; margin-bottom: 2%;" class="view-cards-wrapper">
       <h2 class="name">Cost</h2>
       <div class="kpi-cards-row">
         <div class="card-stats">

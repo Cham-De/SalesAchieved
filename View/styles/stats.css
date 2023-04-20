@@ -2,7 +2,7 @@
     box-sizing: border-box;
     position: absolute;
     width: 75%;
-    height: 20%;
+    height: 16%;
     margin-left: 22%;
     margin-top: 2%;
     background: #FFFFFF;
@@ -12,7 +12,7 @@
     padding: 1%;
 }
 .middle-cards li{
-    margin-bottom: 10%;
+    margin-bottom: 8%;
 }
 
 .navigation-table{
@@ -34,13 +34,31 @@
     margin-left: 2%;
     margin-top: 2%;
 }
-
+.status.ongoing{
+    border: 1px solid #aa1414;
+}
+.status.complete{
+    border: 1px solid #19aa14;
+}
+.status.tobelaunched{
+    border: 1px solid #3514aa;
+}
 .status h4{
+    color: #000000;
+    font-weight: lighter;
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
 }
-
+.status.ongoing h4 {
+    color: #aa1414;
+}
+.status.complete h4 {
+    color: #19aa14;
+}
+.status.tobelaunched h4 {
+    color: #3514aa;
+}
 /*.view-button{
     background: rgb(235, 137, 58);
     padding: 10px 25px;
@@ -71,7 +89,7 @@
 }*/
 .cmpg{
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 0.5%;
     margin-left: 20px;
 }
 .dv{
@@ -100,15 +118,16 @@
 
 .kpi-cards-row{
     display: flex;
+    /* border: 1px solid black; */
     justify-content: space-between;
     width: 75%;
     margin-left: 22%;
-    margin-top: 2%;
+    margin-top: 1%;
     height: 70%;
 }
 
 .view-cards-wrapper{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 70%;
 }
 
@@ -140,19 +159,19 @@
 .back{
     background: rgb(235, 137, 58);
     color: #FFFFFF;
-    border: none;
+    border: 1px solid rgb(235, 137, 58);
     padding: 1% 30px;
     border-radius: 12px;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 85%;
+    margin-top: 2%;
+    /* margin-bottom: 1%; */
+    margin-left: 90%;
     cursor: pointer;
 }
 
 .back:hover{
     color: rgb(235, 137, 58);
     background: white;
-    border: 2px solid rgb(235, 137, 58);
+    border: 1px solid rgb(235, 137, 58);
 }
 /*.perf a, .back a{
     text-decoration: none;
@@ -166,11 +185,12 @@
 
 .perf{
     background: rgb(235, 137, 58);
+    cursor: pointer;
     color: white;
-    border: none;
+    border: 1px solid rgb(235, 137, 58);
     border-radius: 12px;
-    width: 90%;
-    padding: 5%;
+    width: 80px;
+    padding: 10%;
     margin-right: 20%;
     margin-top: 2%;
 }
@@ -181,5 +201,5 @@
 .perf:hover{
     color: rgb(235, 137, 58);
     background: white;
-    border: 2px solid rgb(235, 137, 58);
+    border: 1px solid rgb(235, 137, 58);
   }

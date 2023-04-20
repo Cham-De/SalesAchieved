@@ -3,34 +3,6 @@
 session_start();
 require '../db-con.php';
 
-/*if(isset($_POST['uname'])){
-
-    $uname = $_POST['uname'];
-    $pwd = $_POST['pwd'];
-
-    $sql = "SELECT * FROM user WHERE username='".$uname."' AND password='".$pwd."' limit 1";
-
-    $res = mysqli_query($con, $sql);
-
-    if(mysqli_num_rows($res)==1){
-        $row=mysqli_fetch_assoc($res);
-        if($row['user_role'] == 'Digital Marketing Strategist'){
-            header("Location: ../digital marketing strategist/campaigns.php");
-            exit(0);
-        }
-
-        else if($row['user_role'] == 'admin'){
-            header("Location: ../admin/admin-landing.php");
-            exit(0);
-        }
-    }
-    else{
-        $_SESSION['message'] = "Incorrect username or password";
-        header("Location: login-final.php");
-        exit(0);
-    }
-}*/
-
 if(isset($_POST['uname']) && isset($_POST['pwd'])){
 
     $uname = $_POST['uname'];

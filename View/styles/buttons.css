@@ -110,7 +110,9 @@ a{
     display: flex;
     justify-content: right;
     margin-right: 3%;
+    /* border: 2px solid red; */
 }
+
 
 /* .button.delivered:active{
     border: 2px solid #FFF;

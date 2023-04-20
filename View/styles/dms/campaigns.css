@@ -219,3 +219,27 @@
   .pagin_bar{
     margin-left: 400px;
   }
+
+  #searchBtn{
+    color: #fa7e2b;
+    border: none;
+    padding: 10px;
+    background: none;
+  }
+
+  #add_btn{
+    background: rgb(235, 137, 58);
+    border: 1px solid rgb(235, 137, 58);
+    cursor: pointer;
+    color: white;
+    width: 10%;
+    margin-top: 2%;
+    border-radius: 15px;
+    padding: 20px;
+    margin-left: 85%;
+  }
+  #add_btn:hover{
+    background: white;
+    border: 1px solid rgb(235, 137, 58);
+    color: rgb(235, 137, 58);
+  }

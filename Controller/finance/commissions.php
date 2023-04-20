@@ -1,3 +1,10 @@
+<?php
+session_start();
+require '../../Model/db-con.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +54,7 @@
         margin-left: 25%;
       }
 
-      #add_btn_ex{
+      #btnRate{
         cursor: pointer;
         border: none;
         background: #F8914A;
@@ -57,7 +64,7 @@
         margin-left: 2%;
       }
 
-      #add_btn_ex:hover{
+      #btnRate:hover{
         font-weight: 200;
         color: #F8914A;
         border: 2px solid #F8914A;
@@ -68,13 +75,18 @@
         padding-top: 8%;
         padding-bottom: 6%;
       }
+      .topic {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 3.5vh;
+    }
     </style>
 
 </head>
 <body>
   <!--common top nav and side bar content-->
   <div class="nav_bar">
-        <div class="search-container">
+        <!-- <div class="search-container">
             <table class="element-container">
               <tr>
                 <td>
@@ -85,7 +97,7 @@
                 </td>
               </tr>
             </table>
-        </div>
+        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -105,7 +117,7 @@
             <li><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
             <li><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
             <li><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
-            <li><a href="#"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
+            <li><a href="reports.php"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
         </ul>
         <table class="side-bar-icons">
           <tr>
@@ -134,30 +146,30 @@
           </table>
         </div>
 
+        <?php
+          $sql = "SELECT * FROM commissions";
+          $query = mysqli_query($con, $sql);
+             
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+    
+        ?>
         <div class="rightmost-items">
         <div class="chng_rate">
-          <h4>Commission Rate = 5%</h4>
+          <h4>Commission Rate: <?php echo $thing['commRate']; ?>%</h4>
         </div>
+        <?php
+        }
 
-        <button id="add_btn_ex">Change Rate</button>
+      }
+      ?>
+        <button id="btnRate">Change Rate</button>
         </div>
         
 
       </div>
 
-    <!--<div class="search_box">
-      <input type="text" class="input" placeholder="Search...">
-      <div class="icon">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
-    </div>
-
-    <div class="commission">
-      <h4>Commission Rate :</h4>
-      <h2>5%</h2>
-      <button class="chg_com">Change</button>
-    </div>-->
-
+    
     <!--table-->
     <table class="content-table">
         <thead>
@@ -205,6 +217,53 @@
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
       </div>
-      <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+
+      <?php
+          $sql = "SELECT * FROM commissions";
+          $query = mysqli_query($con, $sql);
+             
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+    
+    ?>
+      <div class="popup-container" id="popup_container">
+            <div class="popup-modal" style="max-width: 400px;  margin-left:10px;">
+              <div class="topic">Commission Rate</div>
+              <form action="../../Model/finance/fin-crud.php" method="post">
+              <input type="number" id="s-date" name="rate" value="<?=$thing['commRate']; ?>">
+              <input type="hidden" name="id" value="<?=$thing['commID']; ?>">
+              <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
+              <button class="submit" id="save" type="submit" value="Submit" name="updateC">Update</button>
+              </form>
+    
+            </div>
+    </div>
+    <?php
+        }
+
+    }
+    ?>
+    <script>
+      const btnRate = document.getElementById('btnRate');
+      const close = document.getElementById('close');
+    const save = document.getElementById('save');
+    const popup_container = document.getElementById('popup_container');
+
+    btnRate.addEventListener('click', () => {
+        popup_container.classList.add('show');
+    });
+
+    close.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    save.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    </script>
+
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 </html>

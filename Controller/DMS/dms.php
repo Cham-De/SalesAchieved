@@ -46,7 +46,7 @@ require '../../Model/db-con.php';
 </head>
 <body>
 <div class="nav_bar">
-        <div class="search-container">
+        <!-- <div class="search-container">
             <table class="element-container">
               <tr>
                 <td>
@@ -57,7 +57,7 @@ require '../../Model/db-con.php';
                 </td>
               </tr>
             </table>
-        </div>
+        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
             <div>
@@ -79,7 +79,7 @@ require '../../Model/db-con.php';
         <table class="side-bar-icons">
           <tr>
             <td><i class="fa-regular fa-circle-user"></i></td>
-            <td><a href="./profile.php">Profile</a></td>
+            <td><a href="../home/profile.php">Profile</a></td>
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>
@@ -146,8 +146,8 @@ require '../../Model/db-con.php';
      
     <?php
     
-    $sql = "SELECT chartImg FROM charts";
-    $query = mysqli_query($con, $sql);
+    // $sql = "SELECT chartImg FROM charts";
+    // $query = mysqli_query($con, $sql);
     
     ?>
 
