@@ -196,12 +196,12 @@ require '../../Model/db-con.php';
 
   if (mysqli_num_rows($res) > 0) {
     $row = mysqli_fetch_assoc($res);
-    $paymentStatus = $row['paymentStatus'];
+    $approvalStatus = $row['approvalStatus'];
     $status = '';
 
-    if ($paymentStatus === 'approved') {
+    if ($approvalStatus === 'approved') {
       $status = 'approved';
-    } else if ($paymentStatus === 'disapproved') {
+    } else if ($approvalStatus === 'disapproved') {
       $status = 'disapproved';
     }
   

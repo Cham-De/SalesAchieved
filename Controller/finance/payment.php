@@ -147,12 +147,13 @@ $start_from = ($page-1)*05;
     <tbody>
 
     <?php
-      $sql = "SELECT o.orderID, o.deliveryDate, SUM(o.orderQuantity * p.sellingPrice) as orderAmount, s.paymentStatus
+      $sql = "SELECT o.orderID, o.deliveryDate, SUM(order_product.quantity * p.sellingPrice) as orderAmount, s.approvalStatus
       FROM orders o
-      JOIN product p ON o.productCode = p.productCode
+      INNER JOIN order_product ON o.orderID = order_product.orderID
+      JOIN product p ON order_product.productCode = p.productCode
       LEFT JOIN slips s ON o.orderID = s.orderID
       WHERE s.slipID IS NOT NULL
-      GROUP BY o.orderID, o.deliveryDate limit $start_from, $num_per_page
+      GROUP BY o.orderID limit $start_from, $num_per_page
       ";
 
       $query = mysqli_query($con, $sql);
@@ -166,7 +167,7 @@ $start_from = ($page-1)*05;
                     <td><?=$thing['deliveryDate']; ?></td>
                     <!-- <td><a href="view-slip.php?orderID=<?php echo $thing['orderID']; ?>">View Slip</a></td> -->
                     <td><button class="button-link"><a href="view-slip.php?orderID=<?php echo $thing['orderID']; ?>">View Slip</a></button></td>
-                    <td> <?=$thing['paymentStatus']; ?>
+                    <td> <?=$thing['approvalStatus']; ?>
                       <!-- <select id="status" name="stat">
                       <option value="approve">Approved</option>
                       <option value="napprove">Not Approved</option>
@@ -193,10 +194,11 @@ $start_from = ($page-1)*05;
 </div> -->
     
 <?php
-  $pr_query = "SELECT o.orderID, o.deliveryDate, SUM(o.orderQuantity * p.sellingPrice) as orderAmount
+  $pr_query = "SELECT o.orderID, o.deliveryDate, SUM(order_product.quantity * p.sellingPrice) as orderAmount
   FROM orders o
-  JOIN product p ON o.productCode = p.productCode
-  GROUP BY o.orderID, o.deliveryDate";
+  INNER JOIN order_product ON o.orderID = order_product.orderID
+  JOIN product p ON order_product.productCode = p.productCode
+  GROUP BY o.orderID";
   $pr_res = mysqli_query($con, $pr_query);
 
   $total_records = mysqli_num_rows($pr_res);

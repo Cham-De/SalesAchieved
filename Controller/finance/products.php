@@ -167,10 +167,10 @@ $start_from = ($page-1)*05;
         <tbody>
           <?php
           
-          $sql = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(o.orderQuantity) as totalQuantity, (p.sellingPrice * SUM(o.orderQuantity)) as totalRevenue, (p.buyingPrice * SUM(o.orderQuantity)) as totalCost, 
-          (p.sellingPrice * SUM(o.orderQuantity)) - (p.buyingPrice * SUM(o.orderQuantity)) as grossProfit
+          $sql = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(order_product.quantity) as totalQuantity, (p.sellingPrice * SUM(order_product.quantity)) as totalRevenue, (p.buyingPrice * SUM(order_product.quantity)) as totalCost, 
+          (p.sellingPrice * SUM(order_product.quantity)) - (p.buyingPrice * SUM(order_product.quantity)) as grossProfit
       FROM product p
-      JOIN orders o ON p.productCode = o.productCode
+      INNER JOIN order_product ON order_product.productCode = p.productCode
       GROUP BY p.productCategory, p.productName limit $start_from, $num_per_page
       ";
 
@@ -207,11 +207,11 @@ $query = mysqli_query($con, $sql);
       </div> -->
 
       <?php
-  $pr_query = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(o.orderQuantity) as totalQuantity, (p.sellingPrice * SUM(o.orderQuantity)) as totalRevenue, (p.buyingPrice * SUM(o.orderQuantity)) as totalCost, 
-  (p.sellingPrice * SUM(o.orderQuantity)) - (p.buyingPrice * SUM(o.orderQuantity)) as grossProfit
-  FROM product p
-  JOIN orders o ON p.productCode = o.productCode
-  GROUP BY p.productCategory, p.productName";
+  $pr_query = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(order_product.quantity) as totalQuantity, (p.sellingPrice * SUM(order_product.quantity)) as totalRevenue, (p.buyingPrice * SUM(order_product.quantity)) as totalCost, 
+                (p.sellingPrice * SUM(order_product.quantity)) - (p.buyingPrice * SUM(order_product.quantity)) as grossProfit
+                FROM product p
+                INNER JOIN order_product ON order_product.productCode = p.productCode
+                GROUP BY p.productCategory, p.productName";
   $pr_res = mysqli_query($con, $pr_query);
 
   $total_records = mysqli_num_rows($pr_res);

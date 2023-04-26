@@ -124,7 +124,7 @@
                 <td><p>Order Placement</p><b>Through <?php if ($row['source']!= NULL)
                                                             echo $row['source'];
                                                            else echo 'chatbot';?></b></td>
-                <td><p>Approved</p><b><?php echo $row['approvalStatus'];?></b></td>
+                <td><p>Payment Approval</p><b><?php echo $row['approvalStatus'];?></b></td>
             </tr>
             <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
