@@ -60,8 +60,8 @@
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4>John Doe</h4>
-              <small>Sales Representative</small>
+              <h4><?php echo $userData['name'];?></h4>
+              <small><?php echo $userData['user_role'];?></small>
           </div>
       </div>
   </div>
@@ -107,20 +107,24 @@
               <tbody>
               <?php
 
-$id = $_GET['orderID'];
+                $id = $_GET['orderID'];
 
-$sql = "SELECT p.productCode, p.productName, p.sellingPrice, quantity, (p.sellingPrice * quantity) as totalPrice
-FROM orders o
-INNER JOIN order_product op ON o.orderID = op.orderID
-JOIN product p ON op.productCode = p.productCode
-WHERE o.orderID = $id;
-";
+                $sql = "SELECT p.productCode, p.productName, p.sellingPrice, quantity, charges, (p.sellingPrice * quantity) as totalPrice
+                        FROM orders o
+                        INNER JOIN order_product op ON o.orderID = op.orderID
+                        INNER JOIN delivery ON delivery.deliveryRegion = o.deliveryRegion
+                        JOIN product p ON op.productCode = p.productCode
+                        WHERE o.orderID = $id;
+                      ";
 
-$query = mysqli_query($con, $sql);
+                $charge = 0;
+                $finalPrice = 0;
 
-if(mysqli_num_rows($query) > 0 ){
-  foreach($query as $thing){
-    ?>
+                $query = mysqli_query($con, $sql);
+
+                if(mysqli_num_rows($query) > 0 ){
+                  foreach($query as $thing){
+              ?>
         <tr>
               <td scope="row"><?=$thing['productCode']; ?></td>
               <td><?=$thing['productName']; ?></td>
@@ -129,14 +133,26 @@ if(mysqli_num_rows($query) > 0 ){
               <td> <?=$thing['totalPrice']; ?></td>
         </tr>
     <?php
+      $charge = $thing['charges'];
+      $finalPrice = $finalPrice + $thing['sellingPrice'] * $thing['quantity'];
   }
 }
 else{
   echo "<h4>No records</h4>";
 }
-
-
 ?>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Order Value</b></td>
+                  <td><?php echo $finalPrice;?></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
+                  <td><?php echo $charge;?><hr /></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Charges</b></td>
+                  <td><?php echo $charge + $finalPrice;?><hr /><hr /></td>
+                </tr>
               </tbody>
         </table>
       </div>

@@ -68,8 +68,8 @@
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>John Doe</h4>
-                <small>Sales Representative</small>
+                <h4><?php echo $userData['name'];?></h4>
+                <small><?php echo $userData['user_role'];?></small>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
     <!--Orders Cards-->
     <?php 
     //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
-     $query = "SELECT orders.*, customer.*, slips.rejectedReason 
+     $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
           FROM orders 
           INNER JOIN customer ON orders.customerID = customer.customerID 
           LEFT JOIN slips ON orders.orderID = slips.orderID";
@@ -212,7 +212,7 @@
                         </div> -->
                     </div>
                     <?php
-                        if ($row['rejectedReason']) {
+                        if ($row['approvalStatus'] == "disapproved" && $row['rejectedReason']) {
                             // Show the div if there's a rejectedReason value
                             echo '<div class="reason" onclick="toggleReason(this)">Payment Rejected</div>';
                             echo '<div class="reasonText" style="display: none;">'.$row['rejectedReason'].'</div>';
