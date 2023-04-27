@@ -1,3 +1,8 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    $userData = check_login("Courier");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,8 +47,8 @@
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4>John Doe</h4>
-              <small>Courier</small>
+              <h4><?php echo $userData['name'];?></h4>
+              <small><?php echo $userData['user_role'];?></small>
           </div>
       </div>
   </div>
