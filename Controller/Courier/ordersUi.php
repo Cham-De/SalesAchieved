@@ -125,14 +125,23 @@
              </div> 
     </div> -->
   <!--Orders Cards-->
+  <?php 
+    //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
+    //  $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
+    //       FROM orders 
+    //       INNER JOIN customer ON orders.customerID = customer.customerID 
+    //       LEFT JOIN slips ON orders.orderID = slips.orderID";
+    //  $result = mysqli_query($con, $query);
+    ?>
+    
   <?php while ($row = mysqli_fetch_array($result)){?>
-    <?php $orderID = $row['orderID']; ?>
+    <?php $orderID = $row[0]; ?>
   <div class="cards-middle" id="cards_middle">
     <ul class="middle-cards">
         <li>
             <div class="cards">
                 <div class="cmpg">
-                    <h2>Order <?php echo $row['orderID'];?></h2>
+                    <h2>Order <?php echo $orderID;?></h2>
                     <div class="orderStatus">
                     <?php 
                     if($row['orderStatus'] == 'Pending'){?>
@@ -173,38 +182,82 @@
                             </tr>
                         </table>
                     </div>
+                    <?php
+                    if($row['paymentMethod'] == 'COD'){?>
                     <div class="button uploadSlip">
                         <table>
                             <tr>
                                 <td><i class="fa-solid fa-angles-up"></i></td>
-                                <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+                                <!-- Slip upload functionality -->
+                                <?php
+                                    $quer = "SELECT * FROM slips WHERE orderID = $orderID;";
+                                    $res = mysqli_query($con, $quer);
+
+                                    if (mysqli_num_rows($res) > 0) {
+                                        // image already exists, set parameter to "view"
+                                        $param = "view Slip";
+                                    } else {
+                                        // image does not exist, set parameter to "upload"
+                                        $param = "upload Slip";
+                                    }
+                                ?>
+                                <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php?orderID=<?php echo $orderID; ?>"><?php echo $param; ?></a></button></td>
                             </tr>
                         </table>
                     </div>
+                    <?php }?>
                 </div>
+                <?php
+                    if ($row['approvalStatus'] == "disapproved" && $row['rejectedReason']) {
+                        // Show the div if there's a rejectedReason value
+                        echo '<div class="reason" onclick="toggleReason(this)">Payment Rejected</div>';
+                        echo '<div class="reasonText" style="display: none;">'.$row['rejectedReason'].'</div>';
+                    }
+                ?>
             </div>
         </li>
-    </ul>
     <?php }?>
+    </ul>
     
-    <script>
-        var myFunction = function(target) {
-   target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
-}
-
-window.onclick = function(event) {
-  if (!event.target.matches('.button__text')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+<script>
+    var myFunction = function(target) {
+    target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
     }
-  }
-}
-    </script>
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.button__text')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    // Payment rejected reason
+    remove_fields.onclick = function(){
+        var select_tags = productList.getElementsByTagName('select');
+        if(select_tags.length > 1) {
+            productList.removeChild(select_tags[(select_tags.length) - 1]);
+            var input_tags = productList.getElementsByTagName('input');
+            productList.removeChild(input_tags[(input_tags.length) - 1]);
+        }
+    }
+</script>
+
+<script>
+    // Payment rejeted reason
+    function toggleReason(element) {
+        var rejectedReason = element.nextElementSibling;
+        if (rejectedReason.style.display === "none") {
+            rejectedReason.style.display = "block";
+        } else {
+            rejectedReason.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
