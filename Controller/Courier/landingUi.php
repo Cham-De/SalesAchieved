@@ -1,8 +1,7 @@
 <?php
   require __DIR__.'/../../Model/utils.php';
   require_once("../../Model/courier/landingUiCRUD.php");
-  $role = "Courier";
-  $userData = check_login($role);
+  $agentData = courier_check_login();
 ?>
 
 <!DOCTYPE html>
@@ -56,8 +55,8 @@
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4><?php echo $userData['name'];?></h4>
-              <small><?php echo $userData['user_role'];?></small>
+              <h4><?php echo $agentData['companyName'];?></h4>
+              <small>Courier</small>
           </div>
       </div>
   </div>

@@ -40,11 +40,6 @@ if(isset($_POST['uname']) && isset($_POST['pwd'])){
                     exit(0);
                 }
 
-                else if($row['user_role'] == 'Courier'){
-                    header("Location: ../../Controller/Courier/landingUi.php");
-                    exit(0);
-                }
-
                 else if($row['user_role'] == 'Sales Representative'){
                     header("Location: ../../Controller/salesR/landingUi.php");
                     exit(0);
@@ -75,9 +70,30 @@ if(isset($_POST['uname']) && isset($_POST['pwd'])){
         }
 
         else{
-            $_SESSION['message'] = "Incorrect username or password!";
-            header("Location: ../../Controller/home/login-final.php");
-            exit(0);
+            $sql = "SELECT * FROM agent WHERE agentUsername='$uname' AND password='$pwd'";
+    
+            $result = mysqli_query($con, $sql);
+            if(mysqli_num_rows($result) == 1){
+                $row = mysqli_fetch_assoc($result);
+
+                $_SESSION['username'] = $uname;
+                if ($row['agentUsername'] == $uname && $row['password'] == $pwd){
+                    header("Location: ../../Controller/Courier/landingUi.php");
+                    exit(0);
+                }
+                else
+                {
+                    $_SESSION['message'] = "Incorrect username or password!";
+                    header("Location: ../../Controller/home/login-final.php");
+                    exit(0);
+                }
+            }
+            else
+            {
+                $_SESSION['message'] = "Incorrect username or password!";
+                header("Location: ../../Controller/home/login-final.php");
+                exit(0);
+            }
         }
 
     }
