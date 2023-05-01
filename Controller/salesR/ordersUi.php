@@ -52,7 +52,7 @@
 <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-        <!-- <div class="search-container">
+        <div class="search-container">
             <table class="element-container">
                 <tr>
                     <td>
@@ -63,9 +63,11 @@
                     </td>
                 </tr>
             </table>
-        </div> -->
+        </div>
   
         <div class="user-wrapper">
+
+            <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
                 <h4><?php echo $userData['name'];?></h4>
