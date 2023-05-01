@@ -2,6 +2,7 @@
     require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/courier/ordersCRUD.php");
     $agentData = courier_check_login();
+    $result = getOrderDetails($agentData['agentUsername']);
 ?>
 
 <!DOCTYPE html>
