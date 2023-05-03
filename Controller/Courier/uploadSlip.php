@@ -64,6 +64,7 @@
           <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
           <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
           <li><a href="paymentsUi.php"><i class="fa-solid fa-user-group"></i>Payments</a></li>
+          <li><a href="requests.php"><i class="fa-solid fa-circle-exclamation"></i>Requests</a></li>
       </ul>
       <table class="side-bar-icons">
           <tr>
