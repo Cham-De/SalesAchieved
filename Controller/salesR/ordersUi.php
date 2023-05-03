@@ -250,8 +250,8 @@
              <label for="customerID">Customer ID
                 <input type="number" id="customerID" name="customerID" required="required">
             </label>
-            <label for="productCode" id="productList">Order Details
-                <select id="productCode" name="productCode">
+            <label for="orderDetails" id="productList">Order Details
+                <select id="orderDetails" name="orderDetails">
                 <option value="PR001">PR001</option>
                 <option value="PR002">PR002</option>
                 <option value="PR003">PR003</option>
@@ -338,14 +338,14 @@
             var add_more_fields = document.getElementById('add_more_fields');
             var remove_fields = document.getElementById('remove_fields');
             var productList = document.getElementById('productList');
-            var productCode = document.getElementById('productCode');
+            var orderDetails = document.getElementById('orderDetails');
             var quantityDetails = document.getElementById('quantityDetails');
             var count = 1;
 
             add_more_fields.onclick = function(){
-                var newField = productCode.cloneNode(true);
-                newField.setAttribute('id', 'productCode' + count);
-                newField.setAttribute('name', 'productCode' + count);
+                var newField = orderDetails.cloneNode(true);
+                newField.setAttribute('id', 'orderDetails' + count);
+                newField.setAttribute('name', 'orderDetails' + count);
                 productList.appendChild(newField);
                 var newField = quantityDetails.cloneNode(true);
                 newField.setAttribute('id', 'quantityDetails' + count);

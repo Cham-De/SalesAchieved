@@ -34,7 +34,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 				$sql = "INSERT INTO slips(slipUrl, orderID) 
 				        VALUES('$new_img_name', '$id')";
 				mysqli_query($con, $sql);
-				header("Location: ../../Controller/salesR/uploadSlip.php?orderID=" . $id);
+				header("Location: ../../Controller/courier/uploadSlip.php?orderID=" . $id);
 			}else {
 				$em = "You can't upload files of this type";
 		        header("Location: uploadSlip.php?error=$em");
@@ -82,7 +82,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 				$sql = "INSERT INTO slips(slipUrl, orderID) 
 				        VALUES('$new_img_name', '$id')";
 				mysqli_query($con, $sql);
-				header("Location: ../../Controller/salesR/uploadSlip.php?orderID=" . $id);
+				header("Location: ../../Controller/courier/uploadSlip.php?orderID=" . $id);
 			}else {
 				$em = "You can't upload files of this type";
 		        header("Location: uploadSlip.php?error=$em");
