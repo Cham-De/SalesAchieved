@@ -1,3 +1,8 @@
+<?php
+
+require '../../Model/db-con.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,18 +42,6 @@
 </head>
 <body>
 <div class="nav_bar">
-        <!-- <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -126,76 +119,58 @@
      </div>
       </div>
 
-
-
-      
+ 
      <table class="content-table">
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Product</th>
-            <th>Sales Rep Name</th>
-            <th>Selling Price<br>(Rs.)</th>
-            <th>Quantity Sold</th>
+            <!-- <th>Product Category</th> -->
+            <th>Sales Rep</th>
             <th>Date</th>
+            <!-- <th>Selling Price<br>(Rs.)</th>
+            <th>Quantity Sold</th> -->
             <th>Revenue<br>(Rs.)</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>11</td>
-            <td>Product 4</td>
-            <td>Anil Kumara</td>
-            <td>1500.00</td>
-            <td>2</td>
-            <td>23/02/2022</td>
-            <td>3,000.00</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Product 2</td>
-            <td>Sanduni Perera</td>
-            <td>2500.00</td>
-            <td>1</td>
-            <td>25/02/2022</td>
-            <td>2,000.00</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Product 3</td>
-            <td>Chathu De Silva</td>
-            <td>1500.00</td>
-            <td>1</td>
-            <td>15/02/2022</td>
-            <td>2,100.00</td>
-          </tr>
-          <tr>
-            <td>13</td>
-            <td>Product 3</td>
-            <td>Anil Kumara</td>
-            <td>1900.00</td>
-            <td>2</td>
-            <td>20/02/2022</td>
-            <td>3,800.00</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Product 5</td>
-            <td>Malka Nayomi</td>
-            <td>1600.00</td>
-            <td>3</td>
-            <td>11/02/2022</td>
-            <td>4,800.00</td>
-          </tr>
+          <?php
+          // $sql = "SELECT d.productCode, d.quantity, o.orderID, p.productCategory, p.sellingPrice, (p.sellingPrice * SUM(d.quantity)) as totalRevenue, u.name, o.orderDate
+          // FROM order_product d
+          // JOIN product p ON d.productCode = p.productCode
+          // JOIN orders o ON o.orderID = d.orderID
+          // JOIN user u ON u.username = o.username
+          // GROUP BY p.productCode, p.productCategory
+          // ";
+
+          $sql="SELECT o.orderID, u.name, o.orderDate, SUM(p.sellingPrice * d.quantity) as revenue
+          FROM order_product d
+          JOIN product p ON d.productCode = p.productCode
+          JOIN orders o ON o.orderID = d.orderID
+          JOIN user u ON u.username = o.username
+          GROUP BY o.orderID, u.name, o.orderDate
+          ORDER BY o.orderDate";
+          
+          $query = mysqli_query($con, $sql);
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+              ?>
+              <tr>
+                <td><?=$thing['orderID']; ?></td>
+                <td><?=$thing['name']; ?></td>
+                <td><?=$thing['orderDate']; ?></td>
+                <td><?=$thing['revenue']; ?></td>
+              </tr>
+              <?php
+            }
+          }
+          else{
+            echo "<h4>No records</h4>";
+          }
+          ?>
         </tbody>
       </table>
 
-      <div class="navigation-table">
-        <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-        <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-      </div>
-
-
+      
      <script>
         var myFunction = function(target) {
    target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
