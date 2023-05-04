@@ -1,3 +1,9 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    
+    $userData = check_login("Owner");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -282,7 +288,7 @@
                 
         </ul>
         </div>
-         
+  
         <div class="navigation-table">
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>

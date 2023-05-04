@@ -1,3 +1,8 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    
+    $userData = check_login("Owner");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
