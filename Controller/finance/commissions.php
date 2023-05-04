@@ -13,9 +13,12 @@ require '../../Model/db-con.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commissions</title>
     <!--stylesheet for icons-->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
+    <link rel="stylesheet" href="../../View/styles/searchNfilter.css">
     
     <style>
       .chng_rate{
@@ -40,6 +43,10 @@ require '../../Model/db-con.php';
         margin: 0 auto;
       }
 
+      #fetchval{
+        width: 15%;
+        margin-left: 22%;
+      }
       .rightmost-items{
         display: flex;
         width: 30%;
@@ -80,6 +87,19 @@ require '../../Model/db-con.php';
       margin-bottom: 20px;
       font-size: 3.5vh;
     }
+    
+    .popup-modal{
+    padding: 20px;
+    margin-left: 35%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    max-width: 500px;
+    /*border: 1px solid rgba(131, 10, 10, 0.87);*/
+    background: #FFFFFF;
+    border: 1px solid rgba(222, 221, 221, 0.69);
+    border-radius: 15px;
+}
     </style>
 
 </head>
@@ -133,7 +153,7 @@ require '../../Model/db-con.php';
     <!---end of side and nav bars-->
 
     <div class="btn_cmpg_ex">
-        <div class="search_container">
+        <!-- <div class="search_container">
           <table class="element_container">
             <tr>
               <td>
@@ -144,10 +164,29 @@ require '../../Model/db-con.php';
               </td>
             </tr>
           </table>
-        </div>
+        </div> -->
+
+        <select name="fetchval" id="fetchval" onchange="if (this.value == 'Status' || this.value == 'Objective') { populate('fetchval', 'fetchval2'); }">
+          <option value="" disabled="" selected="" >--Select Month--</option>
+          <option value="None">None</option>
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="April">April</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
 
         <?php
-          $sql = "SELECT * FROM commissions";
+          $sql = "SELECT * FROM commissions
+          ORDER BY commID DESC
+          LIMIT 1";
           $query = mysqli_query($con, $sql);
              
           if(mysqli_num_rows($query) > 0 ){
@@ -163,7 +202,7 @@ require '../../Model/db-con.php';
 
       }
       ?>
-        <button id="btnRate">Change Rate</button>
+        <button id="btnRate" onclick="rateChange('<?php echo $thing['commDate']; ?>')">Change Rate</button>
         </div>
         
 
@@ -174,53 +213,50 @@ require '../../Model/db-con.php';
     <table class="content-table">
         <thead>
           <tr>
-            <th>Sales Rep ID</th>
-            <th>Name</th>
-            <th>Successful Orders<br>(Rs.)</th>
+            <th>Sales Rep</th>
+            <th>Revenue generated<br>(Rs.)</th>
             <th>Commission<br>(Rs.)</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>12</td>
-            <td>Sanduni Perera</td>
-            <td>15,000.00</td>
-            <td>750.00</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Vihanga Anushka</td>
-            <td>13,000.00</td>
-            <td>650.00</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Malka Nayomi</td>
-            <td>19,000.00</td>
-            <td>950.00</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Chathu De Silva</td>
-            <td>6,800.00</td>
-            <td>340.00</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td>Anil Kumara</td>
-            <td>27,860.00</td>
-            <td>1,393.00</td>
-          </tr>
+        <?php
+          $com = "SELECT o.orderID, o.orderStatus, u.name, o.orderDate, SUM((p.sellingPrice-p.buyingPrice) * op.quantity) as revenue, SUM((p.sellingPrice - p.buyingPrice) * op.quantity) * c.commRate / 100 AS commission_amount
+          FROM orders o
+          JOIN order_product op ON o.orderID = op.orderID
+          JOIN product p ON op.productCode = p.productCode
+          JOIN user u ON u.username = o.username
+          JOIN commissions c ON DATE_FORMAT(c.commDate, '%Y-%m') = DATE_FORMAT(o.orderDate, '%Y-%m')
+          WHERE o.orderStatus = 'Complete'
+          GROUP BY u.name";
+
+          $query = mysqli_query($con, $com);
+          if(mysqli_num_rows($query) > 0 ){
+            foreach($query as $thing){
+              ?>
+              <tr>
+                <td><?=$thing['name']; ?></td>
+                <td><?=$thing['revenue']; ?></td>
+                <td><?=$thing['commission_amount']; ?></td>
+              </tr>
+              <?php
+            }
+          }
+          else{
+            echo "<h4>No records</h4>";
+          }
+          ?>
         </tbody>
       </table>
-      <div class="navigation-table">
+      <!-- <div class="navigation-table">
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-      </div>
+      </div> -->
 
 
       <?php
-          $sql = "SELECT * FROM commissions";
+          $sql = "SELECT * FROM commissions
+          ORDER BY commID DESC
+          LIMIT 1";
           $query = mysqli_query($con, $sql);
              
           if(mysqli_num_rows($query) > 0 ){
@@ -229,16 +265,9 @@ require '../../Model/db-con.php';
     ?>
       <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="max-width: 400px;  margin-left:10px;">
-              <div class="topic">Commission Rate</div>
-              <form action="../../Model/finance/fin-crud.php" method="post">
-              <input type="number" id="s-date" name="rate" value="<?=$thing['commRate']; ?>">
-              <input type="hidden" name="id" value="<?=$thing['commID']; ?>">
-              <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
-              <button class="submit" id="save" type="submit" value="Submit" name="updateC">Update</button>
-              </form>
-    
+
             </div>
-    </div>
+      </div>
     <?php
         }
 
@@ -246,22 +275,45 @@ require '../../Model/db-con.php';
     ?>
     <script>
       const btnRate = document.getElementById('btnRate');
-      const close = document.getElementById('close');
-    const save = document.getElementById('save');
-    const popup_container = document.getElementById('popup_container');
+      // const close = document.getElementById('close');
+    // const save = document.getElementById('save');
+    // const popup_container = document.getElementById('popup_container');
 
     btnRate.addEventListener('click', () => {
         popup_container.classList.add('show');
     });
 
-    close.addEventListener('click', () => {
-        popup_container.classList.remove('show');
-    });
+    // close.addEventListener('click', () => {
+    //     popup_container.classList.remove('show');
+    // });
 
-    save.addEventListener('click', () => {
-        popup_container.classList.remove('show');
-    });
+    // save.addEventListener('click', () => {
+    //     popup_container.classList.remove('show');
+    // });
 
+    </script>
+
+    <script>
+      var rateDate;
+      function rateChange(dateString){
+        var date = new Date(Date.parse(dateString));
+        var formatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        var rateDate = formatter.format(date);
+        console.log("latest date :",rateDate);
+
+        $(document).ready(function(){
+          $.ajax({
+            url: "../../Model/finance/fin-crud.php",
+            type: "POST",
+            data: {rateDate: rateDate},
+            success: function(response){
+            // Handle the response from the server here
+            console.log(response);
+            $(".popup-modal").html(response);
+          }
+        });
+      }); 
+      }
     </script>
 
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>

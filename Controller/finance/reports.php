@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require '../../Model/db-con.php';?>
 
 <!DOCTYPE html>
@@ -10,6 +10,8 @@ require '../../Model/db-con.php';?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
@@ -41,7 +43,13 @@ require '../../Model/db-con.php';?>
       ul {
         list-style: none;
       }
-      
+      .initial{
+        color: rgb(188, 191, 192);
+        font-size: 2.3vh;
+        font-weight: bolder;
+        margin-top: 40%;
+        margin-left: 35%;
+      }
     </style>
 </head>
 <body>
@@ -82,50 +90,52 @@ require '../../Model/db-con.php';?>
     <div class="outer-container">
           <div class="left-column">
           <!-- content for left column goes here -->
-          <ul><li class="title_li">Daily</li>
-          <li class="report_name">Sales Report</li>
-          <li class="report_name">Accounts Receivable</li>
+          <ul>
+            <!-- <li class="title_li">Sales</li> -->
+          <!-- <li class="report_name" value="sales_report" onclick="getContent('sales_report')" >Sales Report</li> -->
 
-          <li class="title_li_below">Weekly</li>
-          <li class="report_name">Inventory Report</li>
+          <li class="title_li">Inventory</li>
+          <li class="report_name" value="inventory_report" onclick="getContent('inventory_report')">Inventory Report</li>
 
-          <li class="title_li_below">Monthly</li>
-          <li class="report_name">Income Statement</li>
-          <li class="report_name">Budget Forecast</li>
+          <li class="title_li_below">Budget</li>
+          <li class="report_name" value="budget_forecast" onclick="getContent('budget_forecast')">Budget Forecast</li>
+          <li class="report_name" value="income_stmt" onclick="getContent('income_stmt')">Income Statement</li>
+          <!-- <li class="report_name" value="accounts_rec" onclick="getContent('accounts_rec')">Accounts Receivable</li> -->
 
-          <li class="title_li_below">Unspecified</li>
-          <li class="report_name">Performance Review</li>
+          <li class="title_li_below">Performance</li>
+          <li class="report_name" value="performance" onclick="getContent('performance')">Performance Review</li>
           </ul>
           </div>
 
           <div class="right-column">
             <div class="content">
-              <h3>Performance Review</h3>
-              <Label for="subjet" class="subject_label">Select a subject</Label>
-              <select name="subject" id="subject">
-              <option value="" disabled="" selected="" >Select Subject</option>
-                <option value="">Products</option>
-                <option value="">Users</option>
-                <option value="">Processes</option>
-              </select>
-
-              <Label for="month_range" class="subject_label">Month</Label>
-              <select name="month" id="month">
-                <option value="" disabled="" selected="" >--Select--</option>
-                <option value="">January</option>
-                <option value="">February</option>
-                <option value="">March</option>
-                <option value="">April</option>
-                <option value="">May</option>
-                <option value="">June</option>
-                <option value="">July</option>
-              </select>
-
+              <p class="initial">Select a report</p>
             </div>
           </div>
     </div>
       
-    
+    <script>
+
+      var reportName;
+      function getContent(name){
+
+        reportName = name;
+        console.log("report name :",reportName);
+
+        $(document).ready(function(){
+          $.ajax({
+            url: "reportsFetch.php",
+            type: "POST",
+            data: {reportName: reportName},
+            success: function(response){
+            // Handle the response from the server here
+            console.log(response);
+            $(".content").html(response);
+          }
+        });
+      }); 
+      }
+    </script>
 
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

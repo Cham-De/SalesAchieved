@@ -23,6 +23,7 @@ form{
   padding-right: 10px; /* add some padding to the right of the left column */
   padding-left: 3%;
   padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 .outer-container{
@@ -51,8 +52,12 @@ form{
     font-size: 2.3vh;
 }
 .report_name{
+    cursor: pointer;
     margin-left: 10%;
     margin-bottom: 3%;
+}
+.report_name:hover{
+    color: blue;
 }
 .subject_label{
     display: block;
@@ -62,17 +67,55 @@ form{
 }
 .content{
     padding-top: 5%;
+    padding-bottom: 5%;
 }
 .content h3{
-    margin-bottom: 5%;
+    margin-bottom: 8%;
 }
 #subject{
     display: block;
     width: 40%;
 }
 #month{
-    width: 40%;
+    /* width: 40%; */
+    display: block;
+}
+#month_label{
+    margin-top: 6%;
 }
 option{
     overflow-y:scroll;
+}
+.report_btn{
+    display: block;
+    cursor: pointer;
+    margin-top: 8%;
+    border: 1px solid rgb(0, 0, 145);
+    color: white;
+    background: rgb(0, 0, 145);
+    border-radius: 10px;
+    padding: 2%;
+}
+.range{
+    display: flex;
+    margin-top: 5%;
+}
+.range_sub{
+    display: block;
+}
+.range_sub:nth-of-type(2) {
+    /* Add styles for the second block only */
+    margin-left: 5%;
+}
+.remarks_label{
+    display: block;
+    color: rgb(188, 191, 192);
+    font-size: 2.3vh;
+    font-weight: bolder;
+}
+.remarks{
+    display: block;
+}
+.remarks_area{
+    margin-top: 5%;
 }
