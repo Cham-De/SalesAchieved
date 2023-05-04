@@ -9,6 +9,11 @@
         mysqli_query($con, "DELETE FROM request WHERE requestID = \"$id\"");
     }
 
+    if(isset($_POST['cancel'])){
+        $id = $_POST['requestID'];
+        mysqli_query($con, "DELETE FROM request WHERE requestID = \"$id\"");
+    }
+
     function getRequest($agentUsername){
         $query = "SELECT * FROM request 
                     INNER JOIN orders ON orders.orderID = request.orderID
