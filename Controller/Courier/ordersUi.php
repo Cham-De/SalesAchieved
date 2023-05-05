@@ -182,22 +182,25 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="button delivered">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#">Delivered</a></button></td>
-                            </tr>
-                        </table>
+                    <?php
+                        if($row['orderStatus'] != 'Delivered'){
+                    ?>
+                        <div class="button delivered">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-clipboard-check"></i></td>
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+                                            <button id="delivered" class="delivered-txt" type="delivered" value="Delivered" name="delivered">Delivered</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                    <!-- <div class="button delete">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check"></i></td>
-                                <td><button id="addNote" class="delete-txt"><a href="#">Add Note</a></button></td>
-                            </tr>
-                        </table>
-                    </div> -->
+                    <?php
+                        }
+                    ?>
                     <?php
                     if($row['paymentMethod'] == 'COD'){?>
                     <div class="button uploadSlip">

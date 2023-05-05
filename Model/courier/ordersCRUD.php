@@ -12,6 +12,7 @@
         return $result;
     }
 
+    //Add Note CRUD
     if(isset($_POST['submit'])){
         $orderID = $_POST["orderID"];
         $note = $_POST["note"];
@@ -29,5 +30,11 @@
             </script>";
 		}
         unset($_POST);
+    }
+
+    //Delivered Button CRUD
+    if(isset($_POST["delivered"])){
+        $orderID = $_POST['orderID'];
+        mysqli_query($con, "UPDATE orders SET orderStatus = \"Delivered\" WHERE orderID = \"$orderID\"");
     }
 ?>
