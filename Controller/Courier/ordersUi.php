@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="../../View/styles/buttons.css">
     <link rel="stylesheet" href="../../View/styles/graphs.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <!--Stylesheet for popup form-->
+    <link rel="stylesheet" href="../../View/styles/popupForm.css">
+    <!--Stylesheet for quick actoins buttons-->
+    <link rel="stylesheet" href="../../View/styles/quickActions.css">
 
 
     <style>
@@ -95,7 +99,10 @@
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
   <!---end of side and nav bars-->
 
-
+    <!--Top right corner buttons-->
+    <div class="btn_three">
+        <button id="addNote">Add Note</button>
+    </div>
 
   <!-- <div class="wrapper">
             <div class="dropdown">
@@ -182,7 +189,15 @@
                                 <td><button id="performance" class="delivered-txt"><a href="#">Delivered</a></button></td>
                             </tr>
                         </table>
-                    </div>
+                        </div>
+                    <!-- <div class="button delete">
+                        <table>
+                            <tr>
+                                <td><i class="fa-solid fa-clipboard-check"></i></td>
+                                <td><button id="addNote" class="delete-txt"><a href="#">Add Note</a></button></td>
+                            </tr>
+                        </table>
+                    </div> -->
                     <?php
                     if($row['paymentMethod'] == 'COD'){?>
                     <div class="button uploadSlip">
@@ -206,8 +221,9 @@
                             </tr>
                         </table>
                     </div>
-                    <?php }?>
+                    <?php }?>  
                 </div>
+                
                 <?php
                     if ($row['approvalStatus'] == "disapproved" && $row['rejectedReason']) {
                         // Show the div if there's a rejectedReason value
@@ -219,7 +235,44 @@
         </li>
     <?php }?>
     </ul>
+
+    <!-- Popup Form - Add note -->
+    <div class="popup-container" id="popup_container">
+                    <div class="popup-modal">
+                        <form method="post" action="ordersUi.php">
+                            <label for="orderID">Order ID
+                                <input type="number" id="orderID" name="orderID" required="required">
+                            </label>
+                            <label for="note">Add Note
+                                <textarea name="note" id="noteID" required="required"></textarea>
+                            </label>
+                            
+                            <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
+                            <button class="submit" id="save" type="submit" value="Submit" name="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
     
+<!-- Popup Form Script -->
+<script>
+    const addNote = document.getElementById('addNote');
+    const close = document.getElementById('close');
+    const save = document.getElementById('save');
+    const popup_container = document.getElementById('popup_container');
+
+    addNote.addEventListener('click', () => {
+        popup_container.classList.add('show');
+    });
+
+    close.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    save.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+</script>
+
 <script>
     var myFunction = function(target) {
     target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
@@ -260,5 +313,11 @@
         }
     }
 </script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 </html>
