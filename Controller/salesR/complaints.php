@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Sales Rep-Dashboard test</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -27,8 +27,6 @@
     <link rel="stylesheet" href="../../View/styles/quickActions.css">
     <!--Stylesheet for popup form-->
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
-    <!--Stylesheet for table search bar-->
-    <link rel="stylesheet" href="../../View/styles/tableSearch.css">
 
     <style>
       div.side_bar ul li{
@@ -97,21 +95,6 @@
   <div class="btn_three">
         <button id="complaint_btn">Add<br>Complaint</button>
     </div>
-
-    <!--Table search bar-->
-    <div class="search_container">
-        <table class="element_container">
-          <tr>
-            <td>
-              <input type="text" placeholder="Search Table..." class="search">
-            </td>
-            <td>
-              <a><i class="fa-solid fa-magnifying-glass"></i></a>
-            </td>
-          </tr>
-        </table>
-    </div>
-    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
     <!--Table-->
     <table class="content-table">

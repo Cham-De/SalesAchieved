@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Rep</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -120,41 +120,36 @@
                 </tr>
               </thead>
               <tbody>
+              <?php
+                $charge = 0;
+                $totalPrice = 0;
+                while($rows = mysqli_fetch_assoc($resultOrder))
+                  {
+              ?>
                 <tr>
-                  <td>001</td>
-                  <td>Bag</td>
-                  <td>1000.00</td>
-                  <td>1</td>
-                  <td>1000.00</td>
+                  <td><?php echo $rows['productCode'];?></td>
+                  <td><?php echo $rows['productName'];?></td>
+                  <td><?php echo $rows['sellingPrice'];?></td>
+                  <td><?php echo $rows['quantity'];?></td>
+                  <td><?php echo $rows['sellingPrice'] * $rows['quantity'];?></td>
+                </tr>
+                <?php
+                  $charge = $rows['charges'];
+                  $totalPrice = $totalPrice + $rows['sellingPrice'] * $rows['quantity'];
+                  }
+                ?>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Order Value</b></td>
+                  <td><?php echo $totalPrice;?></td>
                 </tr>
                 <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
+                  <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
+                  <td><?php echo $charge;?><hr /></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Charges</b></td>
+                  <td><?php echo $charge + $totalPrice;?><hr /><hr /></td>
+                </tr>
               </tbody>
         </table>
       </div>
