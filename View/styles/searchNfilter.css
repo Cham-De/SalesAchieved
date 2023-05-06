@@ -1,0 +1,135 @@
+.search_wrapper{
+    display: flex;
+    /*border: 1px solid black;*/
+    margin-top: 0.5%;
+    margin-left: 22%;
+    width: 75%;
+    /*justify-content: space-between;*/
+    
+}
+#fetchval{
+  width: 15%;
+}
+.filter2{
+  width: 15%;
+  margin-left: 2%;
+}
+#submit_query{
+  margin-left: 22%;
+}
+.budgetRange, .dateRange{
+  margin-left: 2%;
+}
+.budgetRange input, .dateRange input{
+  padding: 5%;
+  height: 35%;
+  border-radius: 5px;
+  margin-bottom: 4%;
+}
+.budgetRange button, .dateRange button{
+  cursor: pointer;
+  padding: 2%;
+  border-radius: 5px;
+  width: 30%;
+  border: none;
+  background: #2609cc;
+  color: white;
+}
+.search_bar{
+    margin-left: 2%;
+    background: none;
+    width: 30%;
+    height: 50px;
+    border: 1px solid #2609cc;
+    padding: 0px 10px;
+    border-radius: 15px;
+    margin-top: 0.5%;
+}
+
+.icon_container{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    /*border: 2px solid green;*/
+}
+
+.search_bar .search{
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background: none;
+}
+
+.search_bar .fa-solid{
+    cursor: pointer;
+    color: #2609cc;
+}
+
+.search:focus{
+    outline: none;
+}
+
+#years, #months{
+    font-size: 2.5vh;
+    border: 1px solid #F8914A;
+    border-radius: 5px;
+    
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+    width: 17%;
+  }
+
+.dropdown2 {
+    position: relative;
+    display: flex;
+    width: 17%;
+    margin-left: 20px;
+  }
+
+#btnFilter{
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 8%;
+    background: #2609cc;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 6%;
+    margin-top: 1.2%;
+
+}
+
+
+  #status{
+    border: 1px solid rgb(235, 137, 58);
+  }
+
+  #btnFilter:hover{
+    background: white;
+    border: 1px solid #2609cc;
+    color: #2609cc;
+  }
+
+  #resetFilter{
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 8%;
+    background: #2609cc;
+    color: white;
+    cursor: pointer;
+    border: none;
+    height: 6%;
+    margin-top: 1.2%;
+  }
+
+  #resetFilter:hover{
+    background: white;
+    border: 1px solid #2609cc;
+    color: #2609cc;
+  }

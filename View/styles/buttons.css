@@ -1,0 +1,120 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+/*Button CSS*/
+
+.button{
+    padding: 1% 2%;
+    border-radius: 15px;
+    display: inline-block;
+    display: flex;
+    margin-left: 1%;
+    height: 2%;
+    cursor: pointer;
+}
+
+.button.view{
+    border: 2px solid #0a2aa0;
+}
+
+.button.update, .button.delivered{
+    border: 2px solid #3260b0;
+}
+
+.button.uploadSlip{
+    border: 2px solid #179FEB;
+}
+
+.button.delete{
+    border: 2px solid #17C5EB;
+}
+
+/*Hovering Effects*/
+/* .button.view:hover{
+    background: #0a2aa0;
+}
+
+.button.update:hover{
+    background: #3260b0;
+}
+
+.button.uploadSlip:hover{
+    background: #179FEB;
+}
+
+.button.delete:hover{
+    background: #17C5EB;
+}
+
+:is(.button.view i, .button.view table button, .button.view-txt a):hover{
+    color: #FFF;
+} */
+
+/*Icon CSS*/
+.button table button{
+    margin-left: 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button.view table button, .button.view i{
+    color: #0a2aa0;
+}
+
+.button.update table button, .button.update i{
+    color: #3260b0;
+}
+
+.button.delivered table button, .button.delivered i{
+    color: #3260b0;
+}
+
+.button.uploadSlip table button, .button.uploadSlip i{
+    color: #179FEB;
+}
+
+.button.delete table button, .button.delete i{
+    color: #17C5EB;
+}
+
+/*Text CSS*/
+a{
+    text-decoration: none;
+    left: 800px;
+    top: 60px;
+}
+
+.view-txt a{
+    color: #0a2aa0;
+}
+
+:is(.update-txt, .delivered-txt) a{
+    color: #3260b0;
+}
+
+.uploadSlip-txt a{
+    color: #179FEB;
+}
+
+.delete-txt a{
+    color: #17C5EB;
+}
+
+.dv{
+    display: flex;
+    justify-content: right;
+    margin-right: 3%;
+    /* border: 2px solid red; */
+}
+
+
+/* .button.delivered:active{
+    border: 2px solid #FFF;
+    background: #3260b0;
+} */

@@ -1,0 +1,29 @@
+
+.back-col{
+    position: absolute;
+    top: 12%;
+    left: 0;
+    width: 100%;
+    height: 88%;
+    background: rgba(0, 0, 0, 0.548);
+}
+
+.para{
+    position: absolute;
+    text-align: center;
+    width: 50%;
+    top: 30%;
+    left: 25%;
+    color: #FFFFFF;
+}
+
+.para p{
+    line-height: 5vh;
+    font-size: 3vh;
+}
+
+
+
+
+
+

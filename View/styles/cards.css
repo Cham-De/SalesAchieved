@@ -1,0 +1,87 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.cards{
+    box-sizing: border-box;
+    position: absolute;
+    width: 75%;
+    height: 18%;
+    margin-left: 20%;
+    margin-top: 7%;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    justify-content: space-between;
+}
+
+.middle-cards li{
+    margin-bottom: 9%;
+}
+
+.cmpg{
+    display: inline-block;
+    margin-top: 1.2%;
+    margin-left: 2%;
+}
+
+/*Order Status on Cards*/
+.orderStatus{
+    position: absolute;
+    left: 11.5%;
+    top: 17%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 1vw;
+    display: flex;
+    align-items: center;
+}
+
+.orderStatus > .pending{
+    color: #F42222;
+}
+
+.orderStatus > .dispatched{
+    color: #FFA701;
+}
+
+.orderStatus > .delivered{
+    color: #0044FF;
+}
+
+.orderStatus > .canceled{
+    color: #23252d;
+}
+
+.orderStatus > .completed{
+    color: #00AB41;
+}
+
+/*Customer name and Order date on Cards*/
+.customerName{
+    position: absolute;
+    left: 2%;
+    top: 40%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 1vw;
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    color: rgba(137, 137, 137, 0.82);
+    white-space: nowrap;
+}
+.reason{
+    margin-left: 2%;
+    margin-bottom: 1%;
+    color: #970808;
+    font-weight: bold;
+    cursor: pointer;
+}
+.reasonText{
+    margin-left: 2%;
+}

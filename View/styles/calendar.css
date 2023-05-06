@@ -1,0 +1,237 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background-color: #12121f;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar{
+    width: 45rem;
+    height: 52rem;
+    background-color: #222227;
+    box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4 );
+}
+
+.month{
+    width: 100%;
+    height: 12rem;
+    background-color: #167e56;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    text-align: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.month i{
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.month h1{
+    font-size: 3rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.month p{
+    font-size: 1.6rem;
+}
+
+.weekdays{
+    width: 100%;
+    height: 5rem;
+    padding: 0 0.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.weekdays div{
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    width: calc(44.2rem/7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.days{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.2rem;
+}
+
+.days div{
+    font-size: 1.4rem;
+    margin: 0.3rem;
+    width: calc(40.2rem/7);
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s;
+}
+
+.prev-date, .next-date{
+    opacity: 0.5;
+}
+
+.today{
+    background-color: #167e56;
+}
+
+.days div:hover:not(.today){
+    background-color: #262626;
+    border: 0.2rem solid #777;
+    cursor: pointer;
+}
+
+.calendar .days .event{
+    position: relative;
+}
+
+.calendar .days .event::after{
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 75%;
+    height: 6px;
+    border-radius: 30px;
+    transform: translateX(-50%);
+    background-color: #fff;
+}
+
+.container .right{
+    position: relative;
+    width: 40%;
+    min-height: 100%;
+    padding: 20px 0;
+}
+
+.right .today-date{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    padding-left: 70px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.today-date .event-day{
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.today-date .event-date{
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.events{
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}
+
+.events .event{
+    position: relative;
+    width: 95%;
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 20px;
+    padding-left: 50px;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(90deg, #3f4458, transparent);
+}
+
+.events .event:nth-child(even){
+    background: transparent;
+}
+
+.events .event:hover{
+    background: linear-gradient(90deg, #6a7285, transparent);
+}
+
+.events .event .title{
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.events .event .title .event-title{
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.events .event .title i{
+    color: #fff;
+    font-size: 0.5rem;
+}
+
+.events .event:hover .title i{
+    color: #fff;
+}
+
+.events .event .event-status{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    margin-left: 15px;
+    pointer-events: none;
+}
+
+.event::after{
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    font-size: 3rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
+    color: #fff;
+    transform: translateY(-50%);
+}
+
+.event:hover::after{
+    display: flex;
+}

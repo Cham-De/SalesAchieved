@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    /*background: #031086;*/
+    font-family: 'Roboto', sans-serif;
+}
+
+.background_img{
+    background-image: url(../../assets/home-img.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.back-col-home{
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.425);
+}
+
+form{
+    margin-top: 5%;
+}
+.outer-container{
+    display: inline-block;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 0px rgb(70, 69, 69);
+    position: absolute;
+    top: 50%;
+    left: 22%;
+    transform: translate(0, -50%);
+}
+.form_wrapper_login, .form_wrapper_signup{
+    display: inline-block;
+    background: white;
+    margin-left: 500px;
+    padding: 10px 30px 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 0px rgb(70, 69, 69);
+}
+
+.form_wrapper_login{
+    margin-top: 130px;
+}
+
+.form_wrapper_signup{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.below-txt{
+    margin-top: 6%;
+    color: rgb(110, 106, 100);
+}
+
+.error-msg{
+    color: red;
+    margin-top: 8%;
+}
+
+form label{
+    display: flex;
+    margin-bottom: 10px;
+    color: #9b9896;
+}
+form input{
+    margin-bottom: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #8c8e91;
+    width: 250px;
+}
+
+.form-title{
+    text-align: center;
+    margin-bottom: 10%;
+}
+.form-title h1{
+    color: #d15b0c;
+    /*margin-left: 80px;*/
+}
+form input:focus{
+    border: none;
+    outline: 2px solid #d15b0c;
+}
+.form-btns button{
+    border: none;
+    color: white;
+    padding: 5%;
+    border-radius: 5px;
+    background: #d15b0c;
+    width: 100%;
+    margin-top: 5%;
+    font-size: 2.5vh;
+    cursor: pointer;
+}
+
+.form-btns button:hover{
+    background: #fa6705;
+}
+.form_wrapper p{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+#selections{
+    margin-bottom: 10px;
+    height: 30px;
+    border-radius: 5px;
+    height: 35px;
+    border: 1px solid #b8b4b1;
+    width: 255px;
+}
+#selections:focus{
+    border: none;
+    outline: 2px solid #F8914A;
+}
+
+table td + td { 
+    border-left:1px solid rgba(0, 52, 121, 0.616); 
+}
+
+table{
+    /*border: 1px solid black;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-col{
+    padding-right: 50px;
+    padding-left: 60px;
+}
+
+.form-col p{
+    margin-top: 10px;
+}
+
+p a:hover{
+    color: #d15b0c;
+}
+
