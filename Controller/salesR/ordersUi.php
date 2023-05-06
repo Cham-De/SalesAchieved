@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Rep</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -111,12 +111,14 @@
     <div class="search_container">
         <table class="element_container">
           <tr>
-            <td>
-              <input type="text" placeholder="Search Table..." class="search">
-            </td>
-            <td>
-              <a><i class="fa-solid fa-magnifying-glass"></i></a>
-            </td>
+            <form method="post">
+                <td>
+                    <input type="text" placeholder="Search Orders..." class="search" name="orderSearch">
+                </td>
+                <td>
+                <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </td>
+            </form>
           </tr>
         </table>
     </div>
@@ -125,21 +127,17 @@
     <!--Orders Cards-->
     <?php 
     //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
-     $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
-          FROM orders 
-          INNER JOIN customer ON orders.customerID = customer.customerID 
-          LEFT JOIN slips ON orders.orderID = slips.orderID";
-     $result = mysqli_query($con, $query);
+     
     ?>
     <?php while ($row = mysqli_fetch_array($result)){
-        $orderID = $row['orderID']; ?>
+        $orderID = $row[0]; ?>
     
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2>Order <?php echo $row['orderID'];?></h2>
+                        <h2>Order <?php echo $row[0];?></h2>
                         <div class="orderStatus">
                         <?php 
                         if($row['orderStatus'] == 'Pending'){?>
@@ -265,14 +263,6 @@
               <a href="#" id="add_more_fields">Add More</a>
               <a href="#" id="remove_fields">Remove Field</a>
             </div>
-            <!-- <label for="orderStatus" id="orderStatus">Order Status
-                <select id="orderStatus" name="orderStatus">
-                <option value="Pending">Pending</option>
-                <option value="Dispatched">Dispatched</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Completed">Completed</option>
-                </select>
-            </label> -->
             <label for="paymentMethod" id="payingMethods">Payment Method
                 <select id="paymentMethod" name="paymentMethod">
                   <option value="COD">Cash on Delivery</option>

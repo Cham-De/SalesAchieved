@@ -63,13 +63,7 @@
         unset($_POST);
     }
 
-    //Read - Read customer details from the database
-    $query = "SELECT * FROM customer;";
-    $result = mysqli_query($con, $query);
-    if (mysqli_error($con)) {
-        echo "Failed to connect to MySQL: " . mysqli_error($con);
-        exit();
-    }
+    
 
     //Delete - Delete a customer from the system
     // if(isset($_POST['submit_delete'])){
@@ -87,4 +81,23 @@
     //         // die(mysqli_error($con));
     //     }
     // }
+
+    //Search bar Functionality
+    if(isset($_POST['search'])){
+        $customerSearch = $_POST['customerSearch'];
+        $result = mysqli_query($con, "SELECT * FROM customer WHERE customerName LIKE \"%$customerSearch%\" OR email LIKE \"%$customerSearch%\"");
+        if (mysqli_error($con)) {
+            echo "Failed to connect to MySQL: " . mysqli_error($con);
+            exit();
+        }
+    }
+    else {
+        //Read - Read customer details from the database
+        $query = "SELECT * FROM customer;";
+        $result = mysqli_query($con, $query);
+        if (mysqli_error($con)) {
+            echo "Failed to connect to MySQL: " . mysqli_error($con);
+            exit();
+        }
+    }
 ?>

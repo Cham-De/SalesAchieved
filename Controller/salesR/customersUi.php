@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Rep</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -108,13 +108,15 @@
     <div class="search_container">
         <table class="element_container">
           <tr>
-            <td>
-              <input type="text" placeholder="Search Table..." class="search">
-            </td>
-            <td>
-              <a><i class="fa-solid fa-magnifying-glass"></i></a>
-            </td>
-          </tr>
+            <form method="post">
+                <td>
+                    <input type="text" placeholder="Search Customer..." class="search" name="customerSearch">
+                </td>
+                <td>
+                    <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </td>
+            </form>
+        </tr>
         </table>
     </div>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
