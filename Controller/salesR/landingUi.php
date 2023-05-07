@@ -121,10 +121,14 @@
       <div class="last_card1">
         <div class="KPIs">
           <div class="card1">
-            <h2>Retention <br>Rate </h2>
+          <?php
+            $salesPerRep = getSalesPerRep($userData['username']);
+          ?>
+            <h2>Sales per <br>Representative </h2>
             <h4>Monthly</h4>
-            <h1>Rs.120,000</h1>
+            <h1>Rs. <?php echo $salesPerRep;?></h1>
           </div>
+
           <div class="card2">
             <h2>New Customer <br>Development </h2>
             <h4>Monthly</h4>
