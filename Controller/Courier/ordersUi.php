@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
     <!--Stylesheet for quick actoins buttons-->
     <link rel="stylesheet" href="../../View/styles/quickActions.css">
+    <!--Stylesheet for table search bar-->
+    <link rel="stylesheet" href="../../View/styles/tableSearch.css">
 
 
     <style>
@@ -103,6 +105,23 @@
     <div class="btn_three">
         <button id="addNote">Add Note</button>
     </div>
+
+    <!--Table search bar-->
+    <div class="search_container">
+        <table class="element_container">
+          <tr>
+            <form method="post">
+                <td>
+                    <input type="text" placeholder="Search Orders..." class="search" name="orderSearch">
+                </td>
+                <td>
+                <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </td>
+            </form>
+          </tr>
+        </table>
+    </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
   <!-- <div class="wrapper">
             <div class="dropdown">
