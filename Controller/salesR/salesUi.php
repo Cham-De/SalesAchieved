@@ -2,7 +2,9 @@
     require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/salesR/salesUiCRUD.php");
     $userData = check_login("Sales Representative");
-    $result = getOrderDetails($userData['username']);
+    $curDate = date("Y-m-d");
+    $result = getOrderDetails($userData['username'], $curDate);
+    $commRates = getCommissionRate();
 ?>
 
 <!DOCTYPE html>
@@ -95,23 +97,27 @@
         <thead>
             <tr>
                 <th>Order ID</th>
-                <th>Order Date</th>
+                <th>Completion Date</th>
                 <th>Revenue<br>(Rs.)</th>
                 <th>Commission<br>(Rs.)</th>
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = mysqli_fetch_array($result)){
+            <?php 
+            $currentCommission = 0;
+            while ($row = mysqli_fetch_array($result)){
               $orderID = $row['orderID'];
-              $orderDate = $row['orderDate'];
+              $completionDate = $row['completionDate'];
               $revenue = $row['revenue'];
+              $commission = $revenue * $commRates[substr($completionDate, 0, 7)] / 100;
+              $currentCommission = $currentCommission + $commission;
 
               echo "
               <tr>
                   <td>$orderID</td>
-                  <td>$orderDate</td>
+                  <td>$completionDate</td>
                   <td>$revenue</td>
-                  <td>2,750.00</td>
+                  <td>$commission</td>
               </tr>";
             }?>
         </tbody>
@@ -126,13 +132,13 @@
     <!--Commission Rate-->
     <div class="commissionRate">
         <h3>Commission Rate: </h3>
-        <h2>15%</h2>
+        <h2><?php echo $commRates[substr($curDate, 0, 7)]; ?> %</h2>
     </div>
 
     <!--Current Commission-->
     <div class="currentCommission">
         <h3>Current Commission: </h3>
-        <h2>Rs. 65,993</h2>
+        <h2><?php echo $currentCommission?></h2>
     </div>
 
   </body>
