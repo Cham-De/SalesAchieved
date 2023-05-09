@@ -43,7 +43,7 @@ require '../../Model/db-con.php';
         margin: 0 auto;
       }
 
-      #fetchval{
+      .fetchval{
         width: 15%;
         margin-left: 22%;
       }
@@ -106,18 +106,6 @@ require '../../Model/db-con.php';
 <body>
   <!--common top nav and side bar content-->
   <div class="nav_bar">
-        <!-- <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -153,34 +141,15 @@ require '../../Model/db-con.php';
     <!---end of side and nav bars-->
 
     <div class="btn_cmpg_ex">
-        <!-- <div class="search_container">
-          <table class="element_container">
-            <tr>
-              <td>
-                <input type="text" placeholder="Search Sales Rep..." class="search">
-              </td>
-              <td>
-                <a><i class="fa-solid fa-magnifying-glass"></i></a>
-              </td>
-            </tr>
-          </table>
-        </div> -->
-
-        <select name="fetchval" id="fetchval" onchange="if (this.value == 'Status' || this.value == 'Objective') { populate('fetchval', 'fetchval2'); }">
+        <select name="commFil" class="fetchval" id="commFil">
           <option value="" disabled="" selected="" >--Select Month--</option>
-          <option value="None">None</option>
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="April">April</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
+          <?php
+            for($i=0; $i<3; $i++){
+              $month_filter = date("F", strtotime("-$i month"));
+              echo '<option value="'.$month_filter.'">'.$month_filter.'</option>';
+            }
+          ?>
+          <option style="background: rgba(133, 132, 132, 0.541);" value="reset_filter">Reset</option>
         </select>
 
         <?php
@@ -194,7 +163,7 @@ require '../../Model/db-con.php';
     
         ?>
         <div class="rightmost-items">
-        <div class="chng_rate">
+        <div class="chng_rate" id="display_rate">
           <h4>Commission Rate: <?php echo $thing['commRate']; ?>%</h4>
         </div>
         <?php
@@ -208,8 +177,50 @@ require '../../Model/db-con.php';
 
       </div>
 
+      <script>
+      var commFil = document.getElementById('commFil');
+      commFil.addEventListener('change', function() {
+        filter_tables();
+      });
+
+      function filter_tables(){
+        var commFil_op = document.getElementById("commFil").value;
+        console.log("selected :", commFil_op);
+
+        // changing table
+        $(document).ready(function(){
+            $.ajax({
+              url: "./fin_filter.php",
+              type: "POST",
+              data: {commFil_op: commFil_op},
+              success: function(response){
+              // Handle the response from the server here
+              console.log(response);
+              $(".dynamic_content").html(response);
+            }
+          });
+        }); 
+
+        // changing commission rate in div
+        $(document).ready(function(){
+            $.ajax({
+              url: "./fin_charts.php",
+              type: "POST",
+              data: {commFil_op: commFil_op},
+              success: function(response){
+              // Handle the response from the server here
+              console.log(response);
+              $(".rightmost-items").html(response);
+            }
+          });
+        }); 
+      }
+
+
+    </script>
     
     <!--table-->
+    <div class="dynamic_content">
     <table class="content-table">
         <thead>
           <tr>
@@ -218,7 +229,7 @@ require '../../Model/db-con.php';
             <th>Commission<br>(Rs.)</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="commBody">
         <?php
           $com = "SELECT o.orderID, o.orderStatus, u.name, o.orderDate, SUM((p.sellingPrice-p.buyingPrice) * op.quantity) as revenue, SUM((p.sellingPrice - p.buyingPrice) * op.quantity) * c.commRate / 100 AS commission_amount
           FROM orders o
@@ -226,7 +237,7 @@ require '../../Model/db-con.php';
           JOIN product p ON op.productCode = p.productCode
           JOIN user u ON u.username = o.username
           JOIN commissions c ON DATE_FORMAT(c.commDate, '%Y-%m') = DATE_FORMAT(o.orderDate, '%Y-%m')
-          WHERE o.orderStatus = 'Complete'
+          WHERE o.orderStatus = 'Completed'
           GROUP BY u.name";
 
           $query = mysqli_query($con, $com);
@@ -247,11 +258,7 @@ require '../../Model/db-con.php';
           ?>
         </tbody>
       </table>
-      <!-- <div class="navigation-table">
-        <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-        <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-      </div> -->
-
+  </div>
 
       <?php
           $sql = "SELECT * FROM commissions

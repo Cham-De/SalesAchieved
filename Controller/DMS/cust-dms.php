@@ -1,3 +1,9 @@
+<?php
+
+require '../../Model/db-con.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +45,7 @@
             </table>
         </div>
         <div class="user-wrapper">
-            <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
+            <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
                 <h4>Chamodi</h4>
                 <small style="color:rgb(235, 137, 58)">Digital Marketing Strategist</small>
@@ -104,36 +110,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>12</td>
-                <td>Anil Kumara</td>
-                <td>23/B, Flower Road, Maharagama</td>
-                <td>Instagram</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Anil Kumara</td>
-                <td>23/B, Flower Road, Maharagama</td>
-                <td>Instagram</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Anil Kumara</td>
-                <td>23/B, Flower Road, Maharagama</td>
-                <td>Instagram</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Anil Kumara</td>
-                <td>23/B, Flower Road, Maharagama</td>
-                <td>Instagram</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Anil Kumara</td>
-                <td>23/B, Flower Road, Maharagama</td>
-                <td>Instagram</td>
-              </tr>
+              
             </tbody>
           </table>
           <div class="navigation-table">

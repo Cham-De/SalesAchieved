@@ -167,7 +167,7 @@ $start_from = ($page-1)*05;
         <tbody>
           <?php
           
-          $sql = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(order_product.quantity) as totalQuantity, (p.sellingPrice * SUM(order_product.quantity)) as totalRevenue, (p.buyingPrice * SUM(order_product.quantity)) as totalCost, 
+          $sql = "SELECT p.productCategory, p.productCode, p.productName, p.buyingPrice, p.sellingPrice, SUM(order_product.quantity) as totalQuantity, ((p.sellingPrice - p.buyingPrice) * SUM(order_product.quantity)) as totalRevenue, (p.buyingPrice * SUM(order_product.quantity)) as totalCost, 
           (p.sellingPrice * SUM(order_product.quantity)) - (p.buyingPrice * SUM(order_product.quantity)) as grossProfit
       FROM product p
       INNER JOIN order_product ON order_product.productCode = p.productCode
