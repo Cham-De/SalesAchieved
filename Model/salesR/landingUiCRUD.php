@@ -7,6 +7,35 @@
         exit();
     }
 
+    //Feedback
+    if(isset($_POST['submit'])){
+        $orderID = $_POST["orderID"];
+        $feedback = $_POST["feedback"];
+        $comment;
+        if($feedback > 3){
+            $comment = "Positive";
+        }
+        elseif($feedback < 3){
+            $comment = "Negative";
+        }
+        else{
+            $comment = "Neutral";
+        }
+        if(!empty($orderID) && !empty($feedback)){
+            mysqli_query($con, "INSERT INTO feedback(orderID, feedback, comment) VALUES('$orderID', '$feedback', '$comment')");
+            header("Location:../../Controller/salesR/landingUi.php");
+		}
+		else
+		{
+			echo "<script>
+            window.alert('Please enter valid information');
+            window.location.href='landingUi.php';
+            </script>";
+		}
+        unset($_POST);
+    }
+
+    //Sales per Sales Rep CRUD
     function getSalesPerRep($username){
         $con = $GLOBALS['con'];
         $query = "SELECT SUM(product.sellingPrice * order_product.quantity) AS totalRevenue
