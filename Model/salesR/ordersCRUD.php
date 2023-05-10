@@ -63,7 +63,8 @@
         $result = mysqli_query($con, "SELECT * FROM orders
                                         INNER JOIN customer ON customer.customerID = orders.customerID
                                         LEFT JOIN slips ON orders.orderID = slips.orderID 
-                                        WHERE orders.orderID LIKE \"%$orderSearch%\" OR customerName LIKE \"%$orderSearch%\"");
+                                        WHERE orders.orderID LIKE \"%$orderSearch%\" OR customerName LIKE \"%$orderSearch%\"
+                                        ORDER BY orders.orderID DESC");
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);
             exit();
@@ -74,7 +75,8 @@
         $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
                     FROM orders 
                     INNER JOIN customer ON orders.customerID = customer.customerID 
-                    LEFT JOIN slips ON orders.orderID = slips.orderID";
+                    LEFT JOIN slips ON orders.orderID = slips.orderID
+                    ORDER BY orders.orderID DESC";
         $result = mysqli_query($con, $query);
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);

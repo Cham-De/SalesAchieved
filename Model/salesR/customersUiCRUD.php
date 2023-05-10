@@ -85,7 +85,9 @@
     //Search bar Functionality
     if(isset($_POST['search'])){
         $customerSearch = $_POST['customerSearch'];
-        $result = mysqli_query($con, "SELECT * FROM customer WHERE customerName LIKE \"%$customerSearch%\" OR email LIKE \"%$customerSearch%\"");
+        $result = mysqli_query($con, "SELECT * FROM customer 
+                                        WHERE customerName LIKE \"%$customerSearch%\" OR email LIKE \"%$customerSearch%\"
+                                        ORDER BY joinedDate DESC");
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);
             exit();
@@ -93,7 +95,7 @@
     }
     else {
         //Read - Read customer details from the database
-        $query = "SELECT * FROM customer;";
+        $query = "SELECT * FROM customer ORDER BY joinedDate DESC;";
         $result = mysqli_query($con, $query);
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);

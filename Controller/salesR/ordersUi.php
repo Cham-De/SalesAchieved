@@ -170,6 +170,7 @@
                                 </tr>
                             </table>
                         </div>
+                        <?php if($row['orderStatus'] != "Completed" && $row['orderStatus'] != "Cancel"){ ?>
                         <div class="button update">
                             <table>
                                 <tr>
@@ -179,7 +180,8 @@
                             </table>
                         </div>
                         <?php
-                            if($row['paymentMethod'] == 'BT'){?>
+                        }
+                            if($row['paymentMethod'] == 'BT' && $row['orderStatus'] != 'Cancel'){?>
                                 <div class="button uploadSlip">
                                     <table>
                                         <tr>

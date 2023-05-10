@@ -202,7 +202,7 @@
                         </table>
                     </div>
                     <?php
-                        if($row['orderStatus'] != 'Delivered'){
+                        if($row['orderStatus'] == 'Dispatched'){
                     ?>
                         <div class="button delivered">
                             <table>
@@ -210,7 +210,7 @@
                                     <td><i class="fa-solid fa-clipboard-check"></i></td>
                                     <td>
                                         <form method="post">
-                                            <input type="hidden" name="orderID" value="<?php echo $row['orderID']; ?>">
+                                            <input type="hidden" name="orderID" value="<?php echo $row[0]; ?>">
                                             <button id="delivered" class="delivered-txt" type="delivered" value="Delivered" name="delivered">Delivered</button>
                                         </form>
                                     </td>
