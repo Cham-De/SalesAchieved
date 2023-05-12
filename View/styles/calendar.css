@@ -12,8 +12,8 @@ html{
 .container{
     width: 100%;
     height: 100vh;
-    background-color: #12121f;
-    color: #eee;
+    /* background-color: #12121f; */
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,20 +22,25 @@ html{
 .calendar{
     width: 45rem;
     height: 52rem;
-    background-color: #222227;
+    margin-top: -5%;
+    margin-left: 20%;
+    /* background-color: #222227; */
     box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4 );
+    border-radius: 15px;
 }
 
 .month{
     width: 100%;
     height: 12rem;
-    background-color: #167e56;
+    background-color: rgb(235, 137, 58);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
     text-align: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    /* text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); */
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
 .month i{
@@ -71,7 +76,7 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    /* text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); */
 }
 
 .days{
@@ -89,7 +94,7 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    /* text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5); */
     transition: background-color 0.2s;
 }
 
@@ -98,13 +103,15 @@ html{
 }
 
 .today{
-    background-color: #167e56;
+    background-color: rgb(235, 137, 58);
+    border-radius: 10px;
 }
 
 .days div:hover:not(.today){
-    background-color: #262626;
-    border: 0.2rem solid #777;
+    background-color: #ffffff9e;
+    border: 0.2rem solid rgb(235, 137, 58);
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .calendar .days .event{
@@ -169,6 +176,7 @@ html{
 .events .event{
     position: relative;
     width: 95%;
+    margin-left: 5%;
     min-height: 70px;
     display: flex;
     justify-content: center;
@@ -176,18 +184,18 @@ html{
     gap: 5px;
     padding: 0 20px;
     padding-left: 50px;
-    color: #fff;
-    cursor: pointer;
-    background: linear-gradient(90deg, #3f4458, transparent);
+    color: #000;
+    border-radius: 15px;
+    background: linear-gradient(90deg, rgb(235, 137, 58), transparent);
 }
 
 .events .event:nth-child(even){
     background: transparent;
 }
 
-.events .event:hover{
+/* .events .event:hover{
     background: linear-gradient(90deg, #6a7285, transparent);
-}
+} */
 
 .events .event .title{
     display: flex;
@@ -196,19 +204,25 @@ html{
 }
 
 .events .event .title .event-title{
+    font-size: 2rem;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.events .event .event-time{
     font-size: 1.5rem;
     font-weight: 400;
     margin-left: 20px;
 }
 
 .events .event .title i{
-    color: #fff;
-    font-size: 0.5rem;
+    color: #000;
+    font-size: 1rem;
 }
 
-.events .event:hover .title i{
+/* .events .event:hover .title i{
     color: #fff;
-}
+} */
 
 .events .event .event-status{
     font-size: 1rem;
@@ -218,7 +232,7 @@ html{
     pointer-events: none;
 }
 
-.event::after{
+/* .event::after{
     content: "✓";
     position: absolute;
     top: 50%;
@@ -228,10 +242,27 @@ html{
     align-items: center;
     justify-content: center;
     opacity: 0.3;
-    color: #fff;
+    color: rgb(235, 137, 58);
     transform: translateY(-50%);
 }
 
 .event:hover::after{
     display: flex;
+} */
+
+.calendar .days .event{
+    position: relative;
+}
+
+.calendar .days .event::after{
+    content: "";
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    margin-top: 20%;
+    width: 75%;
+    height: 5px;
+    border-radius: 30x;
+    transform: translateX(-50%);
+    background-color: rgb(235, 137, 58);
 }

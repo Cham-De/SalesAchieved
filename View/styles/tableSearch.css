@@ -35,3 +35,8 @@
   .search:focus{
     outline: none;
   }
+
+  .searchIcon{
+    border: none;
+    background-color: transparent;
+  }

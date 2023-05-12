@@ -50,10 +50,46 @@
         // unset($_POST);
     }
 
-    // $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
-    // $result = mysqli_query($con, $query);
-    // if (mysqli_error($con)) {
-    //     echo "Failed to connect to MySQL: " . mysqli_error($con);
-    //     exit();
-    // }
+    $query = "SELECT productCode, productName FROM product";
+    $products = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
+
+    //Search bar functionality
+    if(isset($_POST['search'])){
+        $orderSearch = $_POST['orderSearch'];
+        $result = mysqli_query($con, "SELECT * FROM orders
+                                        INNER JOIN customer ON customer.customerID = orders.customerID
+                                        LEFT JOIN slips ON orders.orderID = slips.orderID 
+                                        WHERE orders.orderID LIKE \"%$orderSearch%\" OR customerName LIKE \"%$orderSearch%\"
+                                        ORDER BY orders.orderID DESC");
+        if (mysqli_error($con)) {
+            echo "Failed to connect to MySQL: " . mysqli_error($con);
+            exit();
+        }
+    }
+    else{
+        //Read Order Details
+        $username = $_SESSION['username'];
+        $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
+                    FROM orders 
+                    INNER JOIN customer ON orders.customerID = customer.customerID 
+                    LEFT JOIN slips ON orders.orderID = slips.orderID
+                    WHERE orders.username = \"$username\"
+                    ORDER BY orders.orderID DESC";
+        $result = mysqli_query($con, $query);
+        if (mysqli_error($con)) {
+            echo "Failed to connect to MySQL: " . mysqli_error($con);
+            exit();
+        }
+    }
+
+    $query = "SELECT customerID, customerName FROM customer";
+    $customer = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
 ?>

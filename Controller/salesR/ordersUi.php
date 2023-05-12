@@ -1,7 +1,10 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
+    require __DIR__.'/../../Model/notificationCRUD.php';
     require_once("../../Model/salesR/ordersCRUD.php");
     $userData = check_login("Sales Representative");
+    $role = "Sales Representative";
+    $notifData = get_notification_data($role, $userData["username"]);
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Rep</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -30,6 +33,8 @@
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
     <!--Stylesheet for table search bar-->
     <link rel="stylesheet" href="../../View/styles/tableSearch.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
       div.side_bar ul li{
@@ -52,7 +57,7 @@
 <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-        <!-- <div class="search-container">
+        <div class="search-container">
             <table class="element-container">
                 <tr>
                     <td>
@@ -63,13 +68,48 @@
                     </td>
                 </tr>
             </table>
-        </div> -->
+        </div>
   
         <div class="user-wrapper">
+
+            <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
+            <!-- Notifications -->
+        <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+          <?php 
+          while ($row = mysqli_fetch_array($notifData)){
+            $title = $row['title'];
+            $message = $row['message'];
+            $notificationID = $row['notificationID'];
+            echo  "
+            <div class='notifi-item' style='display:none;'>
+            <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+              <div class='text'>
+                <h4>$title</h4>
+                <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
+              </div>
+            </div>";
+          }
+          ?>
+        </div>
+
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>John Doe</h4>
-                <small>Sales Representative</small>
+                <h4><?php echo $userData['name'];?></h4>
+                <small><?php echo $userData['user_role'];?></small>
             </div>
         </div>
     </div>
@@ -109,12 +149,14 @@
     <div class="search_container">
         <table class="element_container">
           <tr>
-            <td>
-              <input type="text" placeholder="Search Table..." class="search">
-            </td>
-            <td>
-              <a><i class="fa-solid fa-magnifying-glass"></i></a>
-            </td>
+            <form method="post">
+                <td>
+                    <input type="text" placeholder="Search Orders..." class="search" name="orderSearch">
+                </td>
+                <td>
+                <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </td>
+            </form>
           </tr>
         </table>
     </div>
@@ -123,21 +165,17 @@
     <!--Orders Cards-->
     <?php 
     //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
-     $query = "SELECT orders.*, customer.*, slips.rejectedReason 
-          FROM orders 
-          INNER JOIN customer ON orders.customerID = customer.customerID 
-          LEFT JOIN slips ON orders.orderID = slips.orderID";
-     $result = mysqli_query($con, $query);
+     
     ?>
     <?php while ($row = mysqli_fetch_array($result)){
-        $orderID = $row['orderID']; ?>
+        $orderID = $row[0]; ?>
     
     <div class="cards-middle" id="cards_middle">
         <ul class="middle-cards">
             <li>
                 <div class="cards">
                     <div class="cmpg">
-                        <h2>Order <?php echo $row['orderID'];?></h2>
+                        <h2>Order <?php echo $row[0];?></h2>
                         <div class="orderStatus">
                         <?php 
                         if($row['orderStatus'] == 'Pending'){?>
@@ -170,6 +208,7 @@
                                 </tr>
                             </table>
                         </div>
+                        <?php if($row['orderStatus'] != "Completed" && $row['orderStatus'] != "Cancel"){ ?>
                         <div class="button update">
                             <table>
                                 <tr>
@@ -179,7 +218,8 @@
                             </table>
                         </div>
                         <?php
-                            if($row['paymentMethod'] == 'BT'){?>
+                        }
+                            if($row['paymentMethod'] == 'BT' && $row['orderStatus'] != 'Cancel'){?>
                                 <div class="button uploadSlip">
                                     <table>
                                         <tr>
@@ -212,7 +252,7 @@
                         </div> -->
                     </div>
                     <?php
-                        if ($row['rejectedReason']) {
+                        if ($row['approvalStatus'] == "disapproved" && $row['rejectedReason']) {
                             // Show the div if there's a rejectedReason value
                             echo '<div class="reason" onclick="toggleReason(this)">Payment Rejected</div>';
                             echo '<div class="reasonText" style="display: none;">'.$row['rejectedReason'].'</div>';
@@ -245,17 +285,26 @@
     <div class="popup-container" id="popup_container_order">
       <div class="popup-modal">
         <form method="post" action="ordersUi.php">
-             <label for="customerID">Customer ID
-                <input type="number" id="customerID" name="customerID" required="required">
+             <label for="customerID" id="customerID">Customer ID
+                <select id="customerID" name="customerID">
+                    <?php
+                        while($customers = mysqli_fetch_assoc($customer)){
+                            $customerID = $customers["customerID"];
+                            $customerName = $customers["customerName"];
+                            echo "<option value='$customerID'>$customerID - $customerName</option>";
+                        }
+                    ?>
+                </select>
             </label>
-            <label for="productCode" id="productList">Order Details
-                <select id="productCode" name="productCode">
-                <option value="PR001">PR001</option>
-                <option value="PR002">PR002</option>
-                <option value="PR003">PR003</option>
-                <option value="PR004">PR004</option>
-                <option value="PR005">PR005</option>
-                <option value="PR006">PR006</option>
+            <label for="orderDetails" id="productList">Order Details
+                <select id="orderDetails" name="orderDetails">
+                    <?php
+                    while ($product = mysqli_fetch_assoc($products)){
+                        $productName = $product["productName"];
+                        $productCode = $product["productCode"];
+                        echo "<option value='$productCode'>$productName</option>";
+                    }
+                    ?>
                 </select>
                 <input id="quantityDetails" name="quantityDetails" type="number" value=1 min=1></input>
             </label>
@@ -263,14 +312,6 @@
               <a href="#" id="add_more_fields">Add More</a>
               <a href="#" id="remove_fields">Remove Field</a>
             </div>
-            <!-- <label for="orderStatus" id="orderStatus">Order Status
-                <select id="orderStatus" name="orderStatus">
-                <option value="Pending">Pending</option>
-                <option value="Dispatched">Dispatched</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Completed">Completed</option>
-                </select>
-            </label> -->
             <label for="paymentMethod" id="payingMethods">Payment Method
                 <select id="paymentMethod" name="paymentMethod">
                   <option value="COD">Cash on Delivery</option>
@@ -336,14 +377,14 @@
             var add_more_fields = document.getElementById('add_more_fields');
             var remove_fields = document.getElementById('remove_fields');
             var productList = document.getElementById('productList');
-            var productCode = document.getElementById('productCode');
+            var orderDetails = document.getElementById('orderDetails');
             var quantityDetails = document.getElementById('quantityDetails');
             var count = 1;
 
             add_more_fields.onclick = function(){
-                var newField = productCode.cloneNode(true);
-                newField.setAttribute('id', 'productCode' + count);
-                newField.setAttribute('name', 'productCode' + count);
+                var newField = orderDetails.cloneNode(true);
+                newField.setAttribute('id', 'orderDetails' + count);
+                newField.setAttribute('name', 'orderDetails' + count);
                 productList.appendChild(newField);
                 var newField = quantityDetails.cloneNode(true);
                 newField.setAttribute('id', 'quantityDetails' + count);
@@ -377,6 +418,8 @@ function toggleReason(element) {
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+        <!-- Script for notifications functionality -->
+        <script src="../../View/notification.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,7 @@
   require __DIR__.'/../../Model/utils.php';
   require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
+  require_once("../../Model/salesR/chartsCRUD.php");
   $role = "Sales Representative";
   $userData = check_login($role);
   $notifData = get_notification_data($role, $userData["username"]);
@@ -60,6 +61,8 @@
 
       <div class="user-wrapper">
 
+        <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
         <!-- Notifications -->
         <div class="icon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
@@ -70,12 +73,22 @@
           while ($row = mysqli_fetch_array($notifData)){
             $title = $row['title'];
             $message = $row['message'];
+            $notificationID = $row['notificationID'];
             echo  "
-            <div class='notifi-item'>
+            <div class='notifi-item' style='display:none;'>
             <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
               <div class='text'>
                 <h4>$title</h4>
                 <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
               </div>
             </div>";
           }
@@ -119,19 +132,29 @@
       <div class="last_card1">
         <div class="KPIs">
           <div class="card1">
-            <h2>Retention <br>Rate </h2>
+          <?php
+            $salesPerRep = getSalesPerRep($userData['username']);
+          ?>
+            <h2>Sales per <br>Representative </h2>
             <h4>Monthly</h4>
-            <h1>Rs.120,000</h1>
+            <h1>Rs. <?php echo $salesPerRep;?></h1>
           </div>
+
           <div class="card2">
+            <?php
+              $customerDevelopmentRate = getCustomerDevelopmentRate();
+            ?>
             <h2>New Customer <br>Development </h2>
             <h4>Monthly</h4>
-            <h1>48.09%</h1>
+            <h1><?php echo $customerDevelopmentRate;?>%</h1>
           </div>
           <div class="card3">
+            <?php
+              $positiveFeedbackRate = getPositiveFeedback();
+            ?>
             <h2>Postive Feedback Rate</h2>
             <h4>Monthly</h4>
-            <h1>96.07%</h1>
+            <h1><?php echo $positiveFeedbackRate; ?>%</h1>
           </div>
           <div class="card4">
             <h2>Sales <br>Commissions </h2>
@@ -139,61 +162,62 @@
             <h1>Rs. 25,560</h1>
           </div>
           <div class="card5">
-            <h2>Retention <br>Rate </h2>
+            <?php
+              $successfulOrderRate = getSuccessfulOrderRate($userData['username']);
+            ?>
+            <h2>Successful Order <br>Percentage </h2>
             <h4>Monthly</h4>
-            <h1>Rs.120,000</h1>
+            <h1><?php echo $successfulOrderRate; ?>%</h1>
           </div>
         </div>
 
         <!--Quick actions buttons-->
-        <div class="btn_one">
-          <button id="order_btn">Add Order</button>
-        </div>
-        <div class="btn_two">
+        <div class="btn_three">
           <button id="feedback_btn">Add<br>Feedback</button>
         </div>
-        <div class="btn_three">
-          <button id="complaint_btn">Add<br>Complain</button>
-        </div>
 
+        
         <!--graphs-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="graphs">
           <div class="gr1">
             <h2>Sales Revenue Generated per Month</h2>
             <img src="../../View/assets/graph1.png" alt="monthly sales">
           </div>
           <div class="gr2">
-            <h2>Complete Vs. Incomplete Orders</h2>
-            <img src="../../View/assets/graph2.jpg" width="90%" height="80%"
-              alt="monthly sales">
+            <h2>Order Status</h2>
+            <canvas id="orderStatusChart" style="margin: 0 auto;"></canvas>
           </div>
         </div>
       </div>
     </main>
 
-    <!--Popup Form - Complaints-->
-    <div class="popup-container" id="popup_container_complaints">
-        <div class="popup-modal">
-          <form method="post">
-            <label for="orderID">Order ID
-                <input type="number" id="orderID" name="orderID" required="required">
-            </label>
-            <label for="productCode">Product Code
-                <input type="string" id="productCode" name="productCode" required="required">
-            </label>
-            <label for="complaint">Complaint
-                <textarea name="complaint" id="complaint" required="required"></textarea>
-            </label>
-            <button class="cancel" id="close_complaints" type="reset" value="Reset">Cancel</button>
-            <button class="submit" id="save_complaints" type="submit" value="Submit" name="submit">Save</button>
-          </form>
-        </div>
-      </div>
+    <script>
+      var label = <?php echo json_encode($label)?>;
+      var data = <?php echo json_encode($data)?>;
+      const ctx = document.getElementById('orderStatusChart');
+    
+      const chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: label,
+          datasets: [{
+            label: 'Order Status',
+            data: data,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          
+        }
+      });
+      chart.resize(600, 600);
+    </script>
 
     <!--Popup Form - Feedback-->
     <div class="popup-container" id="popup_container_feedback">
       <div class="popup-modal">
-        <form method="post">
+        <form method="post" action="landingUi.php">
           <label for="orderID">Order ID
               <input type="number" id="orderID" name="orderID" required="required">
           </label>
@@ -203,7 +227,7 @@
             <input type=“radio” name=“feedback”>3<BR>
             <input type=“radio” name=“feedback”>4<BR>
             <input type=“radio” name=“feedback”>5<BR> -->
-            <input type="number" id="feedbackNo" name="feedbackNo" required="required">
+            <input type="number" id="feedbackNo" name="feedback" required="required">
           </label>
           <button class="cancel" id="close_feedback" type="reset" value="Reset">Cancel</button>
           <button class="submit" id="save_feedback" type="submit" value="Submit" name="submit">Save</button>
@@ -211,127 +235,23 @@
       </div>
     </div>
 
-    <!--Popup Form - Orders-->
-    <div class="popup-container" id="popup_container_order">
-      <div class="popup-modal">
-        <form method="post">
-          <div id="dynamicField">
-            <label for="customerID">Customer ID
-                <input type="number" id="customerID" name="customerID" required="required">
-            </label>
-            <label for="orderDetails" id="productList">Order Details
-              <select id="orderDetails" name="orderDetails">
-                <option value="proOne">PR001</option>
-                <option value="proTwo">PR002</option>
-                <option value="proThree">PR003</option>
-                <option value="proFour">PR004</option>
-                <option value="proFive">PR005</option>
-                <option value="proSix">PR006</option>
-              </select>
-            </label>
-          </div>
-            <div class="controls">
-              <a href="#" id="add_more_fields">Add More</a>
-              <a href="#" id="remove_fields">Remove Field</a>
-            </div>
-            <label for="paymentMethod" id="payingMethods">Payment Method
-                <select id="paymentMethod" name="paymentMethod">
-                  <option value="COD">Cash on Delivery</option>
-                  <option value="BT">Bank Transaction</option>
-                </select>
-            </label>
-            <label for="deliveryDate">Delivery Date
-                <input type="date" id="deliveryDate" name="deliveryDate" required="required">
-            </label>
-            <label for="deliveryRegion" id="regions">Delivery Region
-                <select id="deliveryRegion" name="deliveryRegion">
-                  <option value="WC">Within Colombo</option>
-                  <option value="CS">Colombo Suburbs</option>
-                  <option value="OC">Out of Colombo</option>
-                </select>
-            </label>
-            <button class="cancel" id="close_order" type="reset" value="Reset">Cancel</button>
-            <button class="submit" id="save_order" type="submit" value="Submit" name="submit">Save</button>
-          </form>
-      </div>
-    </div>
-
     <script>
-        const complaint_btn = document.getElementById('complaint_btn');
         const feedback_btn = document.getElementById('feedback_btn');
-        const order_btn = document.getElementById('order_btn');
-
-        const close_complaints = document.getElementById('close_complaints');
-        const save_complaints = document.getElementById('save_complaints');
         const close_feedback = document.getElementById('close_feedback');
         const save_feedback = document.getElementById('save_feedback');
-        const close_order = document.getElementById('close_order');
-        const save_order = document.getElementById('save_order');
-
-        const popup_container_complaints = document.getElementById('popup_container_complaints');
         const popup_container_feedback = document.getElementById('popup_container_feedback');
-        const popup_container_order = document.getElementById('popup_container_order');
-
-        complaint_btn.addEventListener('click', () => {
-          popup_container_complaints.classList.add('show');
-        });
 
         feedback_btn.addEventListener('click', () => {
           popup_container_feedback.classList.add('show');
-        });
-
-        order_btn.addEventListener('click', () => {
-          popup_container_order.classList.add('show');
-        });
-
-        close_complaints.addEventListener('click', () => {
-            popup_container_complaints.classList.remove('show');
         });
 
         close_feedback.addEventListener('click', () => {
             popup_container_feedback.classList.remove('show');
         });
 
-        close_order.addEventListener('click', () => {
-            popup_container_order.classList.remove('show');
-        });
-
-        save_complaints.addEventListener('click', () => {
-            popup_container_complaints.classList.remove('show');
-        });
-
         save_feedback.addEventListener('click', () => {
             popup_container_feedback.classList.remove('show');
         });
-
-        save_order.addEventListener('click', () => {
-            popup_container_order.classList.remove('show');
-        });
-    </script>
-
-    <!--JavaScript for Dynamic form fields-->
-    <script>
-      var dynamicField = document.getElementById('dynamicField');
-      var add_more_fields = document.getElementById('add_more_fields');
-      var remove_fields = document.getElementById('remove_fields');
-      var productList = document.getElementById('productList');
-      var orderDetails = document.getElementById('orderDetails');
-      var count = 1;
-
-      add_more_fields.onclick = function(){
-        var newField = orderDetails.cloneNode(true);
-        newField.setAttribute('id', 'orderDetails' + count);
-        count += 1;
-        // newField.setAttribute('placeholder','Another Field');
-        productList.appendChild(newField);
-      }
-
-      remove_fields.onclick = function(){
-        var select_tags = productList.getElementsByTagName('select');
-        if(select_tags.length > 1) {
-          productList.removeChild(select_tags[(select_tags.length) - 1]);
-        }
-      }
     </script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

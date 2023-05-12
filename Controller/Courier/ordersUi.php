@@ -1,5 +1,10 @@
 <?php
+    require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/courier/ordersCRUD.php");
+    require __DIR__.'/../../Model/notificationCRUD.php';
+    $agentData = courier_check_login();
+    $result = getOrderDetails($agentData['agentUsername']);
+    $notifData = get_notification_data_agent($agentData["agentUsername"]);
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +26,14 @@
     <link rel="stylesheet" href="../../View/styles/buttons.css">
     <link rel="stylesheet" href="../../View/styles/graphs.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <!--Stylesheet for popup form-->
+    <link rel="stylesheet" href="../../View/styles/popupForm.css">
+    <!--Stylesheet for quick actoins buttons-->
+    <link rel="stylesheet" href="../../View/styles/quickActions.css">
+    <!--Stylesheet for table search bar-->
+    <link rel="stylesheet" href="../../View/styles/tableSearch.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
 
     <style>
@@ -60,9 +73,39 @@
       </div>
 
       <div class="user-wrapper">
+
+      <!-- Notifications -->
+      <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+            <?php 
+              while ($row = mysqli_fetch_array($notifData)){
+                $title = $row['title'];
+                $message = $row['message'];
+                $notificationID = $row['notificationID'];
+                echo  "
+                <div class='notifi-item' style='display:none;'>
+                <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+                  <div class='text'>
+                    <h4>$title</h4>
+                    <form method='post'>
+                      <input type='hidden' name='notificationID' value='$notificationID'>
+                      <button id='remove' class='remove' type='remove' value='remove' name='remove' style='border: none; background-color: transparent;'>
+                        <i class='fa-regular fa-circle-xmark' style='padding-left: 200px; cursor: pointer;'></i>
+                      </button>
+                    </form>
+                    <p>$message</p>
+                  </div>
+                </div>";
+              }
+            ?>
+        </div>
+
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4>John Doe</h4>
+              <h4><?php echo $agentData['companyName'];?></h4>
               <small>Courier</small>
           </div>
       </div>
@@ -76,6 +119,7 @@
           <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
           <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
           <li><a href="paymentsUi.php"><i class="fa-solid fa-user-group"></i>Payments</a></li>
+          <li><a href="requests.php"><i class="fa-solid fa-circle-exclamation"></i>Requests</a></li>
       </ul>
       <table class="side-bar-icons">
           <tr>
@@ -91,7 +135,30 @@
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
   <!---end of side and nav bars-->
 
+    <!--Top right corner buttons-->
+    <div class="btn_three">
+        <button id="addNote">Add Note</button>
+    </div>
+    <div class="btn_two">
+        <a href = "history.php"><button id="history">View History</button></a>
+    </div>
 
+    <!--Table search bar-->
+    <div class="search_container">
+        <table class="element_container">
+          <tr>
+            <form method="post">
+                <td>
+                    <input type="text" placeholder="Search Orders..." class="search" name="orderSearch">
+                </td>
+                <td>
+                <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </td>
+            </form>
+          </tr>
+        </table>
+    </div>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
   <!-- <div class="wrapper">
             <div class="dropdown">
@@ -122,14 +189,23 @@
              </div> 
     </div> -->
   <!--Orders Cards-->
+  <?php 
+    //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
+    //  $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
+    //       FROM orders 
+    //       INNER JOIN customer ON orders.customerID = customer.customerID 
+    //       LEFT JOIN slips ON orders.orderID = slips.orderID";
+    //  $result = mysqli_query($con, $query);
+    ?>
+    
   <?php while ($row = mysqli_fetch_array($result)){?>
-    <?php $orderID = $row['orderID']; ?>
+    <?php $orderID = $row[0]; ?>
   <div class="cards-middle" id="cards_middle">
     <ul class="middle-cards">
         <li>
             <div class="cards">
                 <div class="cmpg">
-                    <h2>Order <?php echo $row['orderID'];?></h2>
+                    <h2>Order <?php echo $orderID;?></h2>
                     <div class="orderStatus">
                     <?php 
                     if($row['orderStatus'] == 'Pending'){?>
@@ -162,46 +238,147 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="button delivered">
-                        <table>
-                            <tr>
-                                <td><i class="fa-solid fa-clipboard-check"></i></td>
-                                <td><button id="performance" class="delivered-txt"><a href="#">Delivered</a></button></td>
-                            </tr>
-                        </table>
-                    </div>
+                    <?php
+                        if($row['orderStatus'] == 'Dispatched'){
+                    ?>
+                        <div class="button delivered">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-clipboard-check"></i></td>
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" name="orderID" value="<?php echo $row[0]; ?>">
+                                            <button id="delivered" class="delivered-txt" type="delivered" value="Delivered" name="delivered">Delivered</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    <?php
+                        }
+                    ?>
+                    <?php
+                    if($row['paymentMethod'] == 'COD'){?>
                     <div class="button uploadSlip">
                         <table>
                             <tr>
                                 <td><i class="fa-solid fa-angles-up"></i></td>
-                                <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php">Upload Slip</a></button></td>
+                                <!-- Slip upload functionality -->
+                                <?php
+                                    $quer = "SELECT * FROM slips WHERE orderID = $orderID;";
+                                    $res = mysqli_query($con, $quer);
+
+                                    if (mysqli_num_rows($res) > 0) {
+                                        // image already exists, set parameter to "view"
+                                        $param = "view Slip";
+                                    } else {
+                                        // image does not exist, set parameter to "upload"
+                                        $param = "upload Slip";
+                                    }
+                                ?>
+                                <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php?orderID=<?php echo $orderID; ?>"><?php echo $param; ?></a></button></td>
                             </tr>
                         </table>
                     </div>
+                    <?php }?>  
                 </div>
+                
+                <?php
+                    if ($row['approvalStatus'] == "disapproved" && $row['rejectedReason']) {
+                        // Show the div if there's a rejectedReason value
+                        echo '<div class="reason" onclick="toggleReason(this)">Payment Rejected</div>';
+                        echo '<div class="reasonText" style="display: none;">'.$row['rejectedReason'].'</div>';
+                    }
+                ?>
             </div>
         </li>
-    </ul>
     <?php }?>
+    </ul>
+
+    <!-- Popup Form - Add note -->
+    <div class="popup-container" id="popup_container">
+                    <div class="popup-modal">
+                        <form method="post" action="ordersUi.php">
+                            <label for="orderID">Order ID
+                                <input type="number" id="orderID" name="orderID" required="required">
+                            </label>
+                            <label for="note">Add Note
+                                <textarea name="note" id="noteID" required="required"></textarea>
+                            </label>
+                            
+                            <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
+                            <button class="submit" id="save" type="submit" value="Submit" name="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
     
-    <script>
-        var myFunction = function(target) {
-   target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
-}
+<!-- Popup Form Script -->
+<script>
+    const addNote = document.getElementById('addNote');
+    const close = document.getElementById('close');
+    const save = document.getElementById('save');
+    const popup_container = document.getElementById('popup_container');
 
-window.onclick = function(event) {
-  if (!event.target.matches('.button__text')) {
+    addNote.addEventListener('click', () => {
+        popup_container.classList.add('show');
+    });
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+    close.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+
+    save.addEventListener('click', () => {
+        popup_container.classList.remove('show');
+    });
+</script>
+
+<script>
+    var myFunction = function(target) {
+    target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
     }
-  }
-}
-    </script>
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.button__text')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    // Payment rejected reason
+    remove_fields.onclick = function(){
+        var select_tags = productList.getElementsByTagName('select');
+        if(select_tags.length > 1) {
+            productList.removeChild(select_tags[(select_tags.length) - 1]);
+            var input_tags = productList.getElementsByTagName('input');
+            productList.removeChild(input_tags[(input_tags.length) - 1]);
+        }
+    }
+</script>
+
+<script>
+    // Payment rejeted reason
+    function toggleReason(element) {
+        var rejectedReason = element.nextElementSibling;
+        if (rejectedReason.style.display === "none") {
+            rejectedReason.style.display = "block";
+        } else {
+            rejectedReason.style.display = "none";
+        }
+    }
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+<script src="../../View/notification.js"></script>
 </body>
 </html>

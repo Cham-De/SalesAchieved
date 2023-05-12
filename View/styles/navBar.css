@@ -42,6 +42,7 @@ div.nav_bar{
 
 .search-container .fa-solid{
   cursor: pointer;
+  text-decoration: none;
 }
 
 .search:focus{
