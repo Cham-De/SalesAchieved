@@ -1,7 +1,9 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
     //require_once("../../Model/courier/ordersCRUD.php");
+    require __DIR__.'/../../Model/notificationCRUD.php';
     $agentData = courier_check_login();
+    $notifData = get_notification_data_agent($agentData["agentUsername"]);
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +27,8 @@
     <link rel="stylesheet" href="../../View/styles/navButtons.css">
     <!--Stylesheet for paymentsUi.css-->
     <link rel="stylesheet" href="../../View/styles/courier/paymentsUi.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
     .side-bar-icons{
@@ -52,6 +56,36 @@
       </div>
 
       <div class="user-wrapper">
+
+      <!-- Notifications -->
+      <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+            <?php 
+              while ($row = mysqli_fetch_array($notifData)){
+                $title = $row['title'];
+                $message = $row['message'];
+                $notificationID = $row['notificationID'];
+                echo  "
+                <div class='notifi-item' style='display:none;'>
+                <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+                  <div class='text'>
+                    <h4>$title</h4>
+                    <form method='post'>
+                      <input type='hidden' name='notificationID' value='$notificationID'>
+                      <button id='remove' class='remove' type='remove' value='remove' name='remove' style='border: none; background-color: transparent;'>
+                        <i class='fa-regular fa-circle-xmark' style='padding-left: 200px; cursor: pointer;'></i>
+                      </button>
+                    </form>
+                    <p>$message</p>
+                  </div>
+                </div>";
+              }
+            ?>
+        </div>
+
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
               <h4><?php echo $agentData['companyName'];?></h4>
@@ -163,8 +197,7 @@
     v_slip.addEventListener('click', () => {
       location.href = "./viewSlip.php";
     });
-
-
 </script>
+<script src="../../View/notification.js"></script>
   </body>
 </html>
