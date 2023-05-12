@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+     <!--Stylesheet for orders cards-->
+    <link rel="stylesheet" href="../../View/styles/cards.css">
+    <!--Stylesheet for buttons on orders cards-->
+    <link rel="stylesheet" href="../../View/styles/buttons.css">
+     <!--Stylesheet for orders cards-->
+    <link rel="stylesheet" href="../../View/styles/cards.css">
+    <!--Stylesheet for buttons on orders cards-->
+    <link rel="stylesheet" href="../../View/styles/buttons.css">
     <link rel="stylesheet" href="../../View/styles/cards-test.css">
     <link rel="stylesheet" href="../../View/styles/card-btns.css">
     <!--<link rel="stylesheet" href="../cards-final.css">-->
@@ -154,140 +162,104 @@
              </div> 
      </div>
       </div>
+<!--Orders Cards-->
+<?php 
+    //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
+     $query = "SELECT orders.*, customer.* 
+          FROM orders 
+          INNER JOIN customer ON orders.customerID = customer.customerID 
+          LEFT JOIN slips ON orders.orderID = slips.orderID";
+     $result = mysqli_query($con, $query);
+    ?>
+    <?php while ($row = mysqli_fetch_array($result)){
+        $orderID = $row['orderID']; ?>
+    
+    <div class="cards-middle" id="cards_middle">
+        <ul class="middle-cards">
+            <li>
+                <div class="cards">
+                    <div class="cmpg">
+                        <h2>Order <?php echo $row['orderID'];?></h2>
+                        <div class="orderStatus">
+                        <?php 
+                        if($row['orderStatus'] == 'Pending'){?>
+                            <h5 class="pending"><?php echo $row['orderStatus'];?></h5>
+                        <?php } 
+                        elseif($row['orderStatus'] == 'Dispatched'){?>
+                            <h5 class="dispatched"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
+                        elseif($row['orderStatus'] == 'Delivered'){?>
+                            <h5 class="delivered"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
+                        elseif($row['orderStatus'] == 'Cancel'){?>
+                            <h5 class="canceled"><?php echo $row['orderStatus'];?></h5>
+                        <?php }
+                        else{?>
+                            <h5 class="completed"><?php echo $row['orderStatus'];?></h5>
+                        <?php } ?>
+                        </div>
+                    </div>
+                    <div class="dv">
+                        <div class="customerName">
+                            <?php echo $row['customerName'];?><br>
+                            <?php echo $row['orderDate'];?>
+                        </div>
+                        <div class="button view">
+                            <table>
+                                <tr>
+                                    <td><i class="fa-solid fa-eye"></i></td>
+                                    <td><button id="performance" class="view-txt"><?php echo "<a href=\"ordersUiView.php?orderID=$orderID\">View</a>";?></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                       
+                        <?php
+                            if($row['paymentMethod'] == 'BT'){?>
+                                <div class="button uploadSlip">
+                                    <table>
+                                        <tr>
+                                            <td><i class="fa-solid fa-angles-up"></i></td>
 
-      <div class="Trewff">  
-      <ul class="middle-cards">
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 23</h2>
-                        <div class="card-status">
-                            <h4 id="card-stat-txt">Completed</h4>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">                            
-                            Senu Dilshara<br>
-                            12/05/2022                           
-                        </div>
-                        
-                        <div class="button view">
+                                            <?php
+                                                $quer = "SELECT * FROM slips WHERE orderID = $orderID";
+                                                $res = mysqli_query($con, $quer);
+
+                                                if (mysqli_num_rows($res) > 0) {
+                                                    // image already exists, set parameter to "view"
+                                                    $param = "view Slip";
+                                                } else {
+                                                    // image does not exist, set parameter to "upload"
+                                                    $param = "upload Slip";
+                                                }
+                                            ?>
+                                            <td><button id="performance" class="uploadSlip-txt"><a href="uploadSlip.php?orderID=<?php echo $orderID; ?>"><?php echo $param; ?></a></button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                        <?php } ?>
+                        <!-- <div class="button delete">
                             <table>
                                 <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
+                                    <td><i class="fa-solid fa-trash"></i></td>
+                                    <td><button id="delete" class="delete-txt">Delete</button></td>
                                 </tr>
                             </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr> 
-                                    <td><button id="view_slip" class="update-txt">View Slip</button></td>
-                                </tr>
-                            </table>
-                        </div>
+                        </div> -->
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 40</h2>
-                        <div class="card-status">
-                            <h4 id="card-stat-txt">Completed</h4>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">                            
-                            Senu Dilshara<br>
-                            12/05/2022                           
-                        </div>
-                        
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr> 
-                                    <td><button id="view_slip" class="update-txt">View Slip</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 02</h2>
-                        <div class="card-status">
-                            <h4 id="card-stat-txt">Delivered</h4>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">                            
-                            Senu Dilshara<br>
-                            12/05/2022                           
-                        </div>
-                        
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr> 
-                                    <td><button id="view_slip" class="update-txt">View Slip</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="cards">
-                    <div class="cmpg">
-                        <h2>Order 12</h2>
-                        <div class="card-status">
-                            <h4 id="card-stat-txt">In-progress</h4>
-                        </div>
-                    </div>
-                    <div class="dv">
-                        <div class="customerName">                            
-                            Senu Dilshara<br>
-                            12/05/2022                           
-                        </div>
-                        
-                        <div class="button view">
-                            <table>
-                                <tr>
-                                    <td><i class="fa-solid fa-eye"></i></td>
-                                    <td><button id="view_btn" class="view-txt">View</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="button update">
-                            <table>
-                                <tr> 
-                                    <td><button id="view_slip" class="update-txt">View Slip</button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </li>
                 
+                </div>
+            </li>
         </ul>
+    </div>
+        <?php }?>
+        </ul>
+        <!-- Navigation Arrows -->
+        <div class="navigation-table" id="nav_table">
+            <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
+            <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
         </div>
+
+
   
         <div class="navigation-table">
             <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
