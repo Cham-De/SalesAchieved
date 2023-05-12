@@ -50,12 +50,12 @@
         // unset($_POST);
     }
 
-    // $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
-    // $result = mysqli_query($con, $query);
-    // if (mysqli_error($con)) {
-    //     echo "Failed to connect to MySQL: " . mysqli_error($con);
-    //     exit();
-    // }
+    $query = "SELECT productCode, productName FROM product";
+    $products = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
 
     //Search bar functionality
     if(isset($_POST['search'])){
@@ -82,5 +82,12 @@
             echo "Failed to connect to MySQL: " . mysqli_error($con);
             exit();
         }
+    }
+
+    $query = "SELECT customerID, customerName FROM customer";
+    $customer = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
     }
 ?>

@@ -285,8 +285,16 @@
     <div class="popup-container" id="popup_container_order">
       <div class="popup-modal">
         <form method="post" action="ordersUi.php">
-             <label for="customerID">Customer ID
-                <input type="number" id="customerID" name="customerID" required="required">
+             <label for="customerID" id="customerID">Customer ID
+                <select id="customerID" name="customerID">
+                    <?php
+                        while($customers = mysqli_fetch_assoc($customer)){
+                            $customerID = $customers["customerID"];
+                            $customerName = $customers["customerName"];
+                            echo "<option value='$customerID'>$customerID - $customerName</option>";
+                        }
+                    ?>
+                </select>
             </label>
             <label for="orderDetails" id="productList">Order Details
                 <select id="orderDetails" name="orderDetails">
