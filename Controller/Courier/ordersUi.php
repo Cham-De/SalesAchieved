@@ -139,6 +139,9 @@
     <div class="btn_three">
         <button id="addNote">Add Note</button>
     </div>
+    <div class="btn_two">
+        <a href = "history.php"><button id="history">View History</button></a>
+    </div>
 
     <!--Table search bar-->
     <div class="search_container">
