@@ -72,10 +72,12 @@
     }
     else{
         //Read Order Details
+        $username = $_SESSION['username'];
         $query = "SELECT orders.*, customer.*, slips.rejectedReason, approvalStatus
                     FROM orders 
                     INNER JOIN customer ON orders.customerID = customer.customerID 
                     LEFT JOIN slips ON orders.orderID = slips.orderID
+                    WHERE orders.username = \"$username\"
                     ORDER BY orders.orderID DESC";
         $result = mysqli_query($con, $query);
         if (mysqli_error($con)) {
