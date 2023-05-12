@@ -7,11 +7,20 @@
         $agentUsername = $_SESSION["username"];
         mysqli_query($con, "UPDATE orders SET agentUsername = \"$agentUsername\" WHERE orderID = \"$orderID\"");
         mysqli_query($con, "DELETE FROM request WHERE requestID = \"$id\"");
+        
+        $result = mysqli_query($con, "SELECT companyName FROM agent WHERE agentUsername = \"$agentUsername\"");
+        $companyName = mysqli_fetch_assoc($result)["companyName"];
+        mysqli_query($con, "INSERT INTO notification (title, message, recipient) VALUES (\"Request accepted\", '$companyName accepted Order $id.', 'Store Manager');");
     }
 
     if(isset($_POST['cancel'])){
         $id = $_POST['requestID'];
+        $agentUsername = $_SESSION["username"];
         mysqli_query($con, "DELETE FROM request WHERE requestID = \"$id\"");
+
+        $result = mysqli_query($con, "SELECT companyName FROM agent WHERE agentUsername = \"$agentUsername\"");
+        $companyName = mysqli_fetch_assoc($result)["companyName"];
+        mysqli_query($con, "INSERT INTO notification (title, message, recipient) VALUES (\"Request rejected\", '$companyName rejected Order $id.', 'Store Manager');");
     }
 
     function getRequest($agentUsername){
