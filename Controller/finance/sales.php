@@ -10,6 +10,8 @@ require '../../Model/db-con.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales</title>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
@@ -17,8 +19,10 @@ require '../../Model/db-con.php';
 
     <style>
       .search-wrap-container{
-        display: flex;
-        justify-content: space-between;
+        /* display: flex;
+        justify-content: space-between; */
+        width:18%;
+        margin-left: 22%;
       }
 
       .search_container{
@@ -76,51 +80,56 @@ require '../../Model/db-con.php';
     </div>
 
     <div class="search-wrap-container">
-        <div class="search_container">
-          <table class="element_container">
-            <tr>
-              <td>
-                <input type="text" placeholder="Search Sales Rep..." class="search">
-              </td>
-              <td>
-                <a><i class="fa-solid fa-magnifying-glass"></i></a>
-              </td>
-            </tr>
-          </table>
-        </div>
 
-        <div class="wrapper">
-        <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #F8914A;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
-                    <a href="#">2021</a>
-                    <a href="#">2019</a>
-                    <a href="#">2018</a>
-                 </div>
-             </div> 
-            <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #F8914A;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div id="myDropdown2" class="dropdown-content">
-                    <a href="#">February</a>
-                    <a href="#">March</a>
-                    <a href="#">April</a>
-                 </div>
-             </div> 
-     </div>
-      </div>
+    <?php
+      $sqlSR = "SELECT u.name FROM user u WHERE u.user_role = 'Sales Representative' ";
+      $querySR = mysqli_query($con, $sqlSR);
+    ?>
+        
+      <select name="SalesFilter" id="SalesFilter">
+        <option value="" disabled="" selected="">--Select Sales Rep--</option>
+        <?php
+        if(mysqli_num_rows($querySR)>0){
+          foreach($querySR as $thingSR){
+            ?>
+            <option value="<?=$thingSR['name']?>"><?php echo $thingSR['name']?></option>
+            <?php
+          }
+        }
+        ?>
+        <option value="reset_sales">All</option> 
+      </select>
 
+    </div>
+
+    <script>
+      var SalesFilter = document.getElementById('SalesFilter');
+      SalesFilter.addEventListener('change', function(){
+        filterSalesTable();
+      });
+
+      function filterSalesTable(){
+        var SalesFilter_op = document.getElementById('SalesFilter').value;
+        console.log("selected sales rep :", SalesFilter_op);
+
+        $(document).ready(function(){
+            $.ajax({
+              url: "./fin_filter_copy.php",
+              type: "POST",
+              data: {SalesFilter_op: SalesFilter_op,
+                identifier: 'sales_filter'},
+              success: function(response){
+              // Handle the response from the server here
+              console.log("dynamic response :", response);
+              $(".dynamic_content").html(response);
+            }
+          });
+        });
+      }
+    </script>
  
-     <table class="content-table">
+ <div class="dynamic_content">
+     <table class="content-table" id="salesTable">
         <thead>
           <tr>
             <th>Order ID</th>
@@ -169,7 +178,7 @@ require '../../Model/db-con.php';
           ?>
         </tbody>
       </table>
-
+  </div>
       
      <script>
         var myFunction = function(target) {

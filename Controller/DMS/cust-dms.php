@@ -1,8 +1,21 @@
 <?php
 
 require '../../Model/db-con.php';
-?>
 
+if(isset($_GET['page'])){
+
+  $page = $_GET['page'];
+
+}
+else{
+  $page = 1;
+}
+
+$num_per_page = 05;
+$start_from = ($page-1)*05;
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +24,8 @@ require '../../Model/db-con.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Marketing Strategist</title>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
@@ -25,25 +40,31 @@ require '../../Model/db-con.php';
         margin-left: 22%;
       }
       .profile li{
-      padding-top: 2%;
-      padding-bottom: 2%;
-    }
+        padding-top: 2%;
+        padding-bottom: 2%;
+      }
+      #btnSearch{
+        background: none;
+        border: none;
+      }
+      #search_content{
+        position: absolute;
+        width: 21%;
+        border-radius: 5px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        /* background: rgba(238, 237, 237, 0.89); */
+        background: white;
+        /* padding: 1%; */
+        margin-top: 1%;
+        list-style-type: none;
+        /* 
+        border: 1px solid black;
+         */
+      }
     </style>
 </head>
 <body>
     <div class="nav_bar">
-        <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div>
         <div class="user-wrapper">
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
@@ -58,7 +79,7 @@ require '../../Model/db-con.php';
         </div>
         <ul class="icon-list">
             <li><a href="dms.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
-            <li><a href="campaigns.html"><i style="margin-right: 2%;" class="fa-solid fa-globe"></i>Campaigns</a></li>
+            <li><a href="campaigns.php"><i style="margin-right: 2%;" class="fa-solid fa-globe"></i>Campaigns</a></li>
             <li><a href="stats.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li>
             <li class="active"><a href="cust-dms.php"><i style="margin-right: 2%;" class="fa-solid fa-users"></i></i>Customers</a></li>
         </ul>
@@ -85,93 +106,140 @@ require '../../Model/db-con.php';
         <div class="search_container">
           <table class="element_container">
           <tr>
-              <form action="" method="GET">
+              
               <td>
-                    <input type="text" name="searchVal" value="<?php if(isset($_GET['searchVal'])){ echo $_GET['searchVal']; } ?>" class="search" placeholder="Search Table...">
+                    <input type="text" class="search" id="search" placeholder="Search Table...">
               </td>
               <td>            
-                    <button type="submit">Search</button>              
+                    <button id="btnSearch"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>              
               </td>
-              </form>
+              
             </tr>
           </table>
+
+          <ul name="search_content" id="search_content">
+          </ul>
+
+
         </div>
 
       </div>
         
 
+      
+      <!-- pagination -->
+<script>
+  
+  $(document).ready(function() {
+      // Fetch the initial page on page load
+      fetchNextPage(<?php echo $page; ?>);
+
+      // Attach click event listeners to the pagination links
+      $('.prev-page').click(function() {
+        fetchNextPage(<?php echo $page - 1; ?>);
+      });
+
+      $('.next-page').click(function() {
+        fetchNextPage(<?php echo $page + 1; ?>);
+      });
+
+      $('.page-number').click(function() {
+        var pageNumber = parseInt($(this).find('a').text());
+        console.log("pagenumber working: ",pageNumber);
+        fetchNextPage(pageNumber);
+      });    
+  });
+
+  function fetchNextPage(pageNumber) {
+    $.ajax({
+      url: 'pagin_copy.php',
+      type: 'GET',
+      data: {
+        page_dms: pageNumber,
+        identifier: 'customer_pagin'
+      },
+      success: function(data) {
+        // Update the campaign list with the new data
+        $('.content-table').html(data);
+
+        // Update the URL with the new page number
+        window.history.pushState({
+          page: pageNumber
+        }, '', '?page=' + pageNumber);
+
+        // Update the active class for the pagination links
+        $('.page-number').removeClass('active');
+        $('.page-number').eq(pageNumber - 1).addClass('active');
+      }
+   });
+  }
+
+</script>
+
+<div class="dynamic_content">
         <table class="content-table">
             <thead>
               <tr>
-                <th>Customer ID</th>
                 <th>Name</th>
                 <th>Address</th>
+                <th>Email</th>
                 <th>Social Media<br>Platform</th>
               </tr>
             </thead>
             <tbody>
+
+            <?php
+
+            $custom = "SELECT * FROM customer";
+            $query_cust = mysqli_query($con, $custom);
+
+            // pagination related queries----------------------------------------------
+            $custom_pagin = "SELECT * FROM customer limit $start_from, $num_per_page";
+            $query_cust_pagin = mysqli_query($con, $custom_pagin);
+            $cust_num_rows = mysqli_num_rows($query_cust);
+            
+            $tPages = ceil($cust_num_rows/$num_per_page); 
+
+            if(mysqli_num_rows($query_cust_pagin) > 0){
+              foreach($query_cust_pagin as $thingCust){
+                ?>
+                <tr>
+                  <td><?php echo $thingCust['customerName']?></td>
+                  <td><?php echo $thingCust['address']?></td>
+                  <td><?php echo $thingCust['email']?></td>
+                  <td><?php echo $thingCust['socialMediaPlatform']?></td>
+                </tr>
+                <?php
+              }
+            }
+            ?>
               
             </tbody>
           </table>
-          <div class="navigation-table">
-            <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-            <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-          </div>
+
+  </div>
             
-      <div class="popup-container" id="popup_container">
-        <div class="popup-modal">
-          <form>
-            <label for="name" class="title"><h3 style="color: rgb(0, 0, 0); margin-top: 3px; margin-right: 10px; margin-bottom: 20px;">Campaign ID :</h3> <h2 style="color: rgb(0, 0, 0);">002</h2>
-          </label>
-          <label for="start-date">Start Date
-            <input type="date" id="s-date">
-          </label>
-          <label for="objective">Objective
-            <select id="objective">
-                <option value="awareness">Awareness</option>
-                <option value="leads">Leads</option>
-                <option value="engagement">Engagement</option>
-                <option value="sales">Sales</option>
-            </select>
-          </label>
-          <label for="status">Status
-            <select id="status">
-                <option value="tobelaunched">To-be Launched</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="complete">Complete</option>
-            </select>
-          </label>
-          <label for="budget">Budget
-            <input type="number" id="budget">
-          </label>
-          </form>
+          <div style="margin-left: 750px; margin-bottom:30px;">
+    <?php
+    
+      for ($i = 1; $i <= $tPages; $i++) {
 
-          <label class="sp-label">
-            <button class="cancel" id="close">Cancel</button>
-            <button class="submit" id="save">Save</button>
-        </label>
-        </div>
-      </div>
+        if($i == $page){
+          echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+        }
+        else{
+          echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+        }
+        
+      }
+    
+    ?>
 
-    <script>
-        const add_btn = document.getElementById('add_btn');
-        const close = document.getElementById('close');
-        const save = document.getElementById('save');
-        const popup_container = document.getElementById('popup_container');
+  </div>
 
-        add_btn.addEventListener('click', () => {
-            popup_container.classList.add('show');
-        });
-
-        close.addEventListener('click', () => {
-            popup_container.classList.remove('show');
-        });
-
-        save.addEventListener('click', () => {
-            popup_container.classList.remove('show');
-        });
-
-    </script>
+    <!-- autocomplete search bar -->
+    <script src="./search_bar.js"></script>
+    
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>

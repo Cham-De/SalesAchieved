@@ -57,7 +57,11 @@
                         }
                     }
                     else{
-                        echo "<h4>No records</h4>";
+                      ?>
+                      <tr>
+                          <td colspan="5"><?php echo "No Records"; ?></td>
+                      </tr>
+                      <?php
                     }
                 ?>
             </tbody>

@@ -1,6 +1,6 @@
 <?php
 require '../../Model/db-con.php';
-
+require './dms_charts.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +10,8 @@ require '../../Model/db-con.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Marketing Strategist</title>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
@@ -46,18 +48,6 @@ require '../../Model/db-con.php';
 </head>
 <body>
 <div class="nav_bar">
-        <!-- <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
             <div>
@@ -90,82 +80,63 @@ require '../../Model/db-con.php';
     
 
     <div class="wrapper">
-            <div class="dropdown">
-              <select name="yrs" id="years" >
-                <option value="22">2023</option>
-                <option value="21">2022</option>
-                <option value="20">2021</option>
-                <option value="20">2020</option>
+        <div class="dropdown">
+              <select name="month_fil" id="month_fil">
+              <option value="" disabled="" selected="">--Select Month--</option>
+              <?php
+                for($i=0; $i<4; $i++){
+                  $month_filter = date("F", strtotime("-$i month"));
+                  echo '<option value="'.$month_filter.'">'.$month_filter.'</option>';
+                }
+              ?>
+              <option value="reset_filter">--Reset--</option>
               </select>
-                <!--<button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
-                    <a href="#" onclick="show('2021')">2021</a>
-                    <a href="#" onclick="show('2021')">2019</a>
-                    <a href="#" onclick="show('2021')">2018</a>
-                 </div>-->
-             </div> 
-            <div class="dropdown">
-                <!--<button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div id="myDropdown2" class="dropdown-content" style="overflow-y: scroll;">
-                    <a href="#">February</a>
-                    <a href="#">March</a>
-                    <a href="#">April</a>
-                    <a href="#">May</a>
-                    <a href="#">June</a>
-                    <a href="#">July</a>
-                    <a href="#">August</a>
-                    <a href="#">September</a>
-                    <a href="#">October</a>
-                    <a href="#">November</a>
-                    <a href="#">December</a>
-                 </div>-->
-                 <select name="mon" id="months">
-                    <option value="jan">January</option>
-                    <option value="feb">February</option>
-                    <option value="mar">March</option>
-                    <option value="apr">April</option>
-                    <option value="may">May</option>
-                    <option value="jun">June</option>
-                    <option value="jul">July</option>
-                    <option value="aug">August</option>
-                    <option value="sep">September</option>
-                    <option value="oct">October</option>
-                    <option value="nov">November</option>
-                    <option value="dec">December</option>
-                  </select>
-             </div> 
+          </div> 
     </div>
      
-    <?php
-    
-    // $sql = "SELECT chartImg FROM charts";
-    // $query = mysqli_query($con, $sql);
-    
-    ?>
+    <script>
 
+    var month_fil = document.getElementById('month_fil');
+    month_fil.addEventListener('change', function() {
+      filter_charts();
+    });
+
+    function filter_charts(){
+      var month_fil_op = document.getElementById("month_fil").value;
+      console.log("selected :", month_fil_op);
+
+      $(document).ready(function(){
+                $.ajax({
+                  url: "./dms_charts.php",
+                  type: "POST",
+                  data: {month_fil_op: month_fil_op},
+                  success: function(response){
+                  // Handle the response from the server here
+                  console.log(response);
+                  $(".dynamic_content").html(response);
+                }
+              });
+            }); 
+    }
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- chart.js charts----------------------------------------- -->
+<div class="dynamic_content">
     <div class="graphs-large">
         <div class="sales">
-                <h2 class="card-title">Audience</h2>
-                <img src="../../View/assets/graph3.png" width="80%" height="80%" alt="monthly sales">
-                
-                
-                
+                <h2 class="card-title">Budget Variation</h2>
+                <canvas id="dms_chart1"></canvas>
         </div>
         <div class="products">
-                <h2 class="card-title">Page Reach</h2>
-                <img src="../../View/assets/graph1.png" width="80%" height="80%" alt="monthly sales">
+                <h2 class="card-title">Social Media Channel Usage</h2>
+                <canvas id="dms_chart2"></canvas>
         </div>  
     </div>
         
-
+<!-- kpis----------------------------------------------------- -->
     <div class="view-cards-wrapper">
       <h2 class="name">Key Performance Indicators</h2>
       <div class="kpi-cards-row">
@@ -211,6 +182,7 @@ require '../../Model/db-con.php';
       </div>
       
     </div>
+  </div>
 
     <script>
         var myFunction = function(target) {
@@ -235,6 +207,90 @@ require '../../Model/db-con.php';
           document.querySelector('.button__text').value = anything;
         }
     </script>
+
+<!-- chart generation---------------------------------------------- -->
+    <script>
+
+        const cht1 = document.getElementById('dms_chart1');
+
+        new Chart(cht1, {
+          type: 'bar',
+          data: {
+            labels: <?php echo json_encode($month) ?>,
+            datasets: [{
+              label: 'Total Budget Spent',
+              data: <?php echo json_encode($monthlyBudget) ?>,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                        ticks: {
+                            font: {
+                                weight: 'bold'
+                            },
+                            color: 'blue'
+                        }
+                    },
+              y: {
+                beginAtZero: true
+              }
+            },
+            plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                weight: 'bold'
+                            },
+                            color:'black'
+                        }
+                    }
+                }
+          }
+        });
+
+        const cht2 = document.getElementById('dms_chart2');
+
+        new Chart(cht2, {
+          type: 'pie',
+          data: {
+            labels: <?php echo json_encode($channel) ?>,
+            datasets: [{
+              label: 'Social Media Channel Usage',
+              data: <?php echo json_encode($channelCount) ?>,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.6)', // red with opacity 0.2
+                'rgba(54, 162, 235, 0.6)', // blue with opacity 0.2
+                'rgba(255, 206, 86, 0.6)', // yellow with opacity 0.2
+                'rgba(75, 192, 192, 0.8)', // green with opacity 0.2
+                'rgba(153, 102, 255, 0.8)', // purple with opacity 0.2
+                'rgba(255, 159, 64, 0.8)' // orange with opacity 0.2
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            },
+            plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                weight: 'bold'
+                            },
+                            color:'black'
+                        }
+                    }
+                }
+          }
+        });
+
+    </script>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>

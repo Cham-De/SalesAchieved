@@ -37,18 +37,6 @@ $start_from = ($page-1)*05;
 </head>
 <body id="whole">
     <div class="nav_bar">
-        <!-- <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div> -->
         <div class="user-wrapper">
             <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
             <div>
@@ -166,7 +154,7 @@ $start_from = ($page-1)*05;
             var optionArray;
 
             if(select1.value == "Status"){
-              optionArray = ['ongoing','toBeLaunched','complete'];
+              optionArray = ['ongoing','To Be Launched','complete'];
             }
             else if(select1.value == "Objective"){
               optionArray = ['leads','sales','awareness','engagement'];
@@ -204,6 +192,7 @@ $start_from = ($page-1)*05;
                  sql_query += "WHERE budget >= " + budget_min + " AND budget <= " + budget_max;
              }
              else{
+              //reset filter
                 sql_query = "SELECT * FROM campaign";
                 fetchval2.selectedIndex = 0;
                 fetchval.selectedIndex = 0;
@@ -215,7 +204,9 @@ $start_from = ($page-1)*05;
                   $.ajax({
                     url: "fetch.php",
                     type: "POST",
-                    data: {sql_query: sql_query},
+                    data: {sql_query: sql_query,
+                      identifier: 'campaign_filter'
+                    },
                     success: function(response){
                     // Handle the response from the server here
                     console.log(response);
@@ -230,53 +221,7 @@ $start_from = ($page-1)*05;
 
 <!-- pagination -->
   <script>
-     function fetchNextPage(pageNumber) {
-      $.ajax({
-        url: 'pagin.php',
-        type: 'GET',
-        data: {
-          page: pageNumber
-        },
-        success: function(data) {
-          // Update the campaign list with the new data
-          $('.content-table').html(data);
-
-          // Update the URL with the new page number
-          window.history.pushState({
-            page: pageNumber
-          }, '', '?page=' + pageNumber);
-
-          // Update the active class for the pagination links
-          $('.page-number').removeClass('active');
-          $('.page-number').eq(pageNumber - 1).addClass('active');
-        }
-     });
-    }
-    
-    // function fetchNextPageFiltered(pageNumber, sql_query) {
-    //       $.ajax({
-    //         url: 'fetch.php',
-    //         type: 'POST',
-    //         data: {
-    //           page: pageNumber,
-    //           sql: sql_query
-    //         },
-    //         success: function(data) {
-    //           // Update the campaign list with the new data
-    //           $('.content-table').html(data);
-
-    //           // Update the URL with the new page number
-    //           window.history.pushState({
-    //             page: pageNumber
-    //           }, '', '?page=' + pageNumber);
-
-    //           // Update the active class for the pagination links
-    //           $('.page-number-f').removeClass('active');
-    //           $('.page-number-f').eq(pageNumber - 1).addClass('active');
-    //         }
-    //     });
-    //   }
-
+  
     $(document).ready(function() {
         // Fetch the initial page on page load
         fetchNextPage(<?php echo $page; ?>);
@@ -296,6 +241,30 @@ $start_from = ($page-1)*05;
           fetchNextPage(pageNumber);
         });    
     });
+
+    function fetchNextPage(pageNumber) {
+      $.ajax({
+        url: 'pagin_copy.php',
+        type: 'GET',
+        data: {
+          page_campaigns: pageNumber,
+          identifier: 'campaign_pagin'
+        },
+        success: function(data) {
+          // Update the campaign list with the new data
+          $('.content-table').html(data);
+
+          // Update the URL with the new page number
+          window.history.pushState({
+            page: pageNumber
+          }, '', '?page=' + pageNumber);
+
+          // Update the active class for the pagination links
+          $('.page-number').removeClass('active');
+          $('.page-number').eq(pageNumber - 1).addClass('active');
+        }
+     });
+    }
 
   </script>
 
@@ -328,7 +297,7 @@ $start_from = ($page-1)*05;
                                     <td><?=$thing['startdate']; ?></td>
                                     <td><?=$thing['objective']; ?></td>
                                     <td>
-                                        <select id="status" name="stat">
+                                        <select id="status_update" name="stat">
                                           <option value="unknown"><?=$thing['cmpg_stat']; ?></option>
                                           <option value="tobelaunched">To-be Launched</option>
                                           <option value="ongoing">Ongoing</option>
@@ -347,11 +316,23 @@ $start_from = ($page-1)*05;
                     }
                 ?>
             </tbody>
-              
-            
+                         
           </table>
   
-    
+<script>
+  var stat = document.getElementById('status_update');
+  
+  stat.addEventListener('change', function() {
+
+    updateStatus();
+  });
+
+  function updateStatus(){
+    var stat_op = document.getElementById('status_update').value;
+    console.log("working :", stat_op);
+  }
+</script>
+
     <?php
       $pr_query = "SELECT * FROM campaign";
       
@@ -364,17 +345,24 @@ $start_from = ($page-1)*05;
   <div style="margin-left: 750px; margin-bottom:30px;">
     <?php
 
-      if ($page > 1) {
-        echo "<button class='page-link prev-page' style='margin-left:10px; border: none; outline: none;'><i class='fa-solid fa-circle-chevron-left fa-lg' style='color:#F8914A;'></i></button>";
-      }
+      // if ($page > 1) {
+      //   echo "<button class='page-link prev-page' style='margin-left:10px; border: none; outline: none;'><i class='fa-solid fa-circle-chevron-left fa-lg' style='color:#F8914A;'></i></button>";
+      // }
     
       for ($i = 1; $i <= $total_pages; $i++) {
-        echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+
+        // if($i == $page){
+        //   echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A; border: 2px solid blue;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+        // }
+        
+          echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
+        
+        // echo "<button class='page-link page-number' style='margin-left:10px; border: none; outline: none; padding: 10px; background:#F8914A;'><a href='#' style='text-decoration:none; color:#FFFFFF;'>$i</a></button>";
       }
     
-      if ($i - 1 > $page) {
-        echo "<button class='page-link next-page' style='margin-left:10px; border: none; outline: none;'><i class='fa-solid fa-circle-chevron-right fa-lg' style='color:#F8914A;'></i></button>";
-      }
+      // if ($i - 1 > $page) {
+      //   echo "<button class='page-link next-page' style='margin-left:10px; border: none; outline: none;'><i class='fa-solid fa-circle-chevron-right fa-lg' style='color:#F8914A;'></i></button>";
+      // }
     ?>
 
   </div>

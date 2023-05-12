@@ -25,6 +25,8 @@ $start_from = ($page-1)*05;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
@@ -34,6 +36,8 @@ $start_from = ($page-1)*05;
       .search-wrap-container{
         display: flex;
         justify-content: space-between;
+        /* width: 15%; */
+        /* margin-left: 22%; */
       }
 
       .search_container{
@@ -103,7 +107,7 @@ $start_from = ($page-1)*05;
     </div>
 
     <div class="search-wrap-container">
-        <div class="search_container">
+        <!-- <div class="search_container">
           <table class="element_container">
             <tr>
               <td>
@@ -114,39 +118,12 @@ $start_from = ($page-1)*05;
               </td>
             </tr>
           </table>
-        </div>
-
-        <div class="wrapper">
-        <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #F8914A;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
-                    <a href="#">2021</a>
-                    <a href="#">2019</a>
-                    <a href="#">2018</a>
-                 </div>
-             </div> 
-            <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #F8914A;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div id="myDropdown2" class="dropdown-content">
-                    <a href="#">February</a>
-                    <a href="#">March</a>
-                    <a href="#">April</a>
-                 </div>
-             </div> 
-     </div>
-
+        </div> -->
+        <select name="productFilter" id="productFilter">--Select Filter--
+          <option value="resetProducts">Reset</option>
+        </select>
         
-
+        
       </div>
 
       

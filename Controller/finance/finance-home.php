@@ -81,9 +81,12 @@ require './fin_charts.php';
     .card-title{
       margin-bottom: 3%;
     }
-    /* .orders{
-      height: 400px;
-    } */
+    .error_msg{
+      color: red;
+      margin-bottom: 5%;
+      text-align: center;
+      display: none;
+    }
     </style>
 
 </head>
@@ -140,10 +143,11 @@ require './fin_charts.php';
              </div> 
 
 
-             <button id="charge_btn">Update Delivery Charges</button>
+             <button id="charge_btn" onclick="errorMsg()">Update Delivery Charges</button>
     </div>
     
     <script>
+
       var month_fil = document.getElementById('month_fil');
       month_fil.addEventListener('change', function() {
         filter_charts();
@@ -169,28 +173,40 @@ require './fin_charts.php';
 
 
     </script>
- 
+
+<!-- chart.js charts------------------------------------------- -->
+
  <div class="dynamic_content">
     <div class="graphs-large">
+
+    <!-- sales revenue by month chart - unfiltered -->
         <div class="sales">
-                <h2 class="card-title">Sales Revenue</h2>
+                <h2 class="card-title">Sales Revenue</h2> 
                 <canvas id="myChart"></canvas>
         </div>
+
+        <!-- sales revenue per product - no month filter -->
         <div class="products">
                 <h2 class="card-title">Product Sales</h2>
                 <canvas id="myChartP"></canvas>
         </div>  
+
     </div>
     
     <div class="graph-kpi">
+
+    <!-- orders categorized by status - no month filter -->
         <div class="orders">
                 <h2 class="card-title">Order Status</h2>
                 <div class="chartBox"><canvas id="myChartO"></canvas></div>
         </div>
+<!-- end of charts -->
 
         <div class="title-and-kpis">
         <div class="txt"><h2>Key Performance Indicators</h2></div>
             <div class="KPIs">
+
+            <!-- average order processing time -->
                 <div class="card1">
                     <h3>Average Order Processing Time</h3>
                     <h2><?php echo $days?> Days <?php 
@@ -200,6 +216,8 @@ require './fin_charts.php';
                     }
                      ?></h2>
                 </div>
+
+                <!-- order fullfilment rate -->
                 <div class="card2">
                     <h3>Order Fullfilment Rate</h3>
                     <h2><?php echo $fullfil_rate ?>%</h2>
@@ -210,6 +228,8 @@ require './fin_charts.php';
     </div>
   </div>  
 
+
+  <!-- update delivery charges form------------------------------------------------------ -->
     <?php
           $sqlwc = "SELECT * FROM delivery WHERE deliveryRegion = 'Within Colombo' ";
           $querywc = mysqli_query($con, $sqlwc);
@@ -235,15 +255,19 @@ require './fin_charts.php';
     <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="max-width: 400px;">
               <div class="topic">Delivery Charges</div>
-              <form action="../../Model/finance/fin-crud.php" method="post">
+
+              <!-- Display error messages -->
+              <div class="error_msg" id="error_msg">Error msgs</div>
+
+              <form name="delivery" action="../../Model/finance/fin-crud.php" method="post" onsubmit="return validateForm()">
               <label for="colombo">Within Colombo (Rs.)
-                <input type="number" id="s-date" name="wCol" value="<?php echo $chargewc; ?>">
+                <input type="number" step="any" id="s-date" name="wCol" value="<?php echo $chargewc; ?>">
               </label>
               <label for="suburbs">Colombo Suburbs (Rs.)
-                <input type="number" id="ed" name="sCol" value="<?php echo $chargecs; ?>">
+                <input type="number" step="any" id="ed" name="sCol" value="<?php echo $chargecs; ?>">
               </label> 
               <label for="outofcolombo">Out of Colombo (Rs.)
-                <input type="number" id="budget" name="oCol" value="<?php echo $chargeoc; ?>">
+                <input type="number" step="any" id="budget" name="oCol" value="<?php echo $chargeoc; ?>">
               </label>
               <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
               <button class="submit" id="save" type="submit" value="Submit" name="update">Update</button>
@@ -254,48 +278,83 @@ require './fin_charts.php';
     <?php 
     ?>
 
+<!-- delivery charges update form validations--------------- -->
     <script>
-        var myFunction = function(target) {
-   target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
-}
-
-window.onclick = function(event) {
-  if (!event.target.matches('.button__text')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+    function validateForm() {
+      var error_msg = document.getElementById("error_msg");
+      var wCol = document.forms["delivery"]["wCol"].value;
+      var sCol = document.forms["delivery"]["sCol"].value;
+      var oCol = document.forms["delivery"]["oCol"].value;
+      if (wCol == "" || sCol == "" || oCol == "") {
+        error_msg.innerHTML = "All fields must be filled out";
+        error_msg.style.display = "block";
+        return false;
+      }
+      else if((wCol>=1000) || (sCol>=1000) || (oCol>=1000)){
+        error_msg.innerHTML = "Charges cannot exceed Rs.1000";
+        error_msg.style.display = "block";
+        return false;
+      }
+      else if((wCol<30) || (sCol<30) || (oCol<30)){
+        error_msg.innerHTML = "Charges cannot be less than Rs.30";
+        error_msg.style.display = "block";
+        return false;
       }
     }
-  }
-}
     </script>
 
-<script>
-    const charge_btn = document.getElementById('charge_btn');
-    const close = document.getElementById('close');
-    const save = document.getElementById('save');
-    const popup_container = document.getElementById('popup_container');
+<!-- popup functions------------------------------------------------------------- -->
+    <script>
+        var myFunction = function(target) {
+            target.parentNode.querySelector('.dropdown-content').classList.toggle("show");
+        }
 
-    charge_btn.addEventListener('click', () => {
-        popup_container.classList.add('show');
-    });
+        window.onclick = function(event) {
+          if (!event.target.matches('.button__text')) {
 
-    close.addEventListener('click', () => {
-        popup_container.classList.remove('show');
-    });
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
 
-    save.addEventListener('click', () => {
-        popup_container.classList.remove('show');
-    });
+    <script>
+        const charge_btn = document.getElementById('charge_btn');
+        const close = document.getElementById('close');
+        const save = document.getElementById('save');
+        const popup_container = document.getElementById('popup_container');
 
-</script>
+        charge_btn.addEventListener('click', () => {
+            popup_container.classList.add('show');
+        });
+
+        close.addEventListener('click', () => {
+            error_msg.style.display = 'none';
+            popup_container.classList.remove('show');
+        });
+
+        // Check validation errors before closing
+        save.addEventListener('click', () => {
+          if (error_msg.style.display === 'none') {
+            popup_container.classList.remove('show');
+          }
+            // popup_container.classList.remove('show');
+        });
+
+    </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- charts -->
+
+
+<!-- charts generation------------------------------------------ -->
+
+<!-- first chart -->
 <script>
   const ctx = document.getElementById('myChart');
 
@@ -311,13 +370,32 @@ new Chart(ctx, {
   },
   options: {
     scales: {
+      x: {
+                ticks: {
+                    font: {
+                        weight: 'bold'
+                    },
+                    color: 'blue'
+                }
+            },
       y: {
         beginAtZero: true
       }
-    }
+    },
+    plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        weight: 'bold'
+                    },
+                    color:'black'
+                }
+            }
+        }
   }
 });
 
+// second bar chart
 const pchart = document.getElementById('myChartP');
 
 new Chart(pchart, {
@@ -340,13 +418,32 @@ new Chart(pchart, {
   },
   options: {
     scales: {
+      x: {
+                ticks: {
+                    font: {
+                        weight: 'bold'
+                    },
+                    color: 'blue'
+                }
+            },
       y: {
         beginAtZero: true
       }
-    }
+    },
+    plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        weight: 'bold'
+                    },
+                    color:'black'
+                }
+            }
+        }
   }
 });
 
+// third chart - pie 
 const Ochart = document.getElementById('myChartO');
 
 new Chart(Ochart, {
@@ -357,12 +454,12 @@ new Chart(Ochart, {
       label: 'Order Status',
       data: <?php echo json_encode($num) ?>,
       backgroundColor: [
-        'rgba(255, 99, 132, 0.5)', // red with opacity 0.2
-        'rgba(54, 162, 235, 0.5)', // blue with opacity 0.2
-        'rgba(255, 206, 86, 0.5)', // yellow with opacity 0.2
-        'rgba(75, 192, 192, 0.5)', // green with opacity 0.2
-        'rgba(153, 102, 255, 0.5)', // purple with opacity 0.2
-        'rgba(255, 159, 64, 0.5)' // orange with opacity 0.2
+        'rgba(255, 99, 132, 0.6)', // red with opacity 0.2
+        'rgba(54, 162, 235, 0.6)', // blue with opacity 0.2
+        'rgba(255, 206, 86, 0.6)', // yellow with opacity 0.2
+        'rgba(75, 192, 192, 0.8)', // green with opacity 0.2
+        'rgba(153, 102, 255, 0.8)', // purple with opacity 0.2
+        'rgba(255, 159, 64, 0.8)' // orange with opacity 0.2
       ],
       borderWidth: 1
     }]
@@ -372,7 +469,17 @@ new Chart(Ochart, {
       y: {
         beginAtZero: true
       }
-    }
+    },
+    plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        weight: 'bold'
+                    },
+                    color:'black'
+                }
+            }
+        }
   }
 });
 </script>

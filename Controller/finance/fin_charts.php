@@ -57,7 +57,7 @@ if(mysqli_num_rows($resultS) > 0 ){
 
 // kpis
 
-$kpi_1 = "SELECT SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Complete' THEN 1 ELSE 0 END) AS success_orders FROM orders";
+$kpi_1 = "SELECT SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Completed' THEN 1 ELSE 0 END) AS success_orders FROM orders";
 $resultK1 = mysqli_query($con, $kpi_1);
 
 if(mysqli_num_rows($resultK1) > 0 ){
@@ -72,13 +72,15 @@ if(mysqli_num_rows($resultK1) > 0 ){
       }
 }
 
-// filtering content
+// filtering content----------------------------------------------------------------------
 if(isset($_POST['month_fil_op'])){
   $month_name = $_POST['month_fil_op'];
   $month_num = date("m", strtotime($month_name));
 
   //reset for the first chart
   if($month_name == "reset_filter"){
+
+    $labelSalesFIL = 'Total Sales Revenue Generated';
 
     $querySalesFil = "SELECT MONTH(o.orderDate) AS month, SUM((p.sellingPrice-p.buyingPrice) * d.quantity) as revenue
     FROM order_product d
@@ -134,7 +136,7 @@ if(isset($_POST['month_fil_op'])){
           }
     }
 
-    $kpi_1 = "SELECT SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Complete' THEN 1 ELSE 0 END) AS success_orders FROM orders";
+    $kpi_1 = "SELECT SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Completed' THEN 1 ELSE 0 END) AS success_orders FROM orders";
     
     $resultK1 = mysqli_query($con, $kpi_1);
 
@@ -152,6 +154,9 @@ if(isset($_POST['month_fil_op'])){
 
   }
   else{
+
+    $labelSalesFIL = 'Sales Revenue Generated in ' .$month_name;
+
     $querySalesFil = "SELECT u.name, o.orderDate, SUM(p.sellingPrice * d.quantity) as revenue
     FROM order_product d
     JOIN product p ON d.productCode = p.productCode
@@ -211,7 +216,7 @@ if(isset($_POST['month_fil_op'])){
           }
     }
 
-    $kpi_1 = "SELECT orderDate, SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Complete' THEN 1 ELSE 0 END) AS success_orders FROM orders
+    $kpi_1 = "SELECT orderDate, SUM(DATEDIFF(dispatchDate, orderDate)) AS total_diff, COUNT(*) AS all_orders, SUM(CASE WHEN orderStatus = 'Completed' THEN 1 ELSE 0 END) AS success_orders FROM orders
     WHERE MONTH(orderDate) = $month_num";
 
     $resultK1 = mysqli_query($con, $kpi_1);
@@ -219,12 +224,20 @@ if(isset($_POST['month_fil_op'])){
     if(mysqli_num_rows($resultK1) > 0 ){
       foreach($resultK1 as $thingK1){
               
-              $avg_time = $thingK1['total_diff']/$thingK1['all_orders'];
-              $days = floor($avg_time);
-              $success = $thingK1['success_orders'];
-              $fullfil_rate = ($success/$thingK1['all_orders'])*100;
-              $fullfil_rate = round($fullfil_rate, 2);
+        // in months with 0 orders, handling the 0 order count (divisionbyzero error)--------------
+              if($thingK1['all_orders'] == 0){
+                $avg_time = 0;
+                $fullfil_rate = 0;
+              }
+              else{
+                $avg_time = $thingK1['total_diff']/$thingK1['all_orders'];
+                $success = $thingK1['success_orders'];
+                $fullfil_rate = ($success/$thingK1['all_orders'])*100;
+                $fullfil_rate = round($fullfil_rate, 2);
 
+              }
+              $days = floor($avg_time);
+              
           }
     }
 
@@ -303,7 +316,7 @@ if(isset($_POST['month_fil_op'])){
         data: {
           labels: <?php echo json_encode($label) ?>,
           datasets: [{
-            label: 'Sales Revenue Generated in <?php echo $month_name ?>',
+            label: <?php echo json_encode($labelSalesFIL) ?>,
             data: <?php echo json_encode($data) ?>,
             borderWidth: 1
           }]
@@ -382,6 +395,40 @@ if(isset($_POST['month_fil_op'])){
 
 }
 
+?>
+
+<!-- commissions filter - commission rate div -->
+
+<?php
+
+if(isset($_POST['commFil_op'])){
+  $month_name = $_POST['commFil_op'];
+  $month_num = date("m", strtotime($month_name));
+
+  if($month_name == "reset_filter"){
+    $sql = "SELECT * FROM commissions
+          ORDER BY commID DESC
+          LIMIT 1";
+          $query = mysqli_query($con, $sql);
+  }
+  else{
+    $sql = "SELECT * FROM commissions WHERE MONTH(commDate) = $month_num
+          ORDER BY commID DESC
+          LIMIT 1";
+          $query = mysqli_query($con, $sql);
+  }
+  
+             
+  if(mysqli_num_rows($query) > 0 ){
+    foreach($query as $thing){
+
+        ?>
+          <h4>Commission Rate: <?php echo $thing['commRate']; ?>%</h4>
+        <?php
+    }
+  }
+
+}
 ?>
 
 

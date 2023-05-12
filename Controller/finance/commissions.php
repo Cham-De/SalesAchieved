@@ -179,23 +179,35 @@ require '../../Model/db-con.php';
 
       <script>
       var commFil = document.getElementById('commFil');
+      const bttnRate = document.getElementById("btnRate");
       commFil.addEventListener('change', function() {
         filter_tables();
+        if(commFil.value === "reset_filter"){
+          bttnRate.style.display = "block";
+        }
+        else{
+          bttnRate.style.display = "none";
+        }
       });
 
       function filter_tables(){
         var commFil_op = document.getElementById("commFil").value;
         console.log("selected :", commFil_op);
 
+        if(commFil_op === "reset_filter"){
+          commFil_op.selectedIndex = 0;
+        }
+
         // changing table
         $(document).ready(function(){
             $.ajax({
-              url: "./fin_filter.php",
+              url: "./fin_filter_copy.php",
               type: "POST",
-              data: {commFil_op: commFil_op},
+              data: {commFil_op: commFil_op,
+                identifier: 'commission_filter'},
               success: function(response){
               // Handle the response from the server here
-              console.log(response);
+              console.log("dynamic response :", response);
               $(".dynamic_content").html(response);
             }
           });
@@ -210,7 +222,7 @@ require '../../Model/db-con.php';
               success: function(response){
               // Handle the response from the server here
               console.log(response);
-              $(".rightmost-items").html(response);
+              $(".chng_rate").html(response);
             }
           });
         }); 
@@ -229,7 +241,7 @@ require '../../Model/db-con.php';
             <th>Commission<br>(Rs.)</th>
           </tr>
         </thead>
-        <tbody class="commBody">
+        <tbody>
         <?php
           $com = "SELECT o.orderID, o.orderStatus, u.name, o.orderDate, SUM((p.sellingPrice-p.buyingPrice) * op.quantity) as revenue, SUM((p.sellingPrice - p.buyingPrice) * op.quantity) * c.commRate / 100 AS commission_amount
           FROM orders o

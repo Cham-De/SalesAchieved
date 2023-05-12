@@ -11,6 +11,7 @@ $num_per_page = 5;
 $start_from = ($page-1)*5;
 
 
+
 if(isset($_POST['sql_query'])){
     $sql_query = $_POST['sql_query'];
 
@@ -18,16 +19,10 @@ if(isset($_POST['sql_query'])){
     $sql_query_new = $sql_query . " limit $start_from, $num_per_page ";
 
     $query = mysqli_query($con, $sql_query_new);
-}
-else{
-  $sql = "SELECT * FROM campaign limit $start_from, $num_per_page ";
-  $query = mysqli_query($con, $sql);
-}
-?>
 
-
-
-<table class="content-table" id="content_data">
+    if ($_POST['identifier'] === 'campaign_filter'){
+      ?>
+      <table class="content-table" id="content_data">
             <thead>
               <tr>
                 <th>Campaign ID</th>
@@ -66,14 +61,12 @@ else{
                         echo "<h4>No records</h4>";
                     }
                 ?>
-            </tbody>
-              
-            
+            </tbody>    
           </table>          
 
 <?php
 
-   if(isset($_POST['sql_query'])){
+  //  if(isset($_POST['sql_query'])){
       
       $pr_res = mysqli_query($con, $sql_query);
 
@@ -100,7 +93,78 @@ else{
     ?>
     </div>   
     <?php
+
+    }
+
+    ?>
+<?php
+    
+
+
 }
+
+// else{
+//   $sql = "SELECT * FROM campaign limit $start_from, $num_per_page ";
+//   $query = mysqli_query($con, $sql);
+// }
+
+
+
+if(isset($_POST['searchVal2'])){
+  $searchVal2 = $_POST['searchVal2'];
+
+  if ($_POST['identifier'] === 'custom_filter'){
+
+    ?>
+    <table class="content-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Social Media<br>Platform</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <?php
+
+            $custom = "SELECT * FROM customer WHERE customerName = '$searchVal2' ";
+            $query = mysqli_query($con, $custom);
+
+            // pagination related queries----------------------------------------------
+            // $custom_pagin = "SELECT * FROM customer limit $start_from, $num_per_page";
+            // $query_cust_pagin = mysqli_query($con, $custom_pagin);
+            // $cust_num_rows = mysqli_num_rows($query_cust);
+            
+            // $tPages = ceil($cust_num_rows/$num_per_page); 
+
+            if(mysqli_num_rows($query) > 0){
+              foreach($query as $thingCust){
+                ?>
+                <tr>
+                  <td><?php echo $thingCust['customerName']?></td>
+                  <td><?php echo $thingCust['address']?></td>
+                  <td><?php echo $thingCust['email']?></td>
+                  <td><?php echo $thingCust['socialMediaPlatform']?></td>
+                </tr>
+                <?php
+              }
+            }
+            ?>
+              
+            </tbody>
+          </table>
+
+          <?php
+  }
+
+}
+
+?>
+
+
+
     
 
         

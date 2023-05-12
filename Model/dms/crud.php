@@ -84,22 +84,7 @@ else{
 }
 
 
-/*user registration
-
-$name = $_POST['fullname'];
-$email = $_POST['email'];
-$userrole = $_POST['userrole'];
-$gender = $_POST['gender'];
-$phone = $_POST['phone'];
-$username = $_POST['username'];
-$password = $_POST['confpassword'];
-
-$stmt = $con->prepare("INSERT INTO user (name, email, user_role, gender, telephone, username, password) values(?,?,?,?,?,?,?)");
-$stmt->bind_param("ssssiss", $name, $email, $userrole, $gender, $phone, $username, $password);
-$stmt->execute();
-echo "registration successfull";
-$stmt->close();
-$con->close();*/
+// DMS-customer table
 
 ?>
 

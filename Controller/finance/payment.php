@@ -27,6 +27,8 @@ $start_from = ($page-1)*05;
     <title>Finance Manager</title>
     <link rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--stylesheet for icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Stylesheet for nav bar-->
@@ -39,6 +41,8 @@ $start_from = ($page-1)*05;
     <link rel="stylesheet" href="../../View/styles/navButtons.css">
     <!--Stylesheet for paymentsUi.css-->
     <link rel="stylesheet" href="../../View/styles/courier/paymentsUi.css">
+    <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
 
     <style>
     
@@ -47,6 +51,13 @@ $start_from = ($page-1)*05;
         padding: 2%;
       }
 
+      .search-wrap-container{
+        /* display: flex;
+        justify-content: space-between; */
+        margin-top: 2%;
+        width:18%;
+        margin-left: 22%;
+      }
       div.side_bar ul li{
         padding-top: 8%;
         padding-bottom: 6%;
@@ -70,19 +81,6 @@ $start_from = ($page-1)*05;
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <!-- <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div> -->
-
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
@@ -119,21 +117,45 @@ $start_from = ($page-1)*05;
     <!---end of side and nav bars-->
 
   <!--Table search bar-->
-  <div class="search_container">
-    <table class="element_container">
-      <tr>
-        <td>
-          <input type="text" placeholder="Search Table..." class="search">
-        </td>
-        <td>
-          <a><i class="fa-solid fa-magnifying-glass"></i></a>
-        </td>
-      </tr>
-    </table>
+  <div class="search-wrap-container">
+    <select name="paymentStatFil" id="paymentStatFil">
+      <option value="" disabled="" selected="">--Select Status--</option>
+      <option value="Pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="disapproved">Disapproved</option>
+      <option value="reset_filter">All</option>
+    </select>
     </div>
-<script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+
+    <script>
+      var paymentStatFil = document.getElementById('paymentStatFil');
+      paymentStatFil.addEventListener('change', function(){
+        filterStat();
+      });
+
+      function filterStat(){
+        var paymentStatFil_op = document.getElementById('paymentStatFil').value;
+        console.log("selected :", paymentStatFil_op);
+
+        $(document).ready(function(){
+            $.ajax({
+              url: "./fin_filter_copy.php",
+              type: "POST",
+              data: {paymentStatFil_op: paymentStatFil_op,
+                identifier: 'payment_statFilter'},
+              success: function(response){
+              // Handle the response from the server here
+              console.log("dynamic response :", response);
+              $(".dynamic_content").html(response);
+            }
+          });
+        });
+      }
+    </script>
 
 <!--Table-->
+
+<div class="dynamic_content">
 <table class="content-table">
     <thead>
         <tr>
@@ -186,12 +208,8 @@ $start_from = ($page-1)*05;
         
     </tbody>
   </table>
+</div>
 
-  <!--Table navigation-->
-  <!-- <div class="navigation-table" id="nav_table">
-    <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-    <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-</div> -->
     
 <?php
   $pr_query = "SELECT o.orderID, o.deliveryDate, SUM(order_product.quantity * p.sellingPrice) as orderAmount
@@ -239,7 +257,8 @@ $start_from = ($page-1)*05;
 
 </script> -->
 
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
   </body>
