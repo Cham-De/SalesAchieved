@@ -1,8 +1,11 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
+    require __DIR__.'/../../Model/notificationCRUD.php';
     require_once("../../Model/salesR/ordersViewCRUD.php");
     $userData = check_login("Sales Representative");
-    $username = $userData["username"];
+    //$username = $userData["username"];
+    $role = "Sales Representative";
+    $notifData = get_notification_data($role, $userData["username"]);
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +26,8 @@
     <link rel="stylesheet" href="../../View/styles/orderDetailsCards.css">
     <!--Stylesheet for ordersUiView-->
     <link rel="stylesheet" href="../../View/styles/salesR/ordersUiView.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
       div.side_bar ul li{
@@ -60,6 +65,39 @@
   
         <div class="user-wrapper">
             <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
+            <!-- Notifications -->
+        <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+          <?php 
+          while ($row = mysqli_fetch_array($notifData)){
+            $title = $row['title'];
+            $message = $row['message'];
+            $notificationID = $row['notificationID'];
+            echo  "
+            <div class='notifi-item' style='display:none;'>
+            <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+              <div class='text'>
+                <h4>$title</h4>
+                <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
+              </div>
+            </div>";
+          }
+          ?>
+        </div>
+
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
                 <h4><?php echo $userData['name'];?></h4>
@@ -187,5 +225,9 @@
       <div class="btn_back">
         <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
       </div>
+
+      <!-- Script for notifications functionality -->
+      <script src="../../View/notification.js"></script>
+
 </body>
 </html>

@@ -1,7 +1,10 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
+    require __DIR__.'/../../Model/notificationCRUD.php';
     require_once("../../Model/salesR/ordersCRUD.php");
     $userData = check_login("Sales Representative");
+    $role = "Sales Representative";
+    $notifData = get_notification_data($role, $userData["username"]);
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +33,8 @@
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
     <!--Stylesheet for table search bar-->
     <link rel="stylesheet" href="../../View/styles/tableSearch.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
       div.side_bar ul li{
@@ -68,6 +73,39 @@
         <div class="user-wrapper">
 
             <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
+            <!-- Notifications -->
+        <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+          <?php 
+          while ($row = mysqli_fetch_array($notifData)){
+            $title = $row['title'];
+            $message = $row['message'];
+            $notificationID = $row['notificationID'];
+            echo  "
+            <div class='notifi-item' style='display:none;'>
+            <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+              <div class='text'>
+                <h4>$title</h4>
+                <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
+              </div>
+            </div>";
+          }
+          ?>
+        </div>
+
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
                 <h4><?php echo $userData['name'];?></h4>
@@ -252,12 +290,13 @@
             </label>
             <label for="orderDetails" id="productList">Order Details
                 <select id="orderDetails" name="orderDetails">
-                <option value="PR001">PR001</option>
-                <option value="PR002">PR002</option>
-                <option value="PR003">PR003</option>
-                <option value="PR004">PR004</option>
-                <option value="PR005">PR005</option>
-                <option value="PR006">PR006</option>
+                    <?php
+                    while ($product = mysqli_fetch_assoc($products)){
+                        $productName = $product["productName"];
+                        $productCode = $product["productCode"];
+                        echo "<option value='$productCode'>$productName</option>";
+                    }
+                    ?>
                 </select>
                 <input id="quantityDetails" name="quantityDetails" type="number" value=1 min=1></input>
             </label>
@@ -371,6 +410,8 @@ function toggleReason(element) {
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
+        <!-- Script for notifications functionality -->
+        <script src="../../View/notification.js"></script>
 </body>
 
 </html>

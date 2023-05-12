@@ -72,12 +72,22 @@
           while ($row = mysqli_fetch_array($notifData)){
             $title = $row['title'];
             $message = $row['message'];
+            $notificationID = $row['notificationID'];
             echo  "
             <div class='notifi-item' style='display:none;'>
             <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
               <div class='text'>
                 <h4>$title</h4>
                 <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
               </div>
             </div>";
           }
