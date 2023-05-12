@@ -62,7 +62,9 @@
         }
         $row = mysqli_fetch_array($result);
         $numberOfSales = $row["numberOfSales"];
-        return $totalRevenue / $numberOfSales;
+        $salesPerSalesRep = $totalRevenue / $numberOfSales;
+        $salesPerSalesRep = ROUND($salesPerSalesRep, 2);
+        return $salesPerSalesRep;
     }
 
     //Positive feedback rate CRUD
@@ -95,5 +97,64 @@
         $positiveFeedbackRate = ($totalPositiveFeedback / $totalFeedback) * 100;
         $positiveFeedbackRate = round($positiveFeedbackRate, 2);
         return $positiveFeedbackRate;
+    }
+
+    //New customer development rate
+    function getCustomerDevelopmentRate(){
+        $con = $GLOBALS['con'];
+        $query = "SELECT COUNT(*) AS totalNoOfCustomers
+                    FROM customer";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $totalNoOfCustomers = $row["totalNoOfCustomers"];
+
+        $query = "SELECT COUNT(*) AS newNoOfCustomers
+                    FROM customer 
+                    WHERE MONTH(joinedDate) = MONTH(now()) && YEAR(joinedDate) = YEAR(now())";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $newNoOfCustomers = $row["newNoOfCustomers"];
+
+        $customerDevelopmentRate = ($newNoOfCustomers / $totalNoOfCustomers)*100;
+        $customerDevelopmentRate = round($customerDevelopmentRate, 2);
+        return $customerDevelopmentRate;
+    }
+
+    //Successful Order Percentage
+    function getSuccessfulOrderRate($username){
+        $con = $GLOBALS['con'];
+        $query = "SELECT COUNT(*) AS totalNumberOfOrders
+                    FROM orders
+                    WHERE username = \"$username\" && MONTH(orderDate) = MONTH(now()) && YEAR(orderDate) = YEAR(now())";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $totalNumberOfOrders = $row["totalNumberOfOrders"];
+
+        $query = "SELECT COUNT(*) AS successfulOrders
+                    FROM orders
+                    WHERE username = \"$username\" && MONTH(orderDate) = MONTH(now()) && YEAR(orderDate) = YEAR(now()) && orderStatus = \"Completed\"";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $successfulOrders = $row["successfulOrders"];
+
+        $successfulOrderRate = ($successfulOrders / $totalNumberOfOrders) * 100;
+        $successfulOrderRate = round($successfulOrderRate, 2);
+        return $successfulOrderRate;
     }
 ?>

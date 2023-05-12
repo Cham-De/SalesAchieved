@@ -2,6 +2,7 @@
   require __DIR__.'/../../Model/utils.php';
   require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
+  require_once("../../Model/salesR/chartsCRUD.php");
   $role = "Sales Representative";
   $userData = check_login($role);
   $notifData = get_notification_data($role, $userData["username"]);
@@ -140,9 +141,12 @@
           </div>
 
           <div class="card2">
+            <?php
+              $customerDevelopmentRate = getCustomerDevelopmentRate();
+            ?>
             <h2>New Customer <br>Development </h2>
             <h4>Monthly</h4>
-            <h1>48.09%</h1>
+            <h1><?php echo $customerDevelopmentRate;?>%</h1>
           </div>
           <div class="card3">
             <?php
@@ -158,9 +162,12 @@
             <h1>Rs. 25,560</h1>
           </div>
           <div class="card5">
-            <h2>Retention <br>Rate </h2>
+            <?php
+              $successfulOrderRate = getSuccessfulOrderRate($userData['username']);
+            ?>
+            <h2>Successful Order <br>Percentage </h2>
             <h4>Monthly</h4>
-            <h1>Rs.120,000</h1>
+            <h1><?php echo $successfulOrderRate; ?>%</h1>
           </div>
         </div>
 
@@ -169,20 +176,43 @@
           <button id="feedback_btn">Add<br>Feedback</button>
         </div>
 
+        
         <!--graphs-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="graphs">
           <div class="gr1">
             <h2>Sales Revenue Generated per Month</h2>
             <img src="../../View/assets/graph1.png" alt="monthly sales">
           </div>
           <div class="gr2">
-            <h2>Complete Vs. Incomplete Orders</h2>
-            <img src="../../View/assets/graph2.jpg" width="90%" height="80%"
-              alt="monthly sales">
+            <h2>Order Status</h2>
+            <canvas id="orderStatusChart" style="margin: 0 auto;"></canvas>
           </div>
         </div>
       </div>
     </main>
+
+    <script>
+      var label = <?php echo json_encode($label)?>;
+      var data = <?php echo json_encode($data)?>;
+      const ctx = document.getElementById('orderStatusChart');
+    
+      const chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: label,
+          datasets: [{
+            label: 'Order Status',
+            data: data,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          
+        }
+      });
+      chart.resize(600, 600);
+    </script>
 
     <!--Popup Form - Feedback-->
     <div class="popup-container" id="popup_container_feedback">
