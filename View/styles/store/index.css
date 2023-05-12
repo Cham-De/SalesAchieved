@@ -282,11 +282,17 @@ button.disabled {
   color: white;
 }
 
-button.disabled,
 button.main {
   padding: 20px;
   border-radius: 10px;
   font-size: 16px;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999 !important;
+  background-color: #cccccc !important;
+  color: #666666 !important;
 }
 
 .cta {

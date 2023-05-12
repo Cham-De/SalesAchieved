@@ -283,6 +283,21 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
                                                 $companyName = $agent["companyName"];
                                                 echo '<option value="'.$agentUsername.'">'.$companyName.'</option>';
                                             }
+                            
+                            $allowDispatch = "";
+                            if ($paymentMethod == "BT"){
+                                $query = "SELECT approvalStatus FROM slips WHERE orderID=$id";
+                                $result = $conn->query($query);
+                                if (mysqli_num_rows($result) > 0){
+                                    $row = mysqli_fetch_assoc($result);
+                                    $approvalStatus = implode($row);
+                                    if ($row["approvalStatus"] != "approved")
+                                        $allowDispatch = "disabled";
+                                }
+                                else {
+                                    $allowDispatch = "disabled";
+                                }
+                            }
 
                             echo '
                                         </select>
@@ -296,7 +311,7 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
                                     
                                     <div class="wrapper">
                                     <form action="" method="post">
-                                    <button class="main" type="submit" name="submit" value="update-order">Make Dispatched</button>
+                                    <button class="main" type="submit" name="submit" value="update-order" '.$allowDispatch.'>Make Dispatched</button>
                                     <input type="hidden" name="o_id" value="' . $id . '"/>                          
                                     </form>
                                     </div>
