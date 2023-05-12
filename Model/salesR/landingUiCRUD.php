@@ -64,4 +64,36 @@
         $numberOfSales = $row["numberOfSales"];
         return $totalRevenue / $numberOfSales;
     }
+
+    //Positive feedback rate CRUD
+    function getPositiveFeedback(){
+        $con = $GLOBALS['con'];
+        $query = "SELECT COUNT(*) AS totalFeedback
+                    FROM feedback
+                    INNER JOIN orders ON orders.orderID = feedback.orderID
+                    WHERE MONTH(orderDate) = MONTH(now()) && YEAR(orderDate) = YEAR(now())";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $totalFeedback = $row["totalFeedback"];
+
+        $query = "SELECT COUNT(*) AS totalPositiveFeedback
+                    FROM feedback
+                    INNER JOIN orders ON orders.orderID = feedback.orderID
+                    WHERE MONTH(orderDate) = MONTH(now()) && YEAR(orderDate) = YEAR(now()) && comment = \"Positive\"";
+        $result = mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            echo "Failed to connect to MYSQL: " . mysqli_error($con);
+            exit();
+        }
+        $row = mysqli_fetch_array($result);
+        $totalPositiveFeedback = $row["totalPositiveFeedback"];
+
+        $positiveFeedbackRate = ($totalPositiveFeedback / $totalFeedback) * 100;
+        $positiveFeedbackRate = round($positiveFeedbackRate, 2);
+        return $positiveFeedbackRate;
+    }
 ?>

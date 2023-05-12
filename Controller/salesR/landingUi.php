@@ -145,9 +145,12 @@
             <h1>48.09%</h1>
           </div>
           <div class="card3">
+            <?php
+              $positiveFeedbackRate = getPositiveFeedback();
+            ?>
             <h2>Postive Feedback Rate</h2>
             <h4>Monthly</h4>
-            <h1>96.07%</h1>
+            <h1><?php echo $positiveFeedbackRate; ?>%</h1>
           </div>
           <div class="card4">
             <h2>Sales <br>Commissions </h2>
