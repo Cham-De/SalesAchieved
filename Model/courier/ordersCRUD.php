@@ -7,8 +7,8 @@
             $query = "SELECT * FROM orders 
                         INNER JOIN customer ON orders.customerID = customer.customerID
                         LEFT JOIN slips ON orders.orderID = slips.orderID
-                        WHERE (agentUsername = \"$agentUsername\") && (orderStatus != 'Completed') && (orders.orderID LIKE \"%$orderSearch%\" OR customerName LIKE \"%$orderSearch%\"
-                        ORDER BY orders.orderID DESC)";
+                        WHERE (agentUsername = \"$agentUsername\") && (orderStatus != 'Completed') && (orders.orderID LIKE \"%$orderSearch%\" OR customerName LIKE \"%$orderSearch%\")
+                        ORDER BY orders.orderID DESC";
             $result = mysqli_query($GLOBALS['con'], $query);
             if (mysqli_error($GLOBALS['con'])) {
                 echo "Failed to connect to MySQL: " . mysqli_error($GLOBALS['con']);
