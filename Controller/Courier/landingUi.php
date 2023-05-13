@@ -2,6 +2,7 @@
   //require __DIR__.'/../../Model/utils.php';
   require_once("../../Model/courier/landingUiCRUD.php");
   require __DIR__.'/../../Model/notificationCRUD.php';
+  require_once("../../Model/courier/chartsCRUD.php");
   $agentData = courier_check_login();
   $notifData = get_notification_data_agent($agentData["agentUsername"]);
 ?>
@@ -216,19 +217,41 @@
         </div>
         
         <!--graphs-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="graphs">
           <div class="gr1">
             <h2>Monthly Deliveries</h2>
             <img src="../../View/assets/graph1.png" alt="monthly sales">
           </div>
           <div class="gr2">
-            <h2>On-time Deliveries</h2>
-            <img src="../../View/assets/graph2.jpg" width="90%" height="80%"
-              alt="monthly sales">
+            <h2>Order Status</h2>
+            <canvas id="orderStatusChart" style="margin: 0 auto;"></canvas>
           </div>
         </div>
       </div>
     </main>
+
+    <script>
+      var label = <?php echo json_encode($label)?>;
+      var data = <?php echo json_encode($data)?>;
+      const ctx = document.getElementById('orderStatusChart');
+    
+      const chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: label,
+          datasets: [{
+            label: 'Order Status',
+            data: data,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          
+        }
+      });
+      chart.resize(600, 600);
+    </script>
 
     <script src="../../View/notification.js"></script>
   </body>
