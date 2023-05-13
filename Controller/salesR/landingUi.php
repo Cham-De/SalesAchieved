@@ -1,5 +1,4 @@
 <?php 
-  require __DIR__.'/../../Model/utils.php';
   require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
   require_once("../../Model/salesR/chartsCRUD.php");
@@ -31,6 +30,8 @@
     <link rel="stylesheet" href="../../View/styles/popupForm.css">
     <!-- Stylesheet for notification -->
     <link rel="stylesheet" href="../../View/styles/notification.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <style>
       div.side_bar ul li{
@@ -41,6 +42,21 @@
     .side-bar-icons{
       margin-top: 20%;
     }
+  
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .wrapper{
+        position: absolute;
+        display: flex;
+        width: 75%;
+        top: 16%;
+        margin-left:22%;
+    }
+
+
     </style>
   </head>
   <body>
@@ -127,6 +143,50 @@
   </div>
   <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <!---end of side and nav bars-->
+
+    <div class="wrapper">
+            <div class="dropdown">
+                 <select name="month_fil" id="month_fil">
+                  <option value="" disabled="" selected="">--Select Month--</option>
+                  <?php
+                    for($i=0; $i<3; $i++){
+                      $month_filter = date("F", strtotime("-$i month"));
+                      echo '<option value="'.$month_filter.'">'.$month_filter.'</option>';
+                    }
+                  ?>
+                  <option value="reset_filter">--Reset--</option>
+                 </select>
+             </div> 
+    </div>
+    
+    <script>
+
+      var month_fil = document.getElementById('month_fil');
+      month_fil.addEventListener('change', function() {
+        filter_charts();
+      });
+
+      function filter_charts(){
+        var month_fil_op = document.getElementById("month_fil").value;
+        console.log("selected :", month_fil_op);
+
+        $(document).ready(function(){
+                  $.ajax({
+                    url: "../../Model/salesR/landingUiCRUD.php",
+                    type: "POST",
+                    data: {month_fil_op: month_fil_op},
+                    success: function(response){
+                    // Handle the response from the server here
+                    console.log(response);
+                    $(".KPIs").html(response);
+                  }
+                });
+              }); 
+      }
+
+
+    </script>
+    
     <!--KPI cards-->
     <main>
       <div class="last_card1">
@@ -157,9 +217,12 @@
             <h1><?php echo $positiveFeedbackRate; ?>%</h1>
           </div>
           <div class="card4">
+            <?php
+              $commissionAmount = getCommission($userData['username']);
+            ?>
             <h2>Sales <br>Commissions </h2>
             <h4>Monthly</h4>
-            <h1>Rs. 25,560</h1>
+            <h1>Rs. <?php echo $commissionAmount; ?></h1>
           </div>
           <div class="card5">
             <?php
