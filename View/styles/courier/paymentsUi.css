@@ -5,6 +5,16 @@
     box-sizing: border-box;
 }
 
+.viewSlip{
+    text-decoration: none;
+    color: rgb(235, 137, 58);
+}
+
+/* .viewSlip:hover{
+    text-decoration: none;
+    color: #FFF;
+} */
+
 .viewSlip_btn{
     display: inline-block;
     background: #FFF;
@@ -20,11 +30,10 @@
     /* align-items: center; */
 }
 
-.viewSlip_btn:hover{
+/* .viewSlip_btn:hover{
     background: rgb(235, 137, 58);
-    color: #FFF;
     border: 2px solid rgb(235, 137, 58);
-}
+} */
 
 .viewBtn{
     /* margin:auto;

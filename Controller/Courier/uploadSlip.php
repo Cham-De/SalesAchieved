@@ -1,3 +1,12 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    //require_once("../../Model/courier/ordersCRUD.php");
+    require __DIR__.'/../../Model/notificationCRUD.php';
+    $agentData = courier_check_login();
+    $agentUsername = $agentData["agentUsername"];
+    $notifData = get_notification_data_agent($agentData["agentUsername"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +23,10 @@
     <!--Stylesheet for order details cards-->
     <link rel="stylesheet" href="../../View/styles/orderDetailsCards.css">
     <!--Stylesheet for buttons-->
-    <link rel="stylesheet" href="../../View/styles/courier/uploadSlip.css">
+    <link rel="stylesheet" href="../../View/styles/salesR/uploadSlip.css">
+    <link rel="stylesheet" href="../../View/styles/courier/viewSlip.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
     .side-bar-icons{
@@ -40,9 +52,39 @@
       </div>
 
       <div class="user-wrapper">
+
+      <!-- Notifications -->
+      <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+            <?php 
+              while ($row = mysqli_fetch_array($notifData)){
+                $title = $row['title'];
+                $message = $row['message'];
+                $notificationID = $row['notificationID'];
+                echo  "
+                <div class='notifi-item' style='display:none;'>
+                <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+                  <div class='text'>
+                    <h4>$title</h4>
+                    <form method='post'>
+                      <input type='hidden' name='notificationID' value='$notificationID'>
+                      <button id='remove' class='remove' type='remove' value='remove' name='remove' style='border: none; background-color: transparent;'>
+                        <i class='fa-regular fa-circle-xmark' style='padding-left: 200px; cursor: pointer;'></i>
+                      </button>
+                    </form>
+                    <p>$message</p>
+                  </div>
+                </div>";
+              }
+            ?>
+        </div>
+
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4>John Doe</h4>
+              <h4><?php echo $agentData['companyName'];?></h4>
               <small>Courier</small>
           </div>
       </div>
@@ -56,6 +98,7 @@
           <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
           <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
           <li><a href="paymentsUi.php"><i class="fa-solid fa-user-group"></i>Payments</a></li>
+          <li><a href="requests.php"><i class="fa-solid fa-circle-exclamation"></i>Requests</a></li>
       </ul>
       <table class="side-bar-icons">
           <tr>
@@ -83,45 +126,60 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- Order Details -->
+                <?php
+                  $id = $_GET['orderID'];
+
+                  $sql = "SELECT p.productCode, p.productName, p.sellingPrice, quantity, charges, (p.sellingPrice * quantity) as totalPrice
+                          FROM orders o
+                          INNER JOIN order_product op ON o.orderID = op.orderID
+                          INNER JOIN delivery ON delivery.deliveryRegion = o.deliveryRegion
+                          JOIN product p ON op.productCode = p.productCode
+                          WHERE o.orderID = $id;
+                        ";
+
+                  $charge = 0;
+                  $finalPrice = 0;
+
+                  $query = mysqli_query($con, $sql);
+
+                  if(mysqli_num_rows($query) > 0 ){
+                    foreach($query as $thing){
+                ?>
                 <tr>
-                  <td>001</td>
-                  <td>Bag</td>
-                  <td>1000.00</td>
-                  <td>1</td>
-                  <td>1000.00</td>
+                  <td scope="row"><?=$thing['productCode']; ?></td>
+                  <td><?=$thing['productName']; ?></td>
+                  <td><?=$thing['sellingPrice']; ?></td>
+                  <td> <?=$thing['quantity']; ?></td>
+                  <td> <?=$thing['totalPrice']; ?></td>
+                </tr>
+                
+                <?php
+                    $charge = $thing['charges'];
+                    $finalPrice = $finalPrice + $thing['sellingPrice'] * $thing['quantity'];
+                  }
+                }
+                else{
+                  echo "<h4>No records</h4>";
+                }
+              ?>
+
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Order Value</b></td>
+                  <td><?php echo $finalPrice;?></td>
                 </tr>
                 <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
+                  <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
+                  <td><?php echo $charge;?><hr /></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Charges</b></td>
+                  <td><?php echo $charge + $finalPrice;?><hr /><hr /></td>
+                </tr>
               </tbody>
         </table>
       </div>
-      <div class="uploadSlip">
+      <!-- <div class="uploadSlip">
         <table class="slipTable">
           <td>
             <tr>
@@ -131,15 +189,62 @@
             </tr>
           </td>
         </table>
-        <!-- <img src="../assets/slip.jpg" alt="bank slip"> -->
-      </div>
+        <img src="../assets/slip.jpg" alt="bank slip">
+      </div> -->
+
+      <?php 
+          $id = $_GET['orderID'];
+
+          $sql = "SELECT * FROM slips WHERE orderID=$id";
+          $res = mysqli_query($con,  $sql);
+
+          if (mysqli_num_rows($res) > 0) {
+          	while ($images = mysqli_fetch_assoc($res)) {  ?>
+             
+             <div class="slip">
+             	<img src="../../uploads/<?=$images['slipUrl']?>">
+             </div>
+          		
+      <?php } }?>
+
+      <div class="form-container">
+      <button id="Back_btn" onclick="window.history.back()">Back</button>
+        <form action="../../Model/courier/uploadSlipBack.php?orderID=<?php echo $id; ?>" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="orderID" value="<?php echo $id; ?>">
+          <input type="file" name="my_image">
+
+            <?php
+              $query = "SELECT * FROM slips WHERE orderID = $id";
+              $result = mysqli_query($con, $query);
+
+              if (mysqli_num_rows($result) > 0) {
+                // image already exists, change submit button text
+                echo '<input type="submit" name="submitAgain" value="Re-Upload Slip" id="submitFile">';
+              } else {
+                // image does not exist, show regular submit button
+                echo '<input type="submit" name="submit" value="Upload Slip" id="submitFile">';
+              }
+            ?>
+            
+            <!-- <input type="submit" name="submit" value="Upload Slip"> -->
+            <input type="reset" value="Reset" id="resetFile">
+        </form>
+
+        <!-- <div class="btn_back">
+        <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
+      </div> -->
+
+        </div>
 
       <!--Buttons-->
-      <div class="btn_back">
+      <!-- <div class="btn_back">
         <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
-      </div>
+      </div> -->
       <!-- <div class="btn_uploadSlip">
         <button id="uploadSlip_btn">Upload Slip</button>
       </div> -->
+
+      <script src="../../View/notification.js"></script>
+      
   </body>
 </html>

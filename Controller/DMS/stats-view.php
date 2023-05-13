@@ -1,3 +1,8 @@
+<?php
+require __DIR__.'/../../Model/utils.php';
+$role = "Digital Marketing Strategist";
+$userData = check_login($role);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,8 +54,8 @@
         <div class="user-wrapper">
             <img src="../../View/assets/chamodi.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>Chamodi</h4>
-                <small style="color:rgb(235, 137, 58)">Digital Marketing Strategist</small>
+              <h4><?php echo $userData['name'];?></h4>
+              <small><?php echo $userData['user_role'];?></small>
             </div>
         </div>
     </div>

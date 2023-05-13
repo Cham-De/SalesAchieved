@@ -1,4 +1,28 @@
+// Building the Calender
 const date = new Date();
+
+const eventDates = new Array();
+
+var dateEventsHTML = "";
+
+const dateToDateString = (year_, month_, day_) => {
+    return year_ + "-" + ("0" + (month_ + 1)).slice(-2) + "-" + ("0" + day_).slice(-2)
+}
+
+
+const getDateEvents = (dateStr_) => {
+    $.ajax({
+        type: "GET",
+        url: "/SalesAchieved/Model/salesR/calendarCRUD.php",
+        data: {"get_date_events": dateStr_},
+        dataType: "html",
+        success: function(data){
+            dateEventsHTML = data;
+            renderCalender();
+        }
+    });
+};
+
 
 const renderCalender = () => {
     date.setDate(1);
@@ -41,11 +65,14 @@ const renderCalender = () => {
     }
 
     for(let i = 1; i <= lastDay; i++){
+        var dateStr = dateToDateString(date.getFullYear(), date.getMonth(), i);
+        var hasEvent = eventDates.indexOf(dateStr) > -1;
+
         if(i === new Date().getDate() && date.getMonth() === new Date().getMonth()){
-            days += `<div class="today">${i}</div>`;
+            days += `<div class="today${hasEvent ? ' event': ''}" onclick="getDateEvents('${dateStr}');">${i}</div>`;
         }
         else{
-            days += `<div>${i}</div>`;
+            days += `<div${hasEvent ? ' class="event"': ''} onclick="getDateEvents('${dateStr}');">${i}</div>`;
         }
     }
 
@@ -53,6 +80,14 @@ const renderCalender = () => {
         days += `<div class="next-date">${j}</div>`;
         monthDays.innerHTML = days;
     }
+
+
+    const dayEvents = document.querySelector('.right');
+    var eventHeader = `<div class="today-date">
+        <div class="event-day">Event List</div>
+        <div class="event-date"></div>
+    </div>`;
+    dayEvents.innerHTML = eventHeader + dateEventsHTML;
 };
 
 
@@ -67,4 +102,18 @@ document.querySelector('.next').addEventListener('click',() => {
     renderCalender();
 });
 
-renderCalender();
+$.ajax({
+    type: "GET",
+    url: "/SalesAchieved/Model/salesR/calendarCRUD.php",
+    data: {"get_events": true},
+    dataType: "html",
+    success: function(data){
+        var dates = data.split(" ");
+        var i = 0;
+        while (i < dates.length) {
+            eventDates.push(dates[i].trim());
+            i++;
+        }
+        renderCalender();
+    }
+});

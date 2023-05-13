@@ -1,8 +1,11 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
     require_once("../../Model/salesR/ordersUpdateCRUD.php");
+    require __DIR__.'/../../Model/notificationCRUD.php';
     $userData = check_login("Sales Representative");
     $username = $userData["username"];
+    $role = "Sales Representative";
+    $notifData = get_notification_data($role, $userData["username"]);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Rep</title>
+    <title>SalesAchieved</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--stylesheet for icons-->
@@ -23,6 +26,8 @@
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <!--Stylesheet for cards-->
     <link rel="stylesheet" href="../../View/styles/orderDetailsCards.css">
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
 
     <style>
       div.side_bar ul li{
@@ -60,10 +65,44 @@
         </div>
   
         <div class="user-wrapper">
+            <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
+            <!-- Notifications -->
+        <div class="icon" onclick="toggleNotifi()">
+          <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
+        </div>
+        <div class="notifi-box" id="box">
+          <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
+          <?php 
+          while ($row = mysqli_fetch_array($notifData)){
+            $title = $row['title'];
+            $message = $row['message'];
+            $notificationID = $row['notificationID'];
+            echo  "
+            <div class='notifi-item' style='display:none;'>
+            <i class='fa-solid fa-circle-info' style='font-size:2em;padding-left: 10px;'></i>
+              <div class='text'>
+                <h4>$title</h4>
+                <p>$message</p>
+                
+              </div>
+              <div style='margin-right: 0;margin-left: auto; display:block;'>
+              <form method='post'>
+              <input type='hidden' name='notificationID' value='$notificationID'>
+              <button id='remove' type='submit' value='remove' name='remove' style='border: none;padding: 0px;background-color: white;'>
+                <i class='fa-regular fa-circle-xmark' style='cursor: pointer;'></i>
+              </button>
+              </form>
+              </div>
+            </div>";
+          }
+          ?>
+        </div>
+
             <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
             <div>
-                <h4>John Doe</h4>
-                <small>Sales Representative</small>
+                <h4><?php echo $userData['name'];?></h4>
+                <small><?php echo $userData['user_role'];?></small>
             </div>
         </div>
     </div>
@@ -106,47 +145,7 @@
     <!--Cards with details-->
     <div class="middle">
             <table class="prof-table">
-                <!-- <tr>
-                     <td>
-                        <div class="orderForm">
-                            <label for="customerName">Customer Name
-                                <p class="noEdit"><?php //echo $row['name']; ?></p>
-                                
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="orderForm">
-                            <label for="paymentStatus">Payment Status
-                                <p class="noEdit"><?php //echo $row['paymentStatus']; ?></p>
-                            </label>
-                        </div>
-                    </td>
-                </tr> -->
-                <!-- <tr>
-                    <td>
-                        <div class="orderForm">
-                            <label for="address">Address
-                                <p class="noEdit"><?php //echo $row['address']; ?></p>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="orderForm">
-                            <label for="orderStatus">Order Status
-                                <p class="noEdit"><?php //echo $row['orderStatus']; ?></p>
-                            </label>
-                        </div>
-                    </td>
-                </tr> -->
                 <tr>
-                    <!-- <td>
-                        <div class="orderForm">
-                            <label for="phoneNumber">Phone Number
-                                <p class="noEdit"><?php //echo $row['phone']; ?></p>
-                            </label>
-                        </div>
-                    </td> -->
                     <td>
                         <label for="deliveryDate">Delivery Date
                             <input type="date" id="deliveryDate" name="updateDeliveryDate" value=<?php echo '"'.$row['deliveryDate'].'"'; ?>>
@@ -165,101 +164,10 @@
                         </div>
                     </td>
                 </tr>
-                    <!-- <td>
-                        <div class="orderForm">
-                            <label for="orderDate">Order Date
-                                <p class="noEdit"><?php //echo $row['orderDate']; ?></p>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="orderForm">
-                            <label for="dispatchDate">Dispatched Date
-                                <?php //if($row['dispatchDate'] == NULL){?>
-                                    <p class="noEdit">Not yet Dispatched</p>
-                                <?php //}
-                                //else{?>
-                                    <p class="noEdit"><?php //echo $row['dispatchDate']; ?></p>
-                                <?php //} ?>
-                            </label>
-                        </div>
-                    </td> -->
                 </tr>
-                <!-- <tr>
-                    <td>
-                        <div class="orderForm">
-                            <label for="paymentMethod">Payment Method
-                                <select id="paymentMethod" name="updatePaymentMethod" value=<?php //echo '"'.$row['paymentMethod'].'"'; ?>>
-                                    <option value="COD">Cash on Delivery</option>
-                                    <option value="BT">Bank Transactions</option>
-                                </select>
-                            </label>
-                        </div>
-                    </td> -->
-                    <!-- <td>
-                        <div class="orderForm">
-                            <label for="deliveryRegion">Delivery Region
-                                <select id="deliveryRegion" name="updateDeliveryRegion" value=<?php //echo '"'.$row['deliveryRegion'].'"'; ?>>
-                                    <option value="Within Colombo">Within Colombo</option>
-                                    <option value="Colombo Suburbs">Colombo Suburbs</option>
-                                    <option value="Out of Colombo">Out of Colombo</option>
-                                </select>
-                            </label>
-                        </div>
-                    </td> -->
                 </tr>
             </table>
       </div>
-      <!-- <div class="middle">
-        <table class="table-bottom">
-            <thead>
-                <tr>
-                  <th>Product Code</th>
-                  <th>Product Name</th>
-                  <th>Price<br>(Rs.)</th>
-                  <th>Quantity</th>
-                  <th>Total Price<br>(Rs.)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>001</td>
-                  <td>Bag</td>
-                  <td>1000.00</td>
-                  <td>1</td>
-                  <td>1000.00</td>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td>001</td>
-                    <td>Bag</td>
-                    <td>1000.00</td>
-                    <td>1</td>
-                    <td>1000.00</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>4000.00</td>
-                  </tr>
-              </tbody>
-        </table>
-      </div> -->
 
       <!--Buttons-->
       <div class="btn_back">
@@ -272,5 +180,9 @@
         <button id="Update_btn" name="update">Update</button>
       </div>
 </form>
+
+<!-- Script for notifications functionality -->
+<script src="../../View/notification.js"></script>
+
 </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+    require __DIR__.'/../../Model/utils.php';
+    $agentData = courier_check_login();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,7 +47,7 @@
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
           <div>
-              <h4>John Doe</h4>
+              <h4><?php echo $agentData['companyName'];?></h4>
               <small>Courier</small>
           </div>
       </div>
@@ -56,6 +61,7 @@
           <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
           <li class="active"><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
           <li><a href="paymentsUi.php"><i class="fa-solid fa-user-group"></i>Payments</a></li>
+          <li><a href="requests.php"><i class="fa-solid fa-circle-exclamation"></i>Requests</a></li>
       </ul>
       <table class="side-bar-icons">
           <tr>
