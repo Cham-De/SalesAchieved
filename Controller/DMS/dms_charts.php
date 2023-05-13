@@ -31,6 +31,18 @@ if(mysqli_num_rows($result2) > 0 ){
       }
 }
 
+$dms_kpi1 = "SELECT COUNT(*) as allcamps, SUM(budget) as wholeBudget FROM campaign";
+$result_kpi1 = mysqli_query($con, $dms_kpi1);
+
+if(mysqli_num_rows($result_kpi1) > 0 ){
+  foreach($result_kpi1 as $thing){
+        
+          $avgBgt = $thing['wholeBudget']/$thing['allcamps'];
+      }
+}
+
+
+
 
 if(isset($_POST['month_fil_op'])){
     $month_name = $_POST['month_fil_op'];

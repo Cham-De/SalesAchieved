@@ -44,6 +44,18 @@ require './dms_charts.php';
     .view-cards-wrapper{
         border: none;
     }
+    .chartBox{
+      margin-left: 11%;
+      /* border: 1px solid black; */
+      height: 90%;
+      width: 70%;
+    }
+    .chartBoxbar{
+      /* margin-left: 11%; */
+      /* border: 1px solid black; */
+      height: 100%;
+      /* width: 70%; */
+    }
     </style>
 </head>
 <body>
@@ -127,12 +139,12 @@ require './dms_charts.php';
 <div class="dynamic_content">
     <div class="graphs-large">
         <div class="sales">
-                <h2 class="card-title">Budget Variation</h2>
-                <canvas id="dms_chart1"></canvas>
+                <h2 class="card-title" style="margin-bottom: 5%;">Budget Variation</h2>
+                <div class="chartBoxbar"><canvas id="dms_chart1"></canvas></div>
         </div>
         <div class="products">
                 <h2 class="card-title">Social Media Channel Usage</h2>
-                <canvas id="dms_chart2"></canvas>
+                <div class="chartBox"><canvas id="dms_chart2"></canvas></div>
         </div>  
     </div>
         
@@ -144,14 +156,11 @@ require './dms_charts.php';
         <table class="card-title-tb">
           <tr>
             <td>
-              <i class="fa-solid fa-globe fa-lg"></i>
-            </td>
-            <td>
-              <h3>Bounce Rate</h3>
+              <h3>Avg. Budget Per Campaign</h3>
             </td>
           </tr>
         </table>
-        <h1>21.8%</h1>
+        <h1><?php echo 'Rs. '.$avgBgt.'.00'; ?></h1>
       </div>
       <div class="view-card">
       <table class="card-title-tb">
