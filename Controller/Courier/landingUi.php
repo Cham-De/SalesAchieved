@@ -1,5 +1,5 @@
 <?php
-  require __DIR__.'/../../Model/utils.php';
+  //require __DIR__.'/../../Model/utils.php';
   require_once("../../Model/courier/landingUiCRUD.php");
   require __DIR__.'/../../Model/notificationCRUD.php';
   $agentData = courier_check_login();
@@ -23,18 +23,25 @@
     <link rel="stylesheet" href="../../View/styles/kpiCards.css">
     <!--Stylesheet for graphs-->
     <link rel="stylesheet" href="../../View/styles/graphs.css">
-    <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
+    <!-- <link rel="stylesheet" href="../../View/styles/filter-buttons.css"> -->
     <!-- Stylesheet for notification -->
     <link rel="stylesheet" href="../../View/styles/notification.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <style>
     .side-bar-icons{
       margin-top: 45%;
     }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
     .wrapper{
         position: absolute;
         display: flex;
-        width: 70%;
+        width: 75%;
         top: 16%;
         margin-left:22%;
     }
@@ -118,65 +125,93 @@
   </div>
     <!---end of side and nav bars-->
 
-    <!--KPI cards-->
-
-
     <div class="wrapper">
             <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
-                    <a href="#">2021</a>
-                    <a href="#">2019</a>
-                    <a href="#">2018</a>
-                 </div>
-             </div> 
-            <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)">
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div id="myDropdown2" class="dropdown-content">
-                    <a href="#">February</a>
-                    <a href="#">March</a>
-                    <a href="#">April</a>
-                 </div>
+                 <select name="month_fil" id="month_fil">
+                  <option value="" disabled="" selected="">--Select Month--</option>
+                  <?php
+                    for($i=0; $i<3; $i++){
+                      $month_filter = date("F", strtotime("-$i month"));
+                      echo '<option value="'.$month_filter.'">'.$month_filter.'</option>';
+                    }
+                  ?>
+                  <option value="reset_filter">--Reset--</option>
+                 </select>
              </div> 
     </div>
+    
+    <script>
+
+      var month_fil = document.getElementById('month_fil');
+      month_fil.addEventListener('change', function() {
+        filter_charts();
+      });
+
+      function filter_charts(){
+        var month_fil_op = document.getElementById("month_fil").value;
+        console.log("selected :", month_fil_op);
+
+        $(document).ready(function(){
+                  $.ajax({
+                    url: "../../Model/Courier/landingUiCRUD.php",
+                    type: "POST",
+                    data: {month_fil_op: month_fil_op},
+                    success: function(response){
+                    // Handle the response from the server here
+                    console.log(response);
+                    $(".KPIs").html(response);
+                  }
+                });
+              }); 
+      }
+
+
+    </script>
+
+    <!--KPI cards-->
 
     <main>
       <div class="last_card1">
         <div class="KPIs">
           <div class="card1">
-            <h2>Orders<br>Assigned</h2>
+            <?php
+              $ordersAccepted = getOrdersAccepted($agentData['agentUsername']);
+            ?>
+            <h2>Accpted<br />Orders</h2>
             <h4>Monthly</h4>
-            <h1>24</h1>
+            <h1><?php echo $ordersAccepted; ?></h1>
           </div>
           <div class="card2">
+            <?php
+              $completedOrders = getCompletedOrders($agentData['agentUsername']);
+            ?>
             <h2>Completed <br>Orders </h2>
             <h4>Monthly</h4>
-            <h1>11</h1>
+            <h1><?php echo $completedOrders; ?></h1>
           </div>
           <div class="card3">
+            <?php
+              $inCompletedOrders = getInCompletedOrders($agentData['agentUsername']);
+            ?>
             <h2>Incompleted<br>Orders</h2>
             <h4>Monthly</h4>
-            <h1>13</h1>
+            <h1><?php echo $inCompletedOrders; ?></h1>
           </div>
           <div class="card4">
-            <h2>Outstanding <br>Payments </h2>
+            <?php
+              $onTimeDeliveryRate = getOnTimeDeliveryRate($agentData['agentUsername']);
+            ?>
+            <h2>Ontime-Delivery <br>Rate </h2>
             <h4>Monthly</h4>
-            <h1>Rs. 22,500</h1>
+            <h1><?php echo $onTimeDeliveryRate; ?>%</h1>
           </div>
           <div class="card5">
-            <h2>Retention <br>Rate </h2>
+            <?php
+              $requestsPending = getRequestsPending($agentData['agentUsername']);
+            ?>
+            <h2>Requests <br>Pending </h2>
             <h4>Monthly</h4>
-            <h1>Rs.120,000</h1>
+            <h1><?php echo $requestsPending; ?></h1>
           </div>
         </div>
         
