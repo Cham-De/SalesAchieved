@@ -1,6 +1,6 @@
 <?php
     require __DIR__.'/../../Model/utils.php';
-    //require_once("../../Model/courier/ordersCRUD.php");
+    require_once("../../Model/courier/paymentsUiCRUD.php");
     require __DIR__.'/../../Model/notificationCRUD.php';
     $agentData = courier_check_login();
     $notifData = get_notification_data_agent($agentData["agentUsername"]);
@@ -144,43 +144,26 @@
             <th>Approval Status</th>
         </tr>
     </thead>
+    <?php
+        while($row = mysqli_fetch_array($result)){
+          $revenue = getRevenue($agentData['agentUsername']);
+    ?>
     <tbody>
         <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button id="v_slip" class="viewSlip_btn">View Slip</button></td>
-            <td>Approved</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>Approved</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>Approved</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>Approved</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>1,250.00</td>
-            <td>23/11/2022</td>
-            <td><button class="viewSlip_btn">View Slip</button></td>
-            <td>Approved</td>
+            <td><?php echo $row['orderID'];?></td>
+            <td><?php echo $revenue;?></td>
+            <td><?php if($row['actualDeliveryDate'] == NULL){
+              echo 'Not Yet Delivered';
+            }
+            else
+            {echo $row['actualDeliveryDate'];}?></td>
+            <td><button class="viewSlip_btn"><a class="viewSlip" href="uploadSlip.php?orderID=<?php echo $row['orderID']; ?>">View Slip</a></button></td>
+            <td><?php echo $row['approvalStatus'];?></td>
         </tr>
     </tbody>
+    <?php
+        }
+    ?>
   </table>
 
   <!--Table navigation-->
@@ -192,11 +175,11 @@
 
 
 <script>
-    const v_slip = document.getElementById('v_slip');
+    // const v_slip = document.getElementById('v_slip');
 
-    v_slip.addEventListener('click', () => {
-      location.href = "./viewSlip.php";
-    });
+    // v_slip.addEventListener('click', () => {
+    //   location.href = "./viewSlip.php";
+    // });
 </script>
 <script src="../../View/notification.js"></script>
   </body>
