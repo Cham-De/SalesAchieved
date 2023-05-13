@@ -1,8 +1,11 @@
 <?php
     require __DIR__.'/../connect.php';
 
+    $username = $_SESSION['username'];
+
     $query = "SELECT orderStatus, COUNT(*) AS orderStatusCount
                 FROM orders
+                WHERE username = '$username'
                 GROUP BY orderStatus";
     $result =  mysqli_query($con, $query);
     if(mysqli_error($con)){
