@@ -1,8 +1,8 @@
 
 .middle{
     box-sizing: border-box;
-    width: 700px;
-    height: 400px;
+    width: 800px;
+    height: 450px;
     margin-top: 30px;
     margin-left: 430px;
     position: absolute;
@@ -32,6 +32,7 @@
     background: #F8914A;
     border: none;
     margin: 10px;
+    margin-top: 70px;
     padding: 15px;
     border-radius: 15px;
     color: #FFFFFF;
