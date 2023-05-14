@@ -5,6 +5,14 @@
 <?php include("../../../Model/store/add-agent.php") ?>
 <?php include("../../../Model/store/connect-db.php") ?>
 
+<?php 
+    require __DIR__.'/../../../Model/utils.php';
+    $role = "Store Manager";
+    $userData = check_login($role);
+    require __DIR__.'/../../../Model/notificationCRUD.php';
+    $notifData = get_notification_data($role, $userData["username"]);
+?>
+
 <?php
 $items_per_page = 6;
 $count_sql = "SELECT COUNT(agentUsername) as count from agent";
@@ -172,7 +180,9 @@ $agents_result = $conn->query($agents_sql);
             </div>
         </div>
     </div>
-
+    
+    <!-- Script for notifications functionality -->
+    <script src="../../../View/notification.js"></script>
     <script src="<?php echo APP_VIEW_PATH ?>/popup.js"></script>
     <?php include("../_inc/scripts.php") ?>
 </body>

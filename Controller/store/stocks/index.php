@@ -5,6 +5,13 @@
 <?php require("../../../Model/store/add-product.php") ?>
 <?php require("../../../Model/store/update-product.php") ?>
 <?php require_once("../../../Model/store/connect-db.php") ?>
+<?php 
+    require __DIR__.'/../../../Model/utils.php';
+    $role = "Store Manager";
+    $userData = check_login($role);
+    require __DIR__.'/../../../Model/notificationCRUD.php';
+    $notifData = get_notification_data($role, $userData["username"]);
+?>
 
 <?php
 $items_per_page = 6;
@@ -346,6 +353,8 @@ $stocks_result = $conn->query($stocks_sql);
             }
         })
     </script>
+    <!-- Script for notifications functionality -->
+    <script src="../../../View/notification.js"></script>
     <script src="<?php echo APP_VIEW_PATH ?>/popup.js"></script>
     <?php include("../_inc/scripts.php") ?>
 </body>
