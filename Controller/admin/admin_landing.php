@@ -142,28 +142,26 @@ $userData = check_login($role);
                     $query = mysqli_query($con, $sql);
 
                     if(mysqli_num_rows($query) > 0 ){
+                      $user_idx = 0;
+                      foreach($query as $user){
+                          ?>
+                              <tr>
+                                  <td scope="row"><?=$user['username']; ?></td>
+                                  <td><?=$user['user_role']; ?></td>
+                                  <!-- <td><?//=$user['username']; ?></td> -->
+                                  <td><?=$user['name']; ?></td>
+                                  <td><?=$user['email']; ?></td>
+                                  <td><?=$user['telephone']; ?></td>
+                                  <td class="action-btns">
+                                  <button class="edit" id=<?="edit_user_".$user_idx; ?> name=<?="edit_user_".$user_idx; ?> value="<?="edit_user_".$user_idx; ?>">Edit</button>
+                                  <form action="../../Model/admin/admin_crud.php" method="POST">
+                                    <button class="del" name="delete_user" value="<?=$user['username'];?>">Delete</button>
+                                  </form>
+                                  </td> 
+                              </tr>
 
-                        foreach($query as $user){
-                            ?>
-                                <tr>
-                                    <td scope="row"><?=$user['username']; ?></td>
-                                    <td><?=$user['user_role']; ?></td>
-                                    <!-- <td><?//=$user['username']; ?></td> -->
-                                    <td><?=$user['name']; ?></td>
-                                    <td><?=$user['email']; ?></td>
-                                    <td><?=$user['telephone']; ?></td>
-                                    <td class="action-btns">
-                                    <form action="../../Model/admin/admin_crud.php" method="POST">
-                                      <button class="edit" id="delete_btn" name="edit_user" value="<?=$user['username'];?>">Edit</button>
-                                    </form>
-                                    <form action="../../Model/admin/admin_crud.php" method="POST">
-                                      <button class="del" name="delete_user" value="<?=$user['username'];?>">Delete</button>
-                                    </form>
-                                    </td> 
-                                </tr>
-
-                            <?php 
-
+                          <?php 
+                          $user_idx += 1;
                         }
                     }
                     else{
@@ -174,6 +172,42 @@ $userData = check_login($role);
 
             </tbody>
           </table>
+
+          <?php
+              $sql = "SELECT * FROM User";
+              $query = mysqli_query($con, $sql);
+
+              if(mysqli_num_rows($query) > 0 ){
+                  $user_idx = 0;
+                  foreach($query as $user){
+                      ?>
+                          <!-- Update User popup -->
+                          <div class="popup-container" id=<?php echo "popup_container_update_$user_idx" ?>>
+                            <div class="popup-modal">
+                              <form method="post" action="../../Model/admin/admin_crud.php">
+                              <input type="hidden" name="username" id="username" >
+                              <label for="name">Name</label>
+                                <input type="text" name="name" value="<?php echo $user['name'];?>">
+                              <label for="email">Email</label>
+                                <input type="text" name="email" value="<?php echo $user['email'];?>">
+                              <label for="phonenum">Phone Number</label>
+                                <input type="text" name="telephone" value="<?php echo $user['telephone'];?>">
+                              <input type="hidden" name="username"  value="<?php echo $user['username'];?>">
+                              <button class="cancel" id=<?php echo "close_update_$user_idx" ?> type="reset" value="Reset">Cancel</button>
+                              <button class="submit" id="save_update" type="submit" value="Submit" name="update">Save</button>
+                              </form>
+                            </div>
+                          </div>
+
+                      <?php 
+                      $user_idx += 1;
+                  }
+              }
+              else{
+                  echo "<h4>No records</h4>";
+              }
+          
+          ?>
 
 
           <div class="navigation-table">
@@ -214,49 +248,37 @@ $userData = check_login($role);
           </form>
         </div>
       </div>
-
-      <!-- Update User popup -->
-      <div class="popup-container" id="popup_container_update">
-        <div class="popup-modal">
-          <form method="post" action="../../Model/admin/admin_crud.php">
-          <input type="hidden" name="username" id="username" >
-          <label for="name">Name</label>
-            <input type="text" name="name" value="<?php echo $user['name'];?>">
-          <label for="email">Email</label>
-            <input type="text" name="email" value="<?php echo $user['email'];?>">
-          <label for="phonenum">Phone Number</label>
-            <input type="number" name="phone" value="<?php echo $user['telephone'];?>">
-          <button class="cancel" id="close_update" type="reset" value="Reset">Cancel</button>
-          <button class="submit" id="save_update" type="submit" value="Submit" name="update">Save</button>
-          </form>
-        </div>
-      </div>
-
-
+      
       <script>
         const add_btn_u = document.getElementById('add_btn_u');
-        const delete_btn = document.getElementById('delete_btn');
 
         const close = document.getElementById('close');
         const save = document.getElementById('save');
-        const close_update = document.getElementById('close_update');
         const save_update = document.getElementById('save_update');
 
         const popup_container = document.getElementById('popup_container');
-        const popup_container_update = document.getElementById('popup_container_update');
 
         add_btn_u.addEventListener('click', () => {
             popup_container.classList.add('show');
         });
-        delete_btn.addEventListener('click', () => {
-            popup_container_update.classList.add('show');
-        });
+
+        var user_idx = 0;
+        var edit_user = document.getElementById('edit_user_0');
+        while (edit_user) {
+          const popup_container_update = document.getElementById('popup_container_update_' + user_idx);
+          const close_update = document.getElementById('close_update_' + user_idx);
+          edit_user.addEventListener('click', () => {
+              popup_container_update.classList.add('show');
+          });
+          close_update.addEventListener('click', () => {
+              popup_container_update.classList.remove('show');
+          });
+          user_idx += 1;
+          edit_user = document.getElementById('edit_user_' + user_idx);
+        }
 
         close.addEventListener('click', () => {
             popup_container.classList.remove('show');
-        });
-        close_update.addEventListener('click', () => {
-            popup_container_update.classList.remove('show');
         });
 
         save.addEventListener('click', () => {

@@ -5,6 +5,14 @@
     $userData = check_login($role);
     $username = $_SESSION['username'];
 
+    $query = "SELECT orderID FROM orders 
+                WHERE orderStatus = 'Completed'";
+    $completedOrders = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
+    
     //Feedback
     if(isset($_POST['submit'])){
         $orderID = $_POST["orderID"];

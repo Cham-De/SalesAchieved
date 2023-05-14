@@ -533,7 +533,6 @@
             // const close_delete = document.getElementById('close_delete');
             // const save_delete = document.getElementById('save_delete');
             const close_order = document.getElementById('close_order');
-            const save_order = document.getElementById('save_order');
 
             const popup_container_delete = document.getElementById('popup_container_delete');
             const popup_container_order = document.getElementById('popup_container_order');
@@ -557,10 +556,6 @@
             // save_delete.addEventListener('click', () => {
             //     popup_container_delete.classList.remove('show');
             // });
-
-            save_order.addEventListener('click', () => {
-                popup_container_order.classList.remove('show');
-            });
         </script>
 
         <!--JavaScript for Dynamic form fields-->

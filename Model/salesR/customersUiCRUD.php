@@ -7,7 +7,8 @@
         $phone = $_POST["phone"];
         $email = $_POST["email"];
         $socialMediaPlatform = $_POST["socialMediaPlatform"];
-        if(!empty($customerName) && !empty($address) && !empty($phone) && !empty($socialMediaPlatform))
+        
+        if(!empty($customerName) && !empty($address) && !empty($phone) && !empty($socialMediaPlatform) && filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $email))
 		{
             if(strlen($phone) == 10){
 			    mysqli_query($con, "INSERT INTO customer(customerName, address, phone, email, socialMediaPlatform) values('$customerName', '$address', '$phone', '$email', '$socialMediaPlatform')");

@@ -108,98 +108,87 @@
       </div>
 
     <!-- Update Popup From -->
-      <div class="popup-container" id="popup_container"> 
-      <div class="update-modal">
-        <form>
+    <div class="popup-container" id="popup_container_update">
+        <div class="popup-modal">
+          <form method="post" action="profile.php">
             <label for="name">Your Name
-                <input type="text" placeholder="Name">
+                <input type="input" id="name" name="name" required="required" value="<?php echo $row['name'];?>">
             </label>
-            
-
+            <label for="phone">Phone Number
+                <input type="input" id="phone" name="phone" required="required" value="<?php echo $row['telephone'];?>">
+            </label>
             <label for="email">Email Address
-                <input type="text" placeholder="cha123@email.com">
+                <input type="email" id="email" name="email" required="required" value="<?php echo $row['email'];?>">
             </label>
-            
-
-            <label for="phone">Phone number
-                <input type="text" placeholder="phone">
-            </label>
-            
-
             <label for="gender">Gender
-                <select id="gender">
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
+                <select name="gender" id="gender" value="<?php echo $row['gender'];?>">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                 </select>
             </label>
-            
-            <label class="sp-label">
-                <button class="cancel" id="close">Cancel</button>
-                <input type="submit" value="Save" class="submit" id="save">
-            </label>
-            
-        </form>
-      </div>
+            <button class="cancel" id="close_update" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_update" type="submit" value="Submit" name="update">Save</button>
+          </form>
+        </div>
     </div>
 
     <!-- Change Password -->
-    <div class="popup-container" id="popup_container">
+    <div class="popup-container" id="popup_container_pwd">
         <div class="popup-modal">
-          <form method="post" action="complaints.php">
-            <label for="orderID">Order ID
-                <input type="number" id="orderID" name="orderID" required="required">
+          <form method="post" action="profile.php">
+            <label for="currentPassword">Current Password
+                <input type="password" id="currentPwd" name="currentPassword" required="required">
             </label>
-            <label for="productCode">Product Code
-                <input type="string" id="productCode" name="productCode" required="required">
+            <label for="newPassword">New Password
+                <input type="password" id="newPwd" name="newPassword" required="required">
             </label>
-            <label for="complaint">Complaint
-                <textarea name="complaint" id="complaint" required="required"></textarea>
+            <label for="newPasswordCheck">Re-enter New Password
+                <input type="password" id="reNewPwd" name="newPasswordCheck" required="required">
             </label>
-            <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
-            <button class="submit" id="save" type="submit" value="Submit" name="submit">Save</button>
+            <button class="cancel" id="close_pwd" type="reset" value="Reset">Cancel</button>
+            <button class="submit" id="save_pwd" type="submit" value="Submit" name="submit">Save</button>
           </form>
         </div>
     </div>
 
       <script>
-        const update_popup = document.getElementById('update_popup');
-        const popup_container = document.getElementById('popup_container');
-        const popup_container_pwd = document.getElementById('popup_container_pwd');
-        const close = document.getElementById('close');
-
         const change_pwd = document.getElementById('change_pwd');
-        const save = document.getElementById('save');
+        const popup_container_pwd = document.getElementById('popup_container_pwd');
+        const update_popup = document.getElementById('update_popup');
+        const popup_container_update = document.getElementById('popup_container_update');
+        
+        const close_pwd = document.getElementById('close_pwd');
+        const close_update = document.getElementById('close_update');
 
-        update_popup.addEventListener('click', () => {
-            popup_container.classList.add('show');
-        });
-
-        close.addEventListener('click', () => {
-            popup_container.classList.remove('show');
-        });
-
-        save.addEventListener('click', () => {
-            popup_container.classList.remove('show');
-        });
+        const save_pwd = document.getElementById('save_pwd');
+        const save_update = document.getElementById('save_update');
 
         change_pwd.addEventListener('click', () => {
             popup_container_pwd.classList.add('show');
+        });
+        update_popup.addEventListener('click', () => {
+            popup_container_update.classList.add('show');
         });
 
         close_pwd.addEventListener('click', () => {
             popup_container_pwd.classList.remove('show');
         });
+        close_update.addEventListener('click', () => {
+            popup_container_update.classList.remove('show');
+        });
 
         save_pwd.addEventListener('click', () => {
             popup_container_pwd.classList.remove('show');
         });
-
-
+        save_update.addEventListener('click', () => {
+            popup_container_update.classList.remove('show');
+        });
     </script>
 
     
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 </body>
 </html>
