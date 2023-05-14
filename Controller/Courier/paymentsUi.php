@@ -44,6 +44,8 @@
     <div class="nav_bar">
       <div class="user-wrapper">
 
+      <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+
       <!-- Notifications -->
       <div class="icon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
