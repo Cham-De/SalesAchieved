@@ -1,6 +1,9 @@
 <?php
-session_start();
+//session_start();
 require '../../Model/db-con.php';
+require __DIR__.'/../../Model/utils.php';
+$role = "admin";
+$userData = check_login($role);
 
 ?>
 
@@ -123,9 +126,8 @@ require '../../Model/db-con.php';
         <table class="content-table">
             <thead>
               <tr>
-                <th>User ID</th>
-                <th>User Role</th>
                 <th>Username</th>
+                <th>User Role</th>
                 <th>Name</th>
                 <th>Email Address</th>
                 <th>Phone</th>
@@ -144,16 +146,18 @@ require '../../Model/db-con.php';
                         foreach($query as $user){
                             ?>
                                 <tr>
-                                    <td scope="row"><?=$user['id']; ?></td>
+                                    <td scope="row"><?=$user['username']; ?></td>
                                     <td><?=$user['user_role']; ?></td>
-                                    <td><?=$user['username']; ?></td>
+                                    <!-- <td><?//=$user['username']; ?></td> -->
                                     <td><?=$user['name']; ?></td>
                                     <td><?=$user['email']; ?></td>
                                     <td><?=$user['telephone']; ?></td>
                                     <td class="action-btns">
-                                      <button class="edit">Edit</button>
                                     <form action="../../Model/admin/admin_crud.php" method="POST">
-                                      <button class="del" name="delete_user" value="<?=$user['id'];?>">Delete</button>
+                                      <button class="edit" id="delete_btn" name="edit_user" value="<?=$user['username'];?>">Edit</button>
+                                    </form>
+                                    <form action="../../Model/admin/admin_crud.php" method="POST">
+                                      <button class="del" name="delete_user" value="<?=$user['username'];?>">Delete</button>
                                     </form>
                                     </td> 
                                 </tr>
@@ -177,6 +181,7 @@ require '../../Model/db-con.php';
             <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
           </div>
             
+          <!-- Add new user popup -->
           <div class="popup-container" id="popup_container">
         <div class="popup-modal">
           <form method="post" action="../../Model/admin/admin_crud.php">
@@ -210,26 +215,55 @@ require '../../Model/db-con.php';
         </div>
       </div>
 
+      <!-- Update User popup -->
+      <div class="popup-container" id="popup_container_update">
+        <div class="popup-modal">
+          <form method="post" action="../../Model/admin/admin_crud.php">
+          <input type="hidden" name="username" id="username" >
+          <label for="name">Name</label>
+            <input type="text" name="name" value="<?php echo $user['name'];?>">
+          <label for="email">Email</label>
+            <input type="text" name="email" value="<?php echo $user['email'];?>">
+          <label for="phonenum">Phone Number</label>
+            <input type="number" name="phone" value="<?php echo $user['telephone'];?>">
+          <button class="cancel" id="close_update" type="reset" value="Reset">Cancel</button>
+          <button class="submit" id="save_update" type="submit" value="Submit" name="update">Save</button>
+          </form>
+        </div>
+      </div>
 
 
       <script>
         const add_btn_u = document.getElementById('add_btn_u');
+        const delete_btn = document.getElementById('delete_btn');
 
         const close = document.getElementById('close');
         const save = document.getElementById('save');
+        const close_update = document.getElementById('close_update');
+        const save_update = document.getElementById('save_update');
 
         const popup_container = document.getElementById('popup_container');
+        const popup_container_update = document.getElementById('popup_container_update');
 
         add_btn_u.addEventListener('click', () => {
             popup_container.classList.add('show');
+        });
+        delete_btn.addEventListener('click', () => {
+            popup_container_update.classList.add('show');
         });
 
         close.addEventListener('click', () => {
             popup_container.classList.remove('show');
         });
+        close_update.addEventListener('click', () => {
+            popup_container_update.classList.remove('show');
+        });
 
         save.addEventListener('click', () => {
             popup_container.classList.remove('show');
+        });
+        save_update.addEventListener('click', () => {
+            popup_container_update.classList.remove('show');
         });
 
 

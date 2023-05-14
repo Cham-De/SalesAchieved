@@ -1,11 +1,13 @@
 <?php
-session_start();
+//session_start();
 require '../db-con.php';
+//$role = "System Admin";
+//$userData = check_login($role);
 
 if(isset($_POST['delete_user'])){
 
-    $user_id = mysqli_real_escape_string($con, $_POST['delete_user']);
-    $sql = "DELETE FROM user  WHERE id='$user_id'";
+    $user_username = mysqli_real_escape_string($con, $_POST['delete_user']);
+    $sql = "DELETE FROM user  WHERE username='$user_username'";
     $query = mysqli_query($con, $sql);
 
     if($query){
@@ -57,6 +59,34 @@ else{
     $_SESSION['message'] = "User not added";
     header("Location: ../../Controller/admin/admin_landing.php");
     exit(0);
+}
+
+if(isset($_POST['update'])){
+    $username = htmlspecialchars($_POST["username"]);
+    $name = htmlspecialchars($_POST["name"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $telephone = htmlspecialchars($_POST["telephone"]);
+
+    if(!empty($name) && !empty($email) && !empty($telephone)){
+        if(strlen($telephone) == 9){
+            $sql = "UPDATE user set name='$name', email='$email', telephone='$telephone' WHERE username = $user_username";
+            mysqli_query($con, $sql);
+            header("Location:../../Controller/admin/admin_landing.php");
+        }
+        else{
+            echo "<script>
+            window.alert('The phone number does not contain 10 digits');
+            window.location.href='../../Controller/admin/admin_landing.php';
+            </script>";
+        }
+    }
+
+    else{
+        echo "<script>
+        window.alert('Please enter valid information');
+        window.location.href='../../Controller/admin/admin_landing.php';
+        </script>";
+    }
 }
 
 ?>
