@@ -185,7 +185,7 @@ $notifData = get_notification_data($role, $userData["username"]);
              </div> 
 
 
-             <button id="charge_btn" onclick="errorMsg()">Update Delivery Charges</button>
+             <button id="charge_btn">Update Delivery Charges</button>
     </div>
     
     <script>
@@ -297,19 +297,15 @@ $notifData = get_notification_data($role, $userData["username"]);
     <div class="popup-container" id="popup_container">
             <div class="popup-modal" style="max-width: 400px;">
               <div class="topic">Delivery Charges</div>
-
-              <!-- Display error messages -->
-              <div class="error_msg" id="error_msg">Error msgs</div>
-
-              <form name="delivery" action="../../Model/finance/fin-crud.php" method="post" onsubmit="return validateForm()">
+              <form name="delivery" action="../../Model/finance/fin-crud.php" method="post">
               <label for="colombo">Within Colombo (Rs.)
-                <input type="number" step="any" id="s-date" name="wCol" value="<?php echo $chargewc; ?>">
+                <input type="number" step="any" id="s-date" name="wCol" value="<?php echo $chargewc; ?>" required min="40" max="1000">
               </label>
               <label for="suburbs">Colombo Suburbs (Rs.)
-                <input type="number" step="any" id="ed" name="sCol" value="<?php echo $chargecs; ?>">
+                <input type="number" step="any" id="ed" name="sCol" value="<?php echo $chargecs; ?>" required min="40" max="1000">
               </label> 
               <label for="outofcolombo">Out of Colombo (Rs.)
-                <input type="number" step="any" id="budget" name="oCol" value="<?php echo $chargeoc; ?>">
+                <input type="number" step="any" id="budget" name="oCol" value="<?php echo $chargeoc; ?>" required min="40" max="1000">
               </label>
               <button class="cancel" id="close" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
               <button class="submit" id="save" type="submit" value="Submit" name="update">Update</button>
@@ -320,29 +316,54 @@ $notifData = get_notification_data($role, $userData["username"]);
     <?php 
     ?>
 
-<!-- delivery charges update form validations--------------- -->
     <script>
-    function validateForm() {
-      var error_msg = document.getElementById("error_msg");
-      var wCol = document.forms["delivery"]["wCol"].value;
-      var sCol = document.forms["delivery"]["sCol"].value;
-      var oCol = document.forms["delivery"]["oCol"].value;
-      if (wCol == "" || sCol == "" || oCol == "") {
-        error_msg.innerHTML = "All fields must be filled out";
-        error_msg.style.display = "block";
-        return false;
-      }
-      else if((wCol>=1000) || (sCol>=1000) || (oCol>=1000)){
-        error_msg.innerHTML = "Charges cannot exceed Rs.1000";
-        error_msg.style.display = "block";
-        return false;
-      }
-      else if((wCol<30) || (sCol<30) || (oCol<30)){
-        error_msg.innerHTML = "Charges cannot be less than Rs.30";
-        error_msg.style.display = "block";
-        return false;
-      }
-    }
+
+        const charge_btn = document.getElementById('charge_btn');
+        const close = document.getElementById('close');
+        const save = document.getElementById('save');
+        const popup_container = document.getElementById('popup_container');
+        const form = document.forms["delivery"];
+
+        charge_btn.addEventListener('click', () => {
+            popup_container.classList.add('show');
+        });
+
+        close.addEventListener('click', () => {
+            popup_container.classList.remove('show');
+            resetForm();
+        });
+
+        save.addEventListener('click', () => {
+          if (validateForm()) {
+            form.submit();
+            popup_container.classList.remove('show');
+          }
+        });
+
+        function resetForm() {
+          form.reset();
+        }
+
+        function validateForm() {
+          const wCol = form.elements["wCol"];
+          const sCol = form.elements["sCol"];
+          const oCol = form.elements["oCol"];
+
+          if ((wCol.value) == "" || (sCol.value) == "" || (oCol.value) == "") {
+            alert("Please enter a value");
+            wCol.focus();
+            return false;
+          }
+          else if ((wCol.value) > 1000) {
+            alert("Please enter a value inside the range 40 - 1000");
+            wCol.focus();
+            return false;
+          }
+          return true;
+
+        }
+
+
     </script>
 
 <!-- popup functions------------------------------------------------------------- -->
@@ -366,30 +387,10 @@ $notifData = get_notification_data($role, $userData["username"]);
         }
     </script>
 
-    <script>
-        const charge_btn = document.getElementById('charge_btn');
-        const close = document.getElementById('close');
-        const save = document.getElementById('save');
-        const popup_container = document.getElementById('popup_container');
+    <!-- <script>
+        
 
-        charge_btn.addEventListener('click', () => {
-            popup_container.classList.add('show');
-        });
-
-        close.addEventListener('click', () => {
-            error_msg.style.display = 'none';
-            popup_container.classList.remove('show');
-        });
-
-        // Check validation errors before closing
-        save.addEventListener('click', () => {
-          if (error_msg.style.display === 'none') {
-            popup_container.classList.remove('show');
-          }
-            // popup_container.classList.remove('show');
-        });
-
-    </script>
+    </script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

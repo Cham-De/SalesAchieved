@@ -36,7 +36,14 @@ $start_from = ($page-1)*05;
     <link rel="stylesheet" href="../../View/styles/dms/campaigns.css">
     <link rel="stylesheet" href="../../View/styles/searchNfilter.css">
 
-    
+    <style>
+      .error_msg{
+      color: red;
+      margin-bottom: 5%;
+      text-align: center;
+      display: none;
+    }
+    </style>
 </head>
 <body id="whole">
     <div class="nav_bar">
@@ -373,14 +380,26 @@ $start_from = ($page-1)*05;
 
   <div class="popup-container" id="popup_container">
         <div class="popup-modal">
-          <form action="../../Model/dms/crud.php" method="post">
-            <label for="name" class="title"><h3 style="color: rgb(0, 0, 0); margin-top: 3px; margin-right: 10px; margin-bottom: 20px;">Campaign ID :</h3> <h2 style="color: rgb(0, 0, 0);">002</h2>
+
+        <?php
+        $sqlCamp = "SELECT id FROM campaign ORDER BY id DESC LIMIT 1";
+        $query = mysqli_query($con, $sqlCamp);
+        if(mysqli_num_rows($query)>0){
+          foreach($query as $thing){
+            $id = $thing['id'];
+          }
+        }
+        ?>
+          <form name="campaigns" action="../../Model/dms/crud.php" method="post" onsubmit="return validateForm()">
+            <label for="name" class="title"><h3 style="color: rgb(0, 0, 0); margin-top: 3px; margin-right: 10px; margin-bottom: 20px;">Campaign ID</h3> <h2 style="color: rgb(0, 0, 0);"><?php echo ($id+1) ?></h2>
+            
           </label>
+          <!-- <div class="error_msg" id="error_msg">Error msgs</div> -->
           <label for="start-date">Start Date
-            <input type="date" id="s-date" name="start_d">
+            <input type="date" id="s-date" name="start_d" required>
           </label>
           <label for="objective">Objective
-            <select id="objective" name="obj">
+            <select id="objective" name="obj" required>
                 <option value="awareness">Awareness</option>
                 <option value="leads">Leads</option>
                 <option value="engagement">Engagement</option>
@@ -388,14 +407,14 @@ $start_from = ($page-1)*05;
             </select>
           </label>
           <label for="status">Status
-            <select id="status" name="stat">
-                <option value="tobelaunched">To-be Launched</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="complete">Complete</option>
+            <select id="status" name="stat" required>
+                <option value="To Be Launched">To-be Launched</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Complete">Complete</option>
             </select>
           </label>
           <label for="budget">Budget
-            <input type="number" id="budget" name="budget">
+            <input type="number" id="budget" name="budget" required min="500" max="10000">
           </label>
           <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
           <button class="submit" id="save" type="submit" value="Submit" name="save">Save</button>
@@ -404,25 +423,77 @@ $start_from = ($page-1)*05;
         </div>
       </div>
   
+    <script>
+    // function validateForm() {
+    //   var error_msg = document.getElementById("error_msg");
+    //   var budget = document.forms["campaigns"]["budget"].value;
+    //   var date = document.forms["campaigns"]["start_d"].value;
+    //   var status = document.getElementById("status").value;
+    //   var objective = document.getElementById("objective").value;
+    //   if (budget == "" || date == "" || status == "" || objective == "") {
+    //     error_msg.innerHTML = "All fields must be filled out";
+    //     error_msg.style.display = "block";
+    //     return false;
+    //   }
+    //   else if(budget <=0){
+    //     error_msg.innerHTML = "Budget should be in the range 0-1000";
+    //     error_msg.style.display = "block";
+    //   }
+      // else if((wCol>=1000) || (sCol>=1000) || (oCol>=1000)){
+      //   error_msg.innerHTML = "Charges cannot exceed Rs.1000";
+      //   error_msg.style.display = "block";
+      //   return false;
+      // }
+      // else if((wCol<30) || (sCol<30) || (oCol<30)){
+      //   error_msg.innerHTML = "Charges cannot be less than Rs.30";
+      //   error_msg.style.display = "block";
+      //   return false;
+      // }
+    // }
+    </script>
+
       <!-- add campaigns popup -->
     <script>
         const add_btn = document.getElementById('add_btn');
         const close = document.getElementById('close');
         const save = document.getElementById('save');
         const popup_container = document.getElementById('popup_container');
+        const form = document.forms["delivery"];
 
         add_btn.addEventListener('click', () => {
             popup_container.classList.add('show');
         });
 
         close.addEventListener('click', () => {
+          // error_msg.style.display = 'none';
             popup_container.classList.remove('show');
+            resetForm();
         });
 
         save.addEventListener('click', () => {
+          if (validateForm()) {
+            form.submit();
             popup_container.classList.remove('show');
+          }
         });
 
+        function resetForm() {
+          form.reset();
+        }
+
+        function validateForm() {
+          const stat = form.elements["stat"];
+          const obj = form.elements["obj"];
+          const start_d = form.elements["start_d"];
+
+          if ((stat.value) == "" || (obj.value) == "" || (start_d.value) == "") {
+            alert("Please enter a value");
+            wCol.focus();
+            return false;
+          }
+          return true;
+
+        }
     </script>
 
     
