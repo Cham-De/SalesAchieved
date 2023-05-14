@@ -41,7 +41,29 @@ if(mysqli_num_rows($result_kpi1) > 0 ){
       }
 }
 
+$dms_kpi2 = "SELECT socialMediaPlatform, COUNT(*) as countPlatform, socialMediaPlatform FROM customer GROUP BY socialMediaPlatform ORDER BY countPlatform DESC LIMIT 1";
+$result_kpi2 = mysqli_query($con, $dms_kpi2);
 
+if(mysqli_num_rows($result_kpi2) > 0 ){
+  foreach($result_kpi2 as $thing){
+        
+          $mostPop = $thing['socialMediaPlatform'];
+      }
+}
+
+$dms_kpi3 = "SELECT COUNT(*) as countOrders, o.orderID, op.quantity, p.productName FROM orders o
+            JOIN order_product op ON op.orderID = o.orderID
+            JOIN product p ON p.productCode = op.productCode
+            GROUP BY op.productCode, p.productName ORDER BY countOrders DESC LIMIT 1";
+
+$result_kpi3 = mysqli_query($con, $dms_kpi3);
+
+if(mysqli_num_rows($result_kpi3) > 0 ){
+  foreach($result_kpi3 as $thing){
+        
+          $mostPopProduct = $thing['productName'];
+      }
+}
 
 
 if(isset($_POST['month_fil_op'])){

@@ -1,8 +1,9 @@
 <?php
-    require __DIR__.'/../connect.php';
+    require __DIR__.'../../../Model/salesR/connect.php';
     require __DIR__.'/../../Model/utils.php';
     $role = "Sales Representative";
     $userData = check_login($role);
+    $username = $_SESSION['username'];
 
     //Feedback
     if(isset($_POST['submit'])){
@@ -32,8 +33,72 @@
         unset($_POST);
     }
 
+
+    $query = "SELECT orderStatus, COUNT(*) AS orderStatusCount
+                FROM orders
+                WHERE username = '$username'
+                GROUP BY orderStatus";
+    $result =  mysqli_query($con, $query);
+    if(mysqli_error($con)){
+        echo "Failed to connect to MYSQL: " . mysqli_error($con);
+        exit();
+    }
+    $label = [];
+    $data = [];
+
+    if(mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)){
+            $label[] = $row['orderStatus'];
+            $data[] = $row['orderStatusCount'];
+        }
+    }
+
+    $querySales = "SELECT MONTH(o.orderDate) AS month, SUM((p.sellingPrice-p.buyingPrice) * d.quantity) as revenue
+    FROM order_product d
+    JOIN product p ON d.productCode = p.productCode
+    JOIN orders o ON o.orderID = d.orderID
+    GROUP BY MONTH(o.orderDate)";
+
+    $result = mysqli_query($con, $querySales);
+
+    $month = [];
+    $revenue = [];
+
+    if(mysqli_num_rows($result) > 0 ){
+    foreach($result as $thing){
+            $month_name = date('F', mktime(0, 0, 0, $thing['month'], 1));
+            
+            $month[] = $month_name;
+            $revenue[] = $thing['revenue'];
+        }
+    }
+
+
     if (isset($_POST['month_fil_op'])){
         $month_name = $_POST['month_fil_op'];
+        $month_num = date("m", strtotime($month_name));
+
+
+        // status chart
+        $queryFilS = "SELECT orderStatus, COUNT(*) AS orderStatusCount
+                FROM orders
+                WHERE username = '$username' && MONTH(orderDate) = $month_num
+                GROUP BY orderStatus";
+                $resultS =  mysqli_query($con, $queryFilS);
+                if(mysqli_error($con)){
+                    echo "Failed to connect to MYSQL: " . mysqli_error($con);
+                    exit();
+                }
+                $labelFilR = [];
+                $dataFilR = [];
+
+                if(mysqli_num_rows($resultS) > 0){
+                    while ($row = mysqli_fetch_assoc($resultS)){
+                        $labelFilR[] = $row['orderStatus'];
+                        $dataFilR[] = $row['orderStatusCount'];
+                    }
+                }
+
       
         if($month_name == "reset_filter"){
             $salesPerRep = getSalesPerRep($userData['username']);
@@ -80,6 +145,44 @@
                 <h1>'.$successfulOrderRate.'%</h1>
             </div>
         ';
+
+        ?>
+
+        <div class="graphs">
+                <div class="gr1">
+                    <h2>Sales Revenue Generated per Month</h2>
+                    <!-- <img src="../../View/assets/graph1.png" alt="monthly sales"> -->
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="gr2">
+                    <h2>Order Status</h2>
+                    <canvas id="orderStatusChartFill" style="margin: 0 auto;"></canvas>
+                </div>
+                </div>
+        <script>
+
+        var labelFilS = <?php echo json_encode($labelFilR)?>;
+            var dataFilS = <?php echo json_encode($dataFilR)?>;
+            const chartFilterS = document.getElementById('orderStatusChartFill');
+            
+            new Chart(chartFilterS, {
+                type: 'pie',
+                data: {
+                labels: labelFilS,
+                datasets: [{
+                    label: 'Order Status',
+                    data: dataFilS,
+                    borderWidth: 1
+                }]
+                },
+                options: {
+                
+                }
+            });
+            chart.resize(600, 600);
+        </script>
+
+        <?php
         
     }
 

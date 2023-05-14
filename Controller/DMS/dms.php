@@ -42,7 +42,7 @@ $userData = check_login($role);
         margin-left:25%;
     }
     .view-card h1{
-        margin-top: 45%;
+        margin-top: 30%;
     }
     .view-cards-wrapper{
         border: none;
@@ -58,6 +58,18 @@ $userData = check_login($role);
       /* border: 1px solid black; */
       height: 100%;
       /* width: 70%; */
+    }
+    .view-card{
+        text-align: left;
+        display: inline-block;
+        width: 27%;
+        height: 45%;
+        margin-bottom: 2%;
+        background: #E1EAF5;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+        padding: 2%;
+        color: #0E31AD;
     }
     </style>
 </head>
@@ -169,27 +181,27 @@ $userData = check_login($role);
       <table class="card-title-tb">
           <tr>
             <td>
-              <i class="fa-sharp fa-solid fa-arrow-up-right-from-square fa-lg"></i>
+              <!-- <i class="fa-sharp fa-solid fa-arrow-up-right-from-square fa-lg"></i> -->
             </td>
             <td>
-              <h3>Page Visits</h3>
+              <h3>Most Popular Channel</h3>
             </td>
           </tr>
         </table>
-        <h1>50</h1>
+        <h1><?php echo $mostPop; ?></h1>
       </div>
       <div class="view-card" style="margin-right: 3%;">
         <table class="card-title-tb">
           <tr>
             <td>
-              <i class="fa-sharp fa-solid fa-bag-shopping fa-lg"></i>
+              <!-- <i class="fa-sharp fa-solid fa-bag-shopping fa-lg"></i> -->
             </td>
             <td>
-              <h3>Engagement</h3>
+              <h3>Most Popular Product</h3>
             </td>
           </tr>
         </table>
-        <h1>45%</h1>
+        <h1><?php echo $mostPopProduct; ?></h1>
       </div>
       </div>
       

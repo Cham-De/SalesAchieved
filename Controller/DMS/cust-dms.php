@@ -122,7 +122,6 @@ $start_from = ($page-1)*05;
           <ul name="search_content" id="search_content">
           </ul>
 
-
         </div>
 
       </div>
@@ -219,7 +218,7 @@ $start_from = ($page-1)*05;
             </tbody>
           </table>
 
-  </div>
+  
             
           <div style="margin-left: 750px; margin-bottom:30px;">
     <?php
@@ -237,6 +236,7 @@ $start_from = ($page-1)*05;
     
     ?>
 
+  </div>
   </div>
 
     <!-- autocomplete search bar -->

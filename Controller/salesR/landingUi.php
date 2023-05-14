@@ -1,7 +1,7 @@
 <?php 
   require __DIR__.'/../../Model/notificationCRUD.php';
   require_once("../../Model/salesR/landingUiCRUD.php");
-  require_once("../../Model/salesR/chartsCRUD.php");
+  // require_once("../../Model/salesR/chartsCRUD.php");
   $role = "Sales Representative";
   $userData = check_login($role);
   $notifData = get_notification_data($role, $userData["username"]);
@@ -62,18 +62,7 @@
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div>
+      
 
       <div class="user-wrapper">
 
@@ -189,6 +178,7 @@
     
     <!--KPI cards-->
     <main>
+      <div class="dynamic_content">
       <div class="last_card1">
         <div class="KPIs">
           <div class="card1">
@@ -235,17 +225,14 @@
         </div>
 
         <!--Quick actions buttons-->
-        <div class="btn_three">
-          <button id="feedback_btn">Add<br>Feedback</button>
-        </div>
-
         
         <!--graphs-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="graphs">
           <div class="gr1">
             <h2>Sales Revenue Generated per Month</h2>
-            <img src="../../View/assets/graph1.png" alt="monthly sales">
+            <!-- <img src="../../View/assets/graph1.png" alt="monthly sales"> -->
+            <canvas id="revenueChart"></canvas>
           </div>
           <div class="gr2">
             <h2>Order Status</h2>
@@ -253,9 +240,57 @@
           </div>
         </div>
       </div>
+      </div>
+
+      <div class="btn_three">
+          <button id="feedback_btn">Add<br>Feedback</button>
+        </div>
     </main>
 
     <script>
+      // first chart
+
+      const revChart = document.getElementById('revenueChart');
+
+      new Chart(revChart, {
+        type: 'bar',
+        data: {
+          labels: <?php echo json_encode($month) ?>,
+          datasets: [{
+            label: 'Total Sales Revenue Generated',
+            data: <?php echo json_encode($revenue) ?>,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+                      ticks: {
+                          font: {
+                              weight: 'bold'
+                          },
+                          color: 'blue'
+                      }
+                  },
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+                  legend: {
+                      labels: {
+                          font: {
+                              weight: 'bold'
+                          },
+                          color:'black'
+                      }
+                  }
+              }
+        }
+      });
+
+
+      // second chart
       var label = <?php echo json_encode($label)?>;
       var data = <?php echo json_encode($data)?>;
       const ctx = document.getElementById('orderStatusChart');

@@ -6,6 +6,18 @@
     //$username = $userData["username"];
     $role = "Sales Representative";
     $notifData = get_notification_data($role, $userData["username"]);
+
+    if(isset($_GET['page'])){
+
+      $page = $_GET['page'];
+    
+    }
+    else{
+      $page = 1;
+    }
+    
+    $num_per_page = 02;
+    $start_from = ($page-1)*02;
 ?>
 
 <!DOCTYPE html>
@@ -47,18 +59,7 @@
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div>
+      
 
       <div class="user-wrapper">
           <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
@@ -176,10 +177,10 @@
       </table>
 
       <!--Table navigation-->
-      <div class="navigation-table" id="nav_table">
+      <!-- <div class="navigation-table" id="nav_table">
         <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
         <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-    </div>
+    </div> -->
 
     <!-- Script for notifications functionality -->
     <script src="../../View/notification.js"></script>
