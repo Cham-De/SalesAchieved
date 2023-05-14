@@ -25,7 +25,7 @@ $notifData = get_notification_data($role, $userData["username"]);
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
     <link rel="stylesheet" href="../../View/styles/cards-large.css">
     <!-- Stylesheet for notification -->
-    <link rel="stylesheet" href="../../View/styles/notification.css">
+    <link rel="stylesheet" href="../../View/styles/notification_fin.css">
 
     <style>
 
@@ -99,26 +99,16 @@ $notifData = get_notification_data($role, $userData["username"]);
 </head>
 <body>
   <!--common top nav and side bar content-->
+
   <div class="nav_bar">
-    <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div>
+    
         <div class="user-wrapper">
 
         <!-- Notifications -->
-        <div class="icon" onclick="toggleNotifi()">
+        <div class="finIcon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
         </div>
-        <div class="notifi-box" id="box">
+        <div class="notifi-box" id="box" style="border: 1px solid black;">
           <h2>Notifications <span><?php echo mysqli_num_rows($notifData) ?></span></h2>
           <?php 
           while ($row = mysqli_fetch_array($notifData)){
@@ -152,7 +142,7 @@ $notifData = get_notification_data($role, $userData["username"]);
             <small><?php echo $userData['user_role'];?></small>
             </div>
         </div>
-    </div>
+  </div>
 
     <div class="side_bar">
         <div class="logo">

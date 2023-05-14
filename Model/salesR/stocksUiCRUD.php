@@ -23,6 +23,7 @@
                     INNER JOIN order_product ON orders.orderID = order_product.orderID 
                     RIGHT JOIN product ON product.productCode = order_product.productCode 
                     GROUP BY product.productCode;";
+        
         $result = mysqli_query($con, $query);
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);

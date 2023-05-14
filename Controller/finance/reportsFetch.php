@@ -58,7 +58,7 @@ if(isset($_POST['reportName'])){
     elseif($reportName == 'income_stmt'){
       ?>
         <h3>Income Statement</h3>
-        <h5>For the Year 2022</h5>
+        <!-- <h5>For the Year 2022</h5> -->
         <form action="./test-reports.php" method="POST" target="_blank">
         <button class="report_btn" type="submit" name="generateIn">Generate Report >></button>
         </form>
@@ -81,7 +81,7 @@ if(isset($_POST['reportName'])){
       <Label for="subjet" class="subject_label">Select a Time Period</Label>
               <select name="subject" id="subject">
               <option value="" disabled="" selected="" >--Select--</option>
-                <option value="Month">Upcoming Month</option>
+                <!-- <option value="Month">Upcoming Month</option> -->
                 <option value="Quarter">Upcoming Quarter</option>
                 <option value="Year">Upcoming Year</option>
               </select>

@@ -24,7 +24,7 @@ $notifData = get_notification_data($role, $userData["username"]);
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
     <link rel="stylesheet" href="../../View/styles/searchNfilter.css">
     <!-- Stylesheet for notification -->
-    <link rel="stylesheet" href="../../View/styles/notification.css">
+    <link rel="stylesheet" href="../../View/styles/notification_fin.css">
     
     <style>
       .chng_rate{
@@ -115,7 +115,7 @@ $notifData = get_notification_data($role, $userData["username"]);
         <div class="user-wrapper">
 
         <!-- Notifications -->
-        <div class="icon" onclick="toggleNotifi()">
+        <div class="finIcon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
         </div>
         <div class="notifi-box" id="box">
