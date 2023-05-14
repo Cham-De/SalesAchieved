@@ -476,7 +476,6 @@
 <script>
     const addNote = document.getElementById('addNote');
     const close = document.getElementById('close');
-    const save = document.getElementById('save');
     const popup_container = document.getElementById('popup_container');
 
     addNote.addEventListener('click', () => {
@@ -484,10 +483,6 @@
     });
 
     close.addEventListener('click', () => {
-        popup_container.classList.remove('show');
-    });
-
-    save.addEventListener('click', () => {
         popup_container.classList.remove('show');
     });
 </script>
