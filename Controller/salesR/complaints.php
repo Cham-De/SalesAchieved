@@ -50,19 +50,6 @@
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div>
-
       <div class="user-wrapper">
           <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
 
