@@ -31,35 +31,37 @@ if(isset($_POST['submit'])){
     $pho = mysqli_real_escape_string($con, $_POST['phone']);
     $uname = mysqli_real_escape_string($con, $_POST['username']);
     $pwd = mysqli_real_escape_string($con, $_POST['password']);
-}
-$data = $_POST;
 
-if (empty($data['userrole']) ||
-    empty($data['name']) ||
-    empty($data['gender']) ||
-    empty($data['phone']) ||
-    empty($data['username']) ||
-    empty($data['password']) ||
-    empty($data['email'])) {
-    
-    die('Please fill all required fields!');
-}
-else{
-    $sql = "INSERT INTO user (user_role, name, email, gender, telephone, username, password) values ('$urole','$name','$email', '$gen', '$pho', '$uname', '$pwd')";
+    $data = $_POST;
+    if (empty($data['userrole']) ||
+        empty($data['name']) ||
+        empty($data['gender']) ||
+        empty($data['phone']) ||
+        empty($data['username']) ||
+        empty($data['password']) ||
+        empty($data['email'])) {
+        
+        die('Please fill all required fields!');
+    }
+    else{
+        $sql = "INSERT INTO user (user_role, name, email, gender, telephone, username, password) values ('$urole','$name','$email', '$gen', '$pho', '$uname', '$pwd')";
+    }
+
+    $query = mysqli_query($con, $sql);
+    if($query){
+
+        $_SESSION['message'] = "User added successfully";
+        header("Location: ../../Controller/admin/admin_landing.php");
+        exit(0);
+    }
+    else{
+        $_SESSION['message'] = "User not added";
+        header("Location: ../../Controller/admin/admin_landing.php");
+        exit(0);
+    }
 }
 
-$query = mysqli_query($con, $sql);
-if($query){
 
-    $_SESSION['message'] = "User added successfully";
-    header("Location: ../../Controller/admin/admin_landing.php");
-    exit(0);
-}
-else{
-    $_SESSION['message'] = "User not added";
-    header("Location: ../../Controller/admin/admin_landing.php");
-    exit(0);
-}
 
 if(isset($_POST['update'])){
     $username = htmlspecialchars($_POST["username"]);
@@ -69,7 +71,7 @@ if(isset($_POST['update'])){
 
     if(!empty($name) && !empty($email) && !empty($telephone)){
         if(strlen($telephone) == 9){
-            $sql = "UPDATE user set name='$name', email='$email', telephone='$telephone' WHERE username = $user_username";
+            $sql = "UPDATE user set name='$name', email='$email', telephone='$telephone' WHERE username = '$username'";
             mysqli_query($con, $sql);
             header("Location:../../Controller/admin/admin_landing.php");
         }
