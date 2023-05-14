@@ -181,7 +181,10 @@
                 </select>
             </label>
             <label for="complaint">Complaint
-                <textarea name="complaint" id="complaint" required="required"></textarea>
+                <select name="complaint" id="complaint">
+                  <option value="Damaged goods">Damaged goods</option>
+                  <option value="Wrong product">Wrong product</option>
+                </select>
             </label>
             <button class="cancel" id="close" type="reset" value="Reset">Cancel</button>
             <button class="submit" id="save" type="submit" value="Submit" name="submit">Save</button>
