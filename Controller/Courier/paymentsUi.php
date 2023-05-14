@@ -146,12 +146,11 @@
     </thead>
     <?php
         while($row = mysqli_fetch_array($result)){
-          $revenue = getRevenue($agentData['agentUsername']);
     ?>
     <tbody>
         <tr>
             <td><?php echo $row['orderID'];?></td>
-            <td><?php echo $revenue;?></td>
+            <td><?php echo $row['revenue'];?></td>
             <td><?php if($row['actualDeliveryDate'] == NULL){
               echo 'Not Yet Delivered';
             }
