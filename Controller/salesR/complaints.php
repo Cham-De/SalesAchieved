@@ -190,7 +190,6 @@
     <script>
         const complaint_btn = document.getElementById('complaint_btn');
         const close = document.getElementById('close');
-        const save = document.getElementById('save');
         const popup_container = document.getElementById('popup_container');
 
         complaint_btn.addEventListener('click', () => {
@@ -198,10 +197,6 @@
         });
 
         close.addEventListener('click', () => {
-            popup_container.classList.remove('show');
-        });
-
-        save.addEventListener('click', () => {
             popup_container.classList.remove('show');
         });
 
