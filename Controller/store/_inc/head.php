@@ -10,6 +10,9 @@ function render_head($title = "", $children = "")
     <title>' . $title . '</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="' . APP_STYLES_PATH . '/store/index.css">
+    <link rel="stylesheet" href="' . APP_STYLES_PATH . '/store/notification.css">
+    <link rel="stylesheet" href="' . APP_STYLES_PATH . '/store/notification.css">
+    
     
     
     ' . $children . '

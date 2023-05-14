@@ -1,8 +1,16 @@
 <?php require_once("../../config.php") ?>
+<?php require_once("../../Model/store/connect-db.php") ?>
 <?php include("./_inc/side_bar.php") ?>
 <?php include("./_inc/head.php") ?>
 <?php require("../../Model/store/add-product.php") ?>
 <?php require("../../Model/store/add-agent.php") ?>
+<?php 
+    require_once("../../Model/store/homePageCRUD.php"); 
+    $role = "Store Manager";
+    $userData = check_login($role);
+    require __DIR__.'/../../Model/notificationCRUD.php';
+    $notifData = get_notification_data($role, $userData["username"]);
+?>
 
 
 <!DOCTYPE html>
@@ -14,6 +22,8 @@
 ) ?>
 
 <head>
+    <!-- Stylesheet for notification -->
+    <link rel="stylesheet" href="../../View/styles/notification.css">
     <style>
         .popup-landingA {
             background-color: rgba(0, 0, 0, 0.6);
@@ -85,6 +95,19 @@
             margin-top: 40px;
             overflow: auto;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .monthFilter{
+            position: absolute;
+            display: flex;
+            width: 75%;
+            top: 16%;
+            margin-left:8%;
+        }
     </style>
 </head>
 <body>
@@ -103,29 +126,41 @@
                 </div>
                 <div class="cards small">
                     <div class="card">
+                    <?php
+                        $customerOrders = getCustomerOrders();
+                    ?>
                         <h4>Customer<br />Orders</h4>
                         <small>Monthly</small>
-                        <span>24</span>
+                        <span><?php echo $customerOrders;?></span>
                     </div>
                     <div class="card">
-                        <h4>Incomplete<br />Orders</h4>
+                    <?php
+                        $pendingOrders = getPendingOrders();
+                    ?>
+                        <h4>Pending<br />Orders</h4>
                         <small>Monthly</small>
-                        <span>11</span>
+                        <span><?php echo $pendingOrders;?></span>
                     </div>
                     <div class="card">
-                        <h4>Outstanding<br />Payments</h4>
+                    <?php
+                        $ordersNotAssigned = getOrdersNotAssigned();
+                    ?>
+                        <h4>Orders not yet<br />Assigned</h4>
                         <small>Monthly</small>
-                        <span>Rs. 43,500</span>
+                        <span><?php echo $ordersNotAssigned;?></span>
                     </div>
                     <div class="card">
+                    <?php
+                        $onTimeDeliveryRate = getOnTimeDeliveryRate();
+                    ?>
                         <h4>On-time Delivery<br />Rate</h4>
                         <small>Monthly</small>
-                        <span>86.07%</span>
+                        <span><?php echo $onTimeDeliveryRate;?>%</span>
                     </div>
                     <div class="card">
-                        <h4>Retention<br />Rate</h4>
+                        <h4>No. of Returned<br />Goods</h4>
                         <small>Monthly</small>
-                        <span>Rs. 120,000</span>
+                        <span>5</span>
                     </div>
                 </div>
                 <div class="cards large">
@@ -223,6 +258,8 @@
         </div>
     </div>
     <?php include("./_inc/scripts.php") ?>
+    <!-- Script for notifications functionality -->
+    <script src="../../View/notification.js"></script>
     <script src="<?php echo APP_VIEW_PATH ?>/popup.js"></script>
 </body>
 

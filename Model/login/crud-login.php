@@ -51,7 +51,7 @@ if(isset($_POST['uname']) && isset($_POST['pwd'])){
                 }
 
                 else if($row['user_role'] == 'Store Manager'){
-                    header("Location:../../Controller/store/landingUi.php");
+                    header("Location:../../Controller/store/index.php");
                     exit(0);
                 }
 

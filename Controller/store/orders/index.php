@@ -5,6 +5,14 @@
 <?php include("../../../Model/store/update-order.php") ?>
 <?php include("../../../Model/store/connect-db.php") ?>
 
+<?php 
+    require __DIR__.'/../../../Model/utils.php';
+    $role = "Store Manager";
+    $userData = check_login($role);
+    require __DIR__.'/../../../Model/notificationCRUD.php';
+    $notifData = get_notification_data($role, $userData["username"]);
+?>
+
 <?php
 
 // pagination
@@ -143,7 +151,7 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
                     <nav>
                         <?php
                         if ($has_filter) {
-                            echo '<a class="action-link" style="margin-right:10px" href="' .  APP_CONTROLLER_PATH . '/store/orders">Clear Filters</a>';
+                            echo '<a class="action-link" style="margin-right:10px; z-index:10;" href="' .  APP_CONTROLLER_PATH . '/store/orders">Clear Filters</a>';
                         }
                         if (count($years) > 1) {
                             echo '<div class="filter"><select style="background-image:url(' . APP_ASSETS_PATH . "/carrot.svg" . ')" value="' . $year . '" id="year-filter">';
@@ -285,19 +293,20 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
                                             }
                             
                             $allowDispatch = "";
-                            if ($paymentMethod == "BT"){
-                                $query = "SELECT approvalStatus FROM slips WHERE orderID=$id";
-                                $result = $conn->query($query);
-                                if (mysqli_num_rows($result) > 0){
-                                    $row = mysqli_fetch_assoc($result);
-                                    $approvalStatus = implode($row);
-                                    if ($row["approvalStatus"] != "approved")
+                            // if($agentUsername != NULL){
+                                if ($paymentMethod == "BT"){
+                                    $query = "SELECT approvalStatus FROM slips WHERE orderID=$id";
+                                    $result = $conn->query($query);
+                                    if (mysqli_num_rows($result) > 0){
+                                        $row = mysqli_fetch_assoc($result);
+                                        $approvalStatus = implode($row);
+                                        if ($row["approvalStatus"] != "approved")
+                                            $allowDispatch = "disabled";
+                                    }
+                                    else {
                                         $allowDispatch = "disabled";
+                                    }
                                 }
-                                else {
-                                    $allowDispatch = "disabled";
-                                }
-                            }
 
                             echo '
                                         </select>
@@ -318,8 +327,12 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
                                 
                                 </div>
                                 </div>';
+                            }
                         }
-                    }
+                        // else{
+                        //     echo '<script>alert("Delivery Agent not Assigned!")</script>';
+                        // }
+                    // }
                 }
                 if (!$has_filter && strlen($search_query) === 0 && $pages_count > 1) {
                     render_pagination($pages_count, $current_page, "orders");
@@ -361,6 +374,8 @@ while ($date = mysqli_fetch_assoc($dates_result)) {
         }
     </script>
 
+    <!-- Script for notifications functionality -->
+    <script src="../../../View/notification.js"></script>
     <script src="<?php echo APP_VIEW_PATH ?>/popup.js"></script>
     <?php include("../_inc/scripts.php") ?>
 </body>

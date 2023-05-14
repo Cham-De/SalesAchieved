@@ -50,7 +50,7 @@ function render_side_bar($active_link = "")
                     <i class="fa-solid fa-circle-user"></i>
                     <span>Profile</span>
                 </a>
-                <a href="">
+                <a href="../../home/logout.php">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
