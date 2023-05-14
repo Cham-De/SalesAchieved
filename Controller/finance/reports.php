@@ -23,7 +23,7 @@ $notifData = get_notification_data($role, $userData["username"]);
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
     <link rel="stylesheet" href="../../View/styles/finance/reports.css">
     <!-- Stylesheet for notification -->
-    <link rel="stylesheet" href="../../View/styles/notification.css">
+    <link rel="stylesheet" href="../../View/styles/notification_fin.css">
 
     <style>
       .search-wrap-container{
@@ -65,7 +65,7 @@ $notifData = get_notification_data($role, $userData["username"]);
         <div class="user-wrapper">
 
         <!-- Notifications -->
-        <div class="icon" onclick="toggleNotifi()">
+        <div class="finIcon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
         </div>
         <div class="notifi-box" id="box">
@@ -138,9 +138,9 @@ $notifData = get_notification_data($role, $userData["username"]);
           <li class="title_li">Inventory</li>
           <li class="report_name" value="inventory_report" onclick="getContent('inventory_report')">Inventory Report</li>
 
-          <li class="title_li_below">Budget</li>
-          <li class="report_name" value="budget_forecast" onclick="getContent('budget_forecast')">Budget Forecast</li>
-          <li class="report_name" value="income_stmt" onclick="getContent('income_stmt')">Income Statement</li>
+          <li class="title_li_below">Sales</li>
+          <li class="report_name" value="budget_forecast" onclick="getContent('budget_forecast')">Sales Forecast</li>
+          <li class="report_name" value="income_stmt" onclick="getContent('income_stmt')">Sales Income Statement</li>
           <!-- <li class="report_name" value="accounts_rec" onclick="getContent('accounts_rec')">Accounts Receivable</li> -->
 
           <li class="title_li_below">Performance</li>

@@ -4,6 +4,7 @@
     require __DIR__.'/../../Model/notificationCRUD.php';
     $agentData = courier_check_login();
     $result = getOrderDetails($agentData['agentUsername']);
+    $agentUsername = $agentData['agentUsername'];
     $notifData = get_notification_data_agent($agentData["agentUsername"]);
 ?>
 
@@ -16,6 +17,8 @@
     <title>Courier-Dashboard</title>
     <link rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+      <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!--stylesheet for icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Stylesheet for nav bar-->
@@ -54,23 +57,62 @@
     .cards{
         margin-left: 22%;
     }
+    #fetchval, #fetchval2{
+        width: 25%;
+    }
+    #fetchval2{
+        margin-left: 2%;
+    }
+    .filter2{
+        width: 32%;
+        margin-left: 2%;
+        margin-top: 1%;
+    /* margin-left: 4%; */
+        background: none;
+        /* width: 300px; */
+        height: 40px;
+        border: 1px solid #2609cc;
+        padding: 0px 10px;
+        border-radius: 15px;
+    }
+    .ele{
+        /* border: 1px solid red; */
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .searchB{
+        border: none;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        background: none;
+    }
+    .searchB:focus{
+        outline: none;
+    }
+    #search{
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .search_wrapper{
+        /* border: 1px solid red; */
+        display: flex;
+        /*border: 1px solid black;*/
+        margin-top: 1.5%;
+        margin-left: 22%;
+        width: 55%;
+        /*justify-content: space-between;*/
+    }
+    .cards{
+        margin-top: 2%;
+    }
     </style>
   </head>
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
-          <table class="element-container">
-              <tr>
-                  <td>
-                      <input type="text" placeholder="Search..." class="search">
-                  </td>
-                  <td>
-                      <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                  </td>
-              </tr>
-          </table>
-      </div>
 
       <div class="user-wrapper">
 
@@ -143,51 +185,166 @@
         <a href = "history.php"><button id="history">View History</button></a>
     </div>
 
-    <!--Table search bar-->
-    <div class="search_container">
-        <table class="element_container">
-          <tr>
-            <form method="post">
-                <td>
-                    <input type="text" placeholder="Search Orders..." class="search" name="orderSearch">
-                </td>
-                <td>
-                <button id="search" class="searchIcon" type="search" value="search" name="search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </td>
-            </form>
-          </tr>
-        </table>
+    <!-- search component start -->
+    <div class="search_wrapper">
+        <!-- <label for="">Filter</label> -->
+        <select name="fetchval" id="fetchval" onchange="if (this.value == 'status' || this.value == 'pay') { populate('fetchval', 'fetchval2'); }">
+          <option value="" disabled="" selected="" >Select Filter</option>
+          <option value="status">Status</option>
+          <option value="pay">Payment Method</option>
+          <option value="Reset">Reset</option>
+        </select>
+
+        <select name="fetchval2" id="fetchval2" style="display: none;">
+    </select>
+
+    <!-- search bar -->
+        <div class="filter2">
+            <table class="ele">
+            <tr>
+                <!-- <form method="post"> -->
+                    <td>
+                        <input type="text" placeholder="Search Orders..." class="searchB" name="orderSearch">
+                    </td>
+                    <td>
+                    <button id="search"><i style="color:#2609cc;" class="fa-solid fa-magnifying-glass"></i></button>
+                    </td>
+                <!-- </form> -->
+            </tr>
+            </table>
+        </div>
+        
     </div>
     <script src="https://kit.fontawesome.com/ed71ee7a11.js" crossorigin="anonymous"></script>
 
-  <!-- <div class="wrapper">
-            <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">2022</span> 
-                    <span class="button__icon" onclick="myFunction(this)"> -->
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <!-- <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div style="min-width: 140px;" id="myDropdown1" class="dropdown-content">
-                    <a href="#">2021</a>
-                    <a href="#">2019</a>
-                    <a href="#">2018</a>
-                 </div>
-             </div> 
-            <div class="dropdown">
-                <button onclick="myFunction(this)" class="dropbtn"><span class="button__text">January</span>
-                    <span class="button__icon" onclick="myFunction(this)"> -->
-                        <!--<ion-icon name="arrow-down-circle-outline"></ion-icon>-->
-                        <!-- <i style="color: #2c0dda;" class="fa-solid fa-chevron-down fa-lg"></i>
-                    </span>
-                </button>
-                 <div id="myDropdown2" class="dropdown-content">
-                    <a href="#">February</a>
-                    <a href="#">March</a>
-                    <a href="#">April</a>
-                 </div>
-             </div> 
-    </div> -->
+<!-- filters -->
+<script>
+    var searchButton = document.getElementById('search');
+    searchButton.addEventListener("click", function() {
+        // Get the search box element
+        var searchBox = document.querySelector("input[name='orderSearch']");
+        // Get the value from the search box
+        var searchValue = searchBox.value;
+        console.log("Search value:", searchValue);
+
+        $(document).ready(function(){
+
+            $.ajax({
+                url:'./courier_search.php',
+                method: 'POST',
+                data: {searchValue:searchValue,
+                    identifier: 'cou_search_filter'
+                },
+                success: function(data){
+                    console.log(data);
+                    $('.search_content').html(data);
+                }
+            })
+        });
+    });
+
+    var fetchval = document.getElementById('fetchval');
+    var fetchval2 = document.getElementById('fetchval2');
+    fetchval2.style.display = 'none';
+
+    fetchval.addEventListener('change', function() {
+
+        if(fetchval.value === 'status' || fetchval.value === 'pay'){
+            populate('fetchval', 'fetchval2');
+            fetchval2.style.display = 'block';
+            filterTable();
+        }
+        else if(fetchval.value === 'Reset'){
+            fetchval2.style.display = 'none';
+            fetchval2.value = '';
+            fetchval.value = '';
+            filterTable();
+        }
+        
+    });
+
+    fetchval2.addEventListener('change', function() {
+            filterTable();       
+    });
+
+    function populate(s1, s2){
+          var select1 = document.getElementById(s1);
+          var select2 = document.getElementById(s2);
+
+          if(select2){
+            console.log("Populating options for: " + s1);
+            console.log("Populating options for: " + s2);
+
+            select2.innerHTML = "";
+            var optionArray;
+
+            if(select1.value == "status"){
+              optionArray = ['Pending', 'Delivered', 'Completed', 'Cancelled'];
+            }
+            else if(select1.value == "pay"){
+              optionArray = ['BT','COD'];
+            }
+
+            for (var i = 0; i < optionArray.length; i++) {
+              var option = document.createElement("option");
+              option.value = optionArray[i];
+              option.text = optionArray[i];
+              select2.appendChild(option);
+            }
+          }
+        }
+
+        function filterTable() {
+             var fetchval = document.getElementById("fetchval").value;
+             var fetchval2 = document.getElementById("fetchval2").value;
+
+             console.log("select 1:", fetchval);
+             console.log("select 2:", fetchval2);
+
+            //  Construct SQL query based on the selected values
+             var sql_query = "SELECT * " +
+                    "FROM orders " +
+                    "INNER JOIN customer ON orders.customerID = customer.customerID " +
+                    "LEFT JOIN slips ON orders.orderID = slips.orderID " +
+                    "WHERE "; 
+           
+             if (fetchval === "status") {
+                sql_query += "orders.orderStatus = '" + fetchval2 + "'";
+             } else if (fetchval === "pay") {
+                sql_query += "orders.paymentMethod = '" + fetchval2 + "'";
+             }
+             else{
+              //reset filter
+                sql_query = "SELECT * " +
+                    "FROM orders " +
+                    "INNER JOIN customer ON orders.customerID = customer.customerID " +
+                    "LEFT JOIN slips ON orders.orderID = slips.orderID " + "ORDER BY orders.orderID DESC";
+                    
+                fetchval2.selectedIndex = 0;
+                fetchval.selectedIndex = 0;
+             }
+
+             console.log("query:", sql_query);
+
+             $(document).ready(function(){
+                  $.ajax({
+                    url: "./courier_search.php",
+                    type: "POST",
+                    data: {sql_query: sql_query,
+                      identifier: 'cou_dropdown_filter'
+                    },
+                    success: function(response){
+                    // Handle the response from the server here
+                    console.log(response);
+                    $(".search_content").html(response);
+                  }
+                });
+              });             
+
+         }
+</script>
+
+
   <!--Orders Cards-->
   <?php 
     //  $query = "SELECT * FROM orders INNER JOIN customer ON orders.customerID = customer.customerID;";
@@ -198,6 +355,7 @@
     //  $result = mysqli_query($con, $query);
     ?>
     
+    <div class="search_content">
   <?php while ($row = mysqli_fetch_array($result)){?>
     <?php $orderID = $row[0]; ?>
   <div class="cards-middle" id="cards_middle">
@@ -294,6 +452,8 @@
         </li>
     <?php }?>
     </ul>
+                </div>
+
 
     <!-- Popup Form - Add note -->
     <div class="popup-container" id="popup_container">

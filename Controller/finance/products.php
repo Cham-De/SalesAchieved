@@ -37,7 +37,7 @@ $start_from = ($page-1)*05;
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
     <link rel="stylesheet" href="../../View/styles/filter-buttons.css">
     <!-- Stylesheet for notification -->
-    <link rel="stylesheet" href="../../View/styles/notification.css">
+    <link rel="stylesheet" href="../../View/styles/notification_fin.css">
 
     <style>
       .search-wrap-container{
@@ -68,22 +68,11 @@ $start_from = ($page-1)*05;
 </head>
 <body>
 <div class="nav_bar">
-        <div class="search-container">
-            <table class="element-container">
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search..." class="search">
-                </td>
-                <td>
-                  <a><i style="color:rgb(235, 137, 58)" class="fa-solid fa-magnifying-glass"></i></a>
-                </td>
-              </tr>
-            </table>
-        </div>
+        
         <div class="user-wrapper">
 
         <!-- Notifications -->
-        <div class="icon" onclick="toggleNotifi()">
+        <div class="finIcon" onclick="toggleNotifi()">
           <i class="fa-solid fa-bell"></i><span><?php echo mysqli_num_rows($notifData) ?></span>
         </div>
         <div class="notifi-box" id="box">
