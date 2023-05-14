@@ -11,6 +11,23 @@
     $userData = check_login($role);
     require __DIR__.'/../../../Model/notificationCRUD.php';
     $notifData = get_notification_data($role, $userData["username"]);
+
+    // get search query
+    $search_query = "";
+    if (isset($_GET['search'])) {
+        $search_query = $_GET['search'];
+    }
+
+    // get filters
+    $year = "";
+    $month = "";
+    if (isset($_GET['year'])) {
+        $year = $_GET['year'];
+    }
+    if (isset($_GET['month'])) {
+        $month = $_GET['month'];
+    }
+    $has_filter = strlen($year) > 0 || strlen($month) > 0;
 ?>
 
 

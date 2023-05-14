@@ -41,7 +41,7 @@
         $conn = $GLOBALS['conn'];
         $query = "SELECT COUNT(*) AS noOfOrdersNotAssigned
                     FROM orders
-                    WHERE agentUsername = NULL && MONTH(orderDate) = MONTH(now())";
+                    WHERE agentUsername is NULL && MONTH(orderDate) = MONTH(now())";
         $result = mysqli_query($conn, $query);
         if(mysqli_error($conn)){
             echo "Failed to connect to MYSQL: " . mysqli_error($con);

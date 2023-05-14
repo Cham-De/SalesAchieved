@@ -7,7 +7,7 @@
     </form>
     <div class="user">
 
-    <a href="calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
+    <a href="/SalesAchieved/Controller/store/_inc/calendar.php"><i class="fa-solid fa-calendar-days"></i></a>
 
         <!-- Notifications -->
         <div class="icon" onclick="toggleNotifi()">
