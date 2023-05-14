@@ -189,6 +189,9 @@
     <div class="btn_three">
         <button id="order_btn">Add Order</button>
     </div>
+    <div class="btn_two">
+        <a href = "assignOrder.php"><button id="assign_btn">Assign Order</button></a>
+    </div>
 
     <!--Table search bar-->
     <div class="search_wrapper">

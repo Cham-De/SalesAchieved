@@ -1,0 +1,24 @@
+
+.accept{
+    display: inline-block;
+    background: rgb(235, 137, 58);
+    color: #fff;
+    font-size: 1vw;
+    border: 2px solid rgb(235, 137, 58);
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 5%;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+}
+
+.accept:hover{
+    background: #FFF;
+    color: rgb(235, 137, 58);
+    border: 2px solid rgb(235, 137, 58);
+}
+
+.content-table{
+    margin-left: 20%;
+}
