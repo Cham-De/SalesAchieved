@@ -107,6 +107,9 @@
     #order_btn{
         margin-top: 1%;
     }
+    .btn_two{
+        margin-top: -0.5%;
+    }
     </style>
 </head>
 
