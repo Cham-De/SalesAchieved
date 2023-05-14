@@ -173,10 +173,25 @@
         <div class="popup-modal">
           <form method="post" action="complaints.php">
             <label for="orderID">Order ID
-                <input type="number" id="orderID" name="orderID" required="required">
+                <select id="orderID" name="orderID">
+                    <?php
+                    while ($order = mysqli_fetch_assoc($dispatchedOrders)){
+                        $orderID = $order["orderID"];
+                        echo "<option value='$orderID'>$orderID</option>";
+                    }
+                    ?>
+                </select>
             </label>
             <label for="productCode">Product Code
-                <input type="string" id="productCode" name="productCode" required="required">
+                <select id="productCode" name="productCode">
+                    <?php
+                    while ($product = mysqli_fetch_assoc($products)){
+                        $productName = $product["productName"];
+                        $productCode = $product["productCode"];
+                        echo "<option value='$productCode'>$productName</option>";
+                    }
+                    ?>
+                </select>
             </label>
             <label for="complaint">Complaint
                 <textarea name="complaint" id="complaint" required="required"></textarea>

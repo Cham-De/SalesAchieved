@@ -52,6 +52,11 @@
     border: 2px solid #F8914A;
 }
 
+.btn_cancel a{
+    text-decoration: none;
+    color: #F8914A;
+}
+
 .btn_back button{
     margin-left: 33%;
 }

@@ -317,14 +317,17 @@
       <div class="popup-modal">
         <form method="post" action="landingUi.php">
           <label for="orderID">Order ID
-              <input type="number" id="orderID" name="orderID" required="required">
+              <!-- <input type="number" id="orderID" name="orderID" required="required"> -->
+            <select id="orderID" name="orderID">
+              <?php
+                while($order = mysqli_fetch_assoc($completedOrders)){
+                  $orderID = $order["orderID"];
+                  echo "<option value='$orderID'>$orderID</option>";
+                }
+              ?>
+            </select>
           </label>
           <label for="feedback">Feedback
-            <!-- <input type=“radio” name=“feedback”>1<BR>
-            <input type=“radio” name=“feedback”>2<BR>
-            <input type=“radio” name=“feedback”>3<BR>
-            <input type=“radio” name=“feedback”>4<BR>
-            <input type=“radio” name=“feedback”>5<BR> -->
             <input type="number" id="feedbackNo" name="feedback" required="required">
           </label>
           <button class="cancel" id="close_feedback" type="reset" value="Reset">Cancel</button>

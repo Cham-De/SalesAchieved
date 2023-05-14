@@ -25,4 +25,18 @@
         echo "Failed to connect to MySQL: " . mysqli_error($con);
         exit();
     }
+
+    $query = "SELECT productCode, productName FROM product";
+    $products = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
+
+    $query = "SELECT orderID FROM orders WHERE orderStatus='Dispatched'";
+    $dispatchedOrders = mysqli_query($con, $query);
+    if (mysqli_error($con)) {
+        echo "Failed to connect to MySQL: " . mysqli_error($con);
+        exit();
+    }
 ?>

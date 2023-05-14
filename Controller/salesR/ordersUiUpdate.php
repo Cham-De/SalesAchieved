@@ -48,7 +48,6 @@
 </head>
 
 <body>
-    <form method="post">
     <!--common top nav and side bar content-->
     <div class="nav_bar">
         <div class="search-container">
@@ -142,6 +141,7 @@
         Order No: <?php echo $row['orderID'];?>
     </h1>
     
+    <form method="post">
     <!--Cards with details-->
     <div class="middle">
             <table class="prof-table">
@@ -170,11 +170,8 @@
       </div>
 
       <!--Buttons-->
-      <div class="btn_back">
-        <a href="ordersUi.php"><button id="Back_btn">Back</button></a>
-      </div>
       <div class="btn_cancel">
-        <button id="Cancel_btn">Cancel</button>
+        <button id="Back_btn"><a href="ordersUi.php">Back</a></button>
       </div>
       <div class="btn_update">
         <button id="Update_btn" name="update">Update</button>
