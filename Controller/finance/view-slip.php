@@ -34,7 +34,7 @@ require '../../Model/db-con.php';
       /* border: 1px solid black; */
     }
     .approval{
-      margin-left: 20%;
+      margin-left: 30%;
     }
     /* .approval form{
       display: flex;
@@ -47,15 +47,36 @@ require '../../Model/db-con.php';
     } */
     #submit{
       background: rgb(235, 137, 58);
-  border: none;
-  cursor: pointer;
-  color: white;
-  padding: 4%;
-  border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      padding: 4%;
+      border-radius: 10px;
       margin-left: 30px;
+    }
+    #Back_btn a{
+      color: white;
+      text-decoration: none;
     }
     #Back_btn{
       padding: 10px;
+    }
+    #Back_btn a:hover{
+      color: rgb(235, 137, 58);
+    }
+    #approved{
+      margin-bottom: 5%;
+    }
+    .appForm input{
+      margin-top: 15%;
+    }
+    .appForm textarea{
+      margin-top: 10%;
+    }
+    .appForm #submit{
+      padding: 10%;
+      width:  80%;
+      margin-left: 2%;
     }
     </style>
   </head>
@@ -63,7 +84,7 @@ require '../../Model/db-con.php';
   <body>
     <!--common top nav and side bar content-->
     <div class="nav_bar">
-      <div class="search-container">
+      <!-- <div class="search-container">
           <table class="element-container">
               <tr>
                   <td>
@@ -74,7 +95,7 @@ require '../../Model/db-con.php';
                   </td>
               </tr>
           </table>
-      </div>
+      </div> -->
 
       <div class="user-wrapper">
           <img src="../../View/assets/man.png" width="50px" height="50px" alt="user image">
@@ -127,15 +148,17 @@ require '../../Model/db-con.php';
 
       $id = $_GET['orderID'];
 
-      $sql = "SELECT p.productCode, p.productName, p.sellingPrice, quantity, (p.sellingPrice * quantity) as totalPrice
+      $sql = "SELECT p.productCode, d.charges, p.productName, p.sellingPrice, quantity, (p.sellingPrice * quantity) as totalPrice
       FROM orders o
       INNER JOIN order_product op ON o.orderID = op.orderID
       JOIN product p ON op.productCode = p.productCode
+      JOIN delivery d ON d.deliveryRegion = o.deliveryRegion
       WHERE o.orderID = $id;
       ";
 
       $query = mysqli_query($con, $sql);
 
+      $tCharge = 0;
       if(mysqli_num_rows($query) > 0 ){
         foreach($query as $thing){
           ?>
@@ -147,8 +170,27 @@ require '../../Model/db-con.php';
                     <td> <?=$thing['totalPrice']; ?></td>
               </tr>
           <?php
+           $del = $thing['charges'];
+            $tCharge += $thing['totalPrice'];
+
+            $finCharge = $del + $tCharge;
         }
-      }
+          ?>
+            <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Order Value</b></td>
+                  <td><?php echo $tCharge;?></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Delivery Charges</b></td>
+                  <td><?php echo $del;?><hr /></td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align:right"><b>Total Charges</b></td>
+                  <td><?php echo $finCharge;?><hr /><hr /></td>
+                </tr>
+          <?php
+        
+        }
       else{
         echo "<h4>No records</h4>";
     }
@@ -187,36 +229,54 @@ require '../../Model/db-con.php';
         <label><input type="checkbox" id="myCheckbox_NA" onclick="updatePaymentStatus()"> Not Approved</label>
         </div> -->
 
-        <div class="approval">
-        <form method="POST" action="../../Model/finance/updatePaymentStatus.php">
-  <input type="radio" id="approved" name="status" value="approved" <?php 
-  $sql = "SELECT * FROM slips WHERE orderID = $id";
-  $res = mysqli_query($con, $sql);
+    <div class="approval">
+        <form class="appForm" method="POST" action="../../Model/finance/updatePaymentStatus.php">
+        <input type="radio" id="approved" name="status" value="approved" <?php 
+        $sql = "SELECT * FROM slips WHERE orderID = $id";
+        $res = mysqli_query($con, $sql);
 
-  if (mysqli_num_rows($res) > 0) {
-    $row = mysqli_fetch_assoc($res);
-    $approvalStatus = $row['approvalStatus'];
-    $status = '';
+        if (mysqli_num_rows($res) > 0) {
+          $row = mysqli_fetch_assoc($res);
+          $approvalStatus = $row['approvalStatus'];
+          $status = '';
 
-    if ($approvalStatus === 'approved') {
-      $status = 'approved';
-    } else if ($approvalStatus === 'disapproved') {
-      $status = 'disapproved';
-    }
-  
-  if ($status === "approved") { echo "checked"; } }?>>
-  <label for="approved">Approved</label><br>
-  <input type="radio" id="disapproved" name="status" value="disapproved" <?php if ($status === "disapproved") { echo "checked"; } ?>>
-  <label for="disapproved">Disapproved</label><br>
-
-  <textarea id="reason" name="reason" style="display: none;"></textarea>
-  <input id="submit" type="submit" value="Submit">
-  <input type="hidden" name="image_id" value="<?php echo $id; ?>">
-</form>
-
-        </div>
+          if ($approvalStatus === 'approved') {
+            $status = 'approved';
+          } else if ($approvalStatus === 'disapproved') {
+            $status = 'disapproved';
+          }
         
+        if ($status === "approved") { echo "checked"; } }?>>
+        <label for="approved">Approved</label><br>
+        <input type="radio" id="disapproved" name="status" value="disapproved" <?php if ($status === "disapproved") { echo "checked"; } ?>>
+        <label for="disapproved">Disapproved</label><br>
+
+        <textarea id="reason" name="reason" type="text" style="display: none;" required></textarea>
+        <input id="submit" type="submit" value="Submit">
+        <input type="hidden" name="image_id" value="<?php echo $id; ?>">
+      </form>
+
+    </div>
+    <!-- pattern="[a-zA-Z\s]+" -->
       </div>
+
+      <script>
+  document.getElementById('submit').addEventListener('click', function(event) {
+    var reasonTextarea = document.getElementById('reason');
+    var reasonValue = reasonTextarea.value.trim();
+
+    if (reasonValue === '') {
+      alert('Please enter a reason.');
+      event.preventDefault(); // Prevent form submission
+    }
+
+    var lettersPattern = /^[A-Za-z\s]+$/;
+    if (!lettersPattern.test(reasonValue)) {
+      alert('Please enter only text (letters) in the reason field.');
+      event.preventDefault(); // Prevent form submission
+    }
+  });
+</script>
       
       <script>
   const disapprovedRadio = document.getElementById('disapproved');

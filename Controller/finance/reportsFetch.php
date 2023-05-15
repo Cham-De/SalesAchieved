@@ -11,7 +11,7 @@ if(isset($_POST['reportName'])){
         <form action="./test-reports.php" method="POST" target="_blank">
               <h3>Performance Review</h3>
               <Label for="subjet" class="subject_label">Select a subject</Label>
-              <select name="subject" id="subject">
+              <select name="subject" id="subject" required>
               <option value="" disabled="" selected="" >--Select--</option>
                 <option value="Products">Products</option>
                 <option value="Sales">Sales</option>
@@ -20,7 +20,7 @@ if(isset($_POST['reportName'])){
               <div class="range">
                 <div class="range_sub">
                   <Label for="month_range" class="subject_label" id="month_label">Month</Label>
-                    <select name="month" id="month">
+                    <select name="month" id="month" required>
                       <option value="" disabled="" selected="" >--Select--</option>
                       <option value="None">None</option>
                       <option value="January">January</option>
@@ -40,7 +40,7 @@ if(isset($_POST['reportName'])){
 
                   <div class="range_sub">
                     <Label for="month_range" class="subject_label" id="month_label">Year</Label>
-                    <select name="year" id="year">
+                    <select name="year" id="year" required>
                       <option value="" disabled="" selected="" >--Select--</option>
                       <option value="2023">2023</option>
                       <option value="2022">2022</option>
@@ -79,7 +79,7 @@ if(isset($_POST['reportName'])){
       <h3>Budget Forecast</h3>
       <form action="./test-reports.php" method="POST" target="_blank">
       <Label for="subjet" class="subject_label">Select a Time Period</Label>
-              <select name="subject" id="subject">
+              <select name="subject" id="subject" required>
               <option value="" disabled="" selected="" >--Select--</option>
                 <!-- <option value="Month">Upcoming Month</option> -->
                 <option value="Quarter">Upcoming Quarter</option>

@@ -162,7 +162,7 @@ if(isset($_POST['paymentStatFil_op'])){
     JOIN product p ON order_product.productCode = p.productCode
     LEFT JOIN slips s ON o.orderID = s.orderID
     WHERE s.slipID IS NOT NULL
-    GROUP BY o.orderID limit $start_from, $num_per_page
+    GROUP BY o.orderID
     ";
   }
   else{
