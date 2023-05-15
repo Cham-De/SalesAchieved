@@ -17,7 +17,7 @@
       <table class="content-table" id="content_data">
                 <thead>
                   <tr>
-                    <th>Campaign ID</th>
+                    <th>Campaign</th>
                     <th>Start Date</th>
                     <th>Objective</th>
                     <th>Status</th>
@@ -41,12 +41,13 @@
                                         <td><?=$thing['startdate']; ?></td>
                                         <td><?=$thing['objective']; ?></td>
                                         <td>
-                                            <select id="status" name="stat">
+                                            <!-- <select id="status_update_<?= $thing['id']; ?>" name="stat" class="status_update">
                                               <option value="unknown"><?=$thing['cmpg_stat']; ?></option>
                                               <option value="tobelaunched">To-be Launched</option>
                                               <option value="ongoing">Ongoing</option>
                                               <option value="complete">Complete</option>
-                                            </select>   
+                                            </select>    -->
+                                            <?=$thing['cmpg_stat']; ?>
                                         </td>
                                         <td><?=$thing['budget']; ?></td> 
                                     </tr>
@@ -67,12 +68,15 @@
                   
                 
               </table>
+              
               <?php
     }
     ?>
+    
 
               <?php
   }
+
 
   if(isset($_GET['page_dms'])){
     $page = $_GET['page_dms'];

@@ -69,8 +69,8 @@ elseif(isset($_POST['rateDate'])){
     else{
         ?>
               <div class="topic">Commission Rate</div>
-              <form action="../../Model/finance/fin-crud.php" method="post" onsubmit="return validateForm();">
-              <input type="number" id="s-date" name="rate" step="any">
+              <form name="comm" action="../../Model/finance/fin-crud.php" method="post" onsubmit="return validateForm();">
+              <input type="number" id="s-date" name="rate" step="any" required>
               <input type="hidden" name="id" value="<?=$thing['commID']; ?>">
               <button class="cancel" id="closeR" type="reset" value="Reset" style="margin-left: 11%; margin-top: 2%; margin-bottom: 2%;">Cancel</button>
               <button class="submit" id="save" type="submit" value="Submit" name="updateC">Update</button>
@@ -81,14 +81,19 @@ elseif(isset($_POST['rateDate'])){
             const closeR = document.getElementById("closeR");
             const save = document.getElementById("save");
             const popup_container = document.getElementById("popup_container");
+            const form = document.forms["comm"];
 
             $(document).on("click", "#closeR", function() {
                 console.log("Close button clicked");
                 popup_container.classList.remove("show");
+                resetForm();
             });
             $(document).on("click", "#save", function() {
                 console.log("Close button clicked");
-                popup_container.classList.remove("show");
+                if (validateForm()) {
+                    form.submit();
+                    popup_container.classList.remove("show");
+                }
             });
         </script>';
 
@@ -97,6 +102,11 @@ elseif(isset($_POST['rateDate'])){
             const commissionRate = parseFloat(document.getElementById("s-date").value);
             if (commissionRate < 1 || commissionRate > 40) {
                 alert("Commission rate should be between 1 and 40.");
+                return false;
+            }
+
+            if (isNaN(commissionRate)) {
+                alert("Enter a rate");
                 return false;
             }
             return true;

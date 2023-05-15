@@ -62,7 +62,7 @@ $start_from = ($page-1)*05;
         <ul class="icon-list">
             <li><a href="dms.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
             <li  class="active"><a href="campaigns.html"><i style="margin-right: 2%;" class="fa-solid fa-globe"></i>Campaigns</a></li>
-            <li><a href="stats.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li>
+            <!-- <li><a href="stats.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li> -->
             <li><a href="cust-dms.php"><i style="margin-right: 2%;" class="fa-solid fa-users"></i></i>Customers</a></li>
         </ul>
         <table class="side-bar-icons">
@@ -307,12 +307,12 @@ $start_from = ($page-1)*05;
                                     <td><?=$thing['startdate']; ?></td>
                                     <td><?=$thing['objective']; ?></td>
                                     <td>
-                                        <select id="status_update" name="stat">
+                                        <!-- <select id="status_update_<?= $thing['id']; ?>" class="status_update" name="stat">
                                           <option value="unknown"><?=$thing['cmpg_stat']; ?></option>
                                           <option value="tobelaunched">To-be Launched</option>
                                           <option value="ongoing">Ongoing</option>
                                           <option value="complete">Complete</option>
-                                        </select>   
+                                        </select>    -->
                                     </td>
                                     <td><?=$thing['budget']; ?></td> 
                                 </tr>
@@ -329,18 +329,30 @@ $start_from = ($page-1)*05;
                          
           </table>
   
-<script>
-  var stat = document.getElementById('status_update');
+  <script>
+    // const selectElements = document.querySelectorAll('.status_update');
+
+    // // Attach change event listener to each select element
+    // selectElements.forEach(select => {
+    //   select.addEventListener('change', function() {
+    //     const campaignId = this.id.split('_')[2]; // Extract the campaign ID from the select element's ID
+    //     const newStatus = this.value;
+    //     console.log("working :", newStatus);
+    //   });
+    // });
+
+
+  // var stat = document.getElementById('status_update');
   
-  stat.addEventListener('change', function() {
+  // stat.addEventListener('change', function() {
 
-    updateStatus();
-  });
+  //   updateStatus();
+  // });
 
-  function updateStatus(){
-    var stat_op = document.getElementById('status_update').value;
-    console.log("working :", stat_op);
-  }
+  // function updateStatus(){
+  //   var stat_op = document.getElementById('status_update').value;
+  //   console.log("working :", stat_op);
+  // }
 </script>
 
     <?php
@@ -391,7 +403,7 @@ $start_from = ($page-1)*05;
         }
         ?>
           <form name="campaigns" action="../../Model/dms/crud.php" method="post" onsubmit="return validateForm()">
-            <label for="name" class="title"><h3 style="color: rgb(0, 0, 0); margin-top: 3px; margin-right: 10px; margin-bottom: 20px;">Campaign ID</h3> <h2 style="color: rgb(0, 0, 0);"><?php echo ($id+1) ?></h2>
+            <label for="name" class="title"><h3 style="color: rgb(0, 0, 0); margin-top: 3px; margin-right: 10px; margin-bottom: 20px;">Campaign </h3> <h2 style="color: rgb(0, 0, 0);"><?php echo ($id+1) ?></h2>
             
           </label>
           <!-- <div class="error_msg" id="error_msg">Error msgs</div> -->
