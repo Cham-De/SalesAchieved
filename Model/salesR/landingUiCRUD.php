@@ -169,7 +169,7 @@
                 </div>
         <script>
 
-        var labelFilS = <?php echo json_encode($labelFilR)?>;
+            var labelFilS = <?php echo json_encode($labelFilR)?>;
             var dataFilS = <?php echo json_encode($dataFilR)?>;
             const chartFilterS = document.getElementById('orderStatusChartFill');
             
@@ -187,7 +187,7 @@
                 
                 }
             });
-            chart.resize(600, 600);
+            chart.resize(500, 500);
         </script>
 
         <?php

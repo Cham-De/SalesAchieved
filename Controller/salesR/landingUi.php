@@ -309,7 +309,7 @@
           
         }
       });
-      chart.resize(600, 600);
+      chart.resize(500, 500);
     </script>
 
     <!--Popup Form - Feedback-->
