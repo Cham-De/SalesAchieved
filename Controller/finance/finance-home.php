@@ -354,9 +354,19 @@ $notifData = get_notification_data($role, $userData["username"]);
             wCol.focus();
             return false;
           }
-          else if ((wCol.value) > 1000) {
+          else if ((wCol.value) > 1000 || (wCol.value) < 40) {
             alert("Please enter a value inside the range 40 - 1000");
             wCol.focus();
+            return false;
+          }
+          else if ((sCol.value) > 1000 || (sCol.value) < 40){
+            alert("Please enter a value inside the range 40 - 1000");
+            sCol.focus();
+            return false;
+          }
+          else if ((oCol.value) > 1000 || (oCol.value) < 40){
+            alert("Please enter a value inside the range 40 - 1000");
+            oCol.focus();
             return false;
           }
           return true;
