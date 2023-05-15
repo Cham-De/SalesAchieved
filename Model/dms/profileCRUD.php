@@ -44,7 +44,7 @@
         $email = $_POST["email"];
         $gender = $_POST["gender"];
         if(!empty($name) && !empty($phone) && !empty($email) && !empty($gender)){
-            $query = "UPDATE user SET name = '$name', telephone = '$phone', email = '$email', gender = '$gender'";
+            $query = "UPDATE user SET name = '$name', telephone = '$phone', email = '$email', gender = '$gender' WHERE username = '$username'";
             mysqli_query($con, $query);
             header("Location: ../../Controller/DMS/profile.php");
         }
