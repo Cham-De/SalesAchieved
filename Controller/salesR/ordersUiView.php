@@ -135,7 +135,7 @@
 
     <!--Card Topic-->
     <h1 class="orderNo">
-        Order: 23
+        Order: <?php echo $orderID;?>
     </h1>
     <?php $row = mysqli_fetch_array($result)?>
     <!--Cards with details-->
@@ -143,7 +143,9 @@
         <table class="prof-table">
             <tr>
                 <td><p>Customer Name</p><b><?php echo $row['customerName'];?></b></td>
-                <td><p>Payment Status</p><b><?php echo $row['paymentStatus'];?></b></td>
+                <td><p>Sales Representative</p><b><?php if ($row['source'] == "Call")
+                                                          echo $row['name'];
+                                                        else echo '-';?></b></td>
             </tr>
             <tr>
                 <td><p>Address</p><b><?php echo $row['address'];?></b></td>
@@ -167,9 +169,6 @@
             </tr>
             <tr>
                 <td><p>Payment Method</p><b><?php echo $row['paymentMethod'];?></b></td>
-                <td><p>Sales Representative</p><b><?php if ($row['source'] == "Call")
-                                                          echo $row['name'];
-                                                        else echo '-';?></b></td>
             </tr>
         </table>
       </div>

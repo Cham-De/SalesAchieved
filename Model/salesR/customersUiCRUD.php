@@ -64,30 +64,11 @@
         unset($_POST);
     }
 
-    
-
-    //Delete - Delete a customer from the system
-    // if(isset($_POST['submit_delete'])){
-    //     $customerID=$_POST['deleteid'];
-
-    //     $sql="UPDATE orders SET customerID='10'";
-    //     $result=mysqli_query($con,$sql);
-    //     $sql="DELETE FROM customer WHERE customerID='$customerID'";
-    //     $result=mysqli_query($con,$sql);
-    //     if($result){
-    //         echo "Deleted successfully";
-    //         header("location:../../Controller/salesR/customersUi.php");
-    //     }else{
-    //         echo "Delete unsuccessful: " . mysqli_error($con);
-    //         // die(mysqli_error($con));
-    //     }
-    // }
-
     //Search bar Functionality
     if(isset($_POST['search'])){
         $customerSearch = $_POST['customerSearch'];
         $result = mysqli_query($con, "SELECT * FROM customer 
-                                        WHERE customerName LIKE \"%$customerSearch%\" OR email LIKE \"%$customerSearch%\"
+                                        WHERE customerName LIKE \"%$customerSearch%\"
                                         ORDER BY joinedDate DESC");
         if (mysqli_error($con)) {
             echo "Failed to connect to MySQL: " . mysqli_error($con);

@@ -193,7 +193,7 @@
     </div>
     <?php } ?>
 
-        <!--Popup Form-->
+        <!--Popup Form to get new customers-->
         <div class="popup-container" id="popup_container_customer">
             <div class="popup-modal">
             <form method="post" action="customersUi.php">
@@ -227,7 +227,7 @@
             </div>
         </div>
         
-        <!--Popup Form-->
+        <!--Popup Form to update and view customers-->
         <div class="popup-container" id="popup_container"> 
             <div class="popup-modal">
               <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
@@ -268,24 +268,9 @@
             </div>
         </div>
 
-        <!--Popup Form - Delete-->
-        <!-- <div class="popup-container" id="popup_container_delete">
-            <div class="popup-modal">
-            <form method="POST" action="../../Model/salesR/customersUiCRUD.php">
-                <p>Do you want to delete order?</p>
-                <input type="hidden" id="deleteid" name="deleteid"></input>
-                <button class="cancel" id="close_delete" type="reset" value="Reset">Cancel</button>
-                <button class="submit" id="save_delete" type="submit" value="Submit" name="submit_delete">Delete</button>
-            </form>
-            </div>
-        </div> -->
-
         <script>
-            //const view = document.getElementById('view');
-            // const update = document.getElementById('update');
-            // const delete_btn = document.getElementById('delete');
+            
             const customer_btn = document.getElementById('customer_btn');
-            // const deleteID = document.getElementById('deleteid');
             const updateCusID = document.getElementById('updateCustomerID');
             const updateName = document.getElementById('updateName');
             const updatePhone = document.getElementById('updatePhone');
@@ -295,24 +280,12 @@
             
             const popup_container = document.getElementById('popup_container');
             const popup_container_customer = document.getElementById('popup_container_customer');
-            // const popup_container_delete = document.getElementById('popup_container_delete');
             
             const close = document.getElementById('close');
             const save = document.getElementById('save');
             const close_form = document.getElementById('close_form');
-            // const close_delete = document.getElementById('close_delete');
-            // const save_delete = document.getElementById('save_delete');
 
             const form_field = document.getElementById('form_field');
-            
-            // view.addEventListener('click', () => {
-            //     popup_container.classList.add('show');
-            //     form_field.setAttribute('disabled', true);
-            // });
-
-            // update.addEventListener('click', () => {
-            //     popup_container.classList.add('show');
-            // });
 
             function updateButton(name, address, phone, email, social, customerID) {
                 popup_container.classList.add('show');
@@ -336,23 +309,9 @@
                 updateSocial.value = social;
             }
 
-            // function deleteButton(customerID) {
-            //     popup_container_delete.classList.add('show');
-            //     deleteID.value = customerID;
-            //     // form_field.setAttribute('disabled', true);
-            //     // updateName.value = name;
-            //     // updatePhone.value = phone;
-            //     // updateAddress.value = address;
-            //     // updateSocial.value = social;
-            // }
-
             customer_btn.addEventListener('click', () => {
                 popup_container_customer.classList.add('show');
             });
-
-            // delete_btn.addEventListener('click', () => {
-            //     popup_container_delete.classList.add('show');
-            // });
     
             close.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -361,10 +320,6 @@
             close_form.addEventListener('click', () => {
                 popup_container_customer.classList.remove('show');
             });
-
-            // close_delete.addEventListener('click', () => {
-            //     popup_container_delete.classList.remove('show');
-            // });
     
             save.addEventListener('click', () => {
                 popup_container.classList.remove('show');
@@ -373,10 +328,6 @@
             save.addEventListener('click', () => {
                 popup_container_pwd.classList.remove('show');
             });
-
-            // save_delete.addEventListener('click', () => {
-            //     popup_container_delete.classList.remove('show');
-            // });
         </script>
 
         <!-- Script for notifications functionality -->

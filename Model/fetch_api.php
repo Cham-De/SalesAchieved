@@ -2,7 +2,7 @@
 
 require 'db-con.php';
 // require_once __DIR__ . '../../vendor/autoload.php'; // Replace with your own path to the Google API client library
-require_once __DIR__ . '../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 
 use Google\Client;
@@ -18,6 +18,7 @@ $client->addScope(Sheets::SPREADSHEETS_READONLY);
 $service = new Sheets($client);
 
 // Get the ID of the Google Sheet you want to access
+// $spreadsheetId = '1LKHOclSKZwqzim1rMNnhk9q-5oNOJV1-Vcuo6uUZy8w';
 $spreadsheetId = '1LKHOclSKZwqzim1rMNnhk9q-5oNOJV1-Vcuo6uUZy8w';
 
 // Define the range of data you want to retrieve
@@ -58,7 +59,8 @@ if (empty($values)) {
     else {
         $sql = "SELECT customerID FROM customer WHERE email = '$checkEmail'";
         $res = mysqli_query($con, $sql);
-        $customerID = $res["customerID"];
+        $customerRow = mysqli_fetch_assoc($res);
+        $customerID = $customerRow["customerID"];
     }
 
     $productStr = $row[9];
