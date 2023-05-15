@@ -1,7 +1,7 @@
 <?php
     require '../../Model/db-con.php';
     require __DIR__.'/../../Model/utils.php';
-    $role = "Courier";
+    $role = "Store Manager";
     require_once("../../Model/dms/profileCRUD.php");
     $userData = check_login($role);
 ?>
@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Marketing Strategist</title>
+    <title>Sales Representative</title>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="../../View/styles/navBar.css">
     <link rel="stylesheet" href="../../View/styles/popup-btn-table.css">
@@ -67,10 +67,11 @@
             <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
         </div>
         <ul class="icon-list">
-            <li><a href="dms.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
-            <li><a href="campaigns.php"><i style="margin-right: 2%;" class="fa-solid fa-globe"></i>Campaigns</a></li>
-            <!-- <li><a href="stats.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li> -->
-            <li><a href="cust-dms.php"><i style="margin-right: 2%;" class="fa-solid fa-users"></i></i>Customers</a></li>
+        <li><a href="landingUi.php"><i class="fa-solid fa-house"></i>Home</a></li>
+          <li><a href="stocksUi.php"><i class="fa-solid fa-warehouse"></i>Stocks</a></li>
+          <li><a href="ordersUi.php"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+          <li class="active"><a href="agentsUi.php"><i class="fa-solid fa-user-group"></i>Agents</a></li>
+          <li><a href="returnedGoodsUi.php"><i class="fa-solid fa-user-group"></i>Returned Goods</a></li>
         </ul>
         <table class="side-bar-icons">
           <tr>

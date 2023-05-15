@@ -148,9 +148,9 @@ $start_from = ($page-1)*05;
             </tr>
           </table>
         </div> -->
-        <select name="productFilter" id="productFilter">--Select Filter--
+        <!-- <select name="productFilter" id="productFilter">--Select Filter--
           <option value="resetProducts">Reset</option>
-        </select>
+        </select> -->
         
         
       </div>

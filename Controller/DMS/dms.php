@@ -96,7 +96,7 @@ $userData = check_login($role);
         <table class="side-bar-icons">
           <tr>
             <td><i class="fa-regular fa-circle-user"></i></td>
-            <td><a href="../home/profile.php">Profile</a></td>
+            <td><a href="profile.php">Profile</a></td>
           </tr>
           <tr>
             <td><i class="fa-solid fa-arrow-right-from-bracket"></i></i></td>

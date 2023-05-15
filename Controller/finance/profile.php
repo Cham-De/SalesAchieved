@@ -1,7 +1,7 @@
 <?php
     require '../../Model/db-con.php';
     require __DIR__.'/../../Model/utils.php';
-    $role = "Courier";
+    $role = "Finance Manager";
     require_once("../../Model/dms/profileCRUD.php");
     $userData = check_login($role);
 ?>
@@ -67,10 +67,12 @@
             <img src="../../View/assets/saleslogo-final.png" width= "70%" height="70%">
         </div>
         <ul class="icon-list">
-            <li><a href="dms.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
-            <li><a href="campaigns.php"><i style="margin-right: 2%;" class="fa-solid fa-globe"></i>Campaigns</a></li>
-            <!-- <li><a href="stats.php"><i style="margin-right: 2%;" class="fa-solid fa-chart-line"></i>Statistics</a></li> -->
-            <li><a href="cust-dms.php"><i style="margin-right: 2%;" class="fa-solid fa-users"></i></i>Customers</a></li>
+            <li><a href="finance-home.php"><i style="margin-right: 2%;" class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="commissions.php"><i style="margin-right: 2%;" class="fa-solid fa-money-check-dollar"></i>Commissions</a></li>
+            <li class="active"><a href="products.php"><i style="margin-right: 2%;" class="fa-solid fa-boxes-stacked"></i>Products</a></li>
+            <li><a href="sales.php"><i style="margin-right: 2%;" class="fa-solid fa-magnifying-glass-dollar"></i>Sales</a></li>
+            <li><a href="payment.php"><i style="margin-right: 2%;" class="fa-solid fa-hand-holding-dollar"></i>Payments</a></li>
+            <li><a href="reports.php"><i style="margin-right: 2%;" class="fa-solid fa-file-contract"></i>Reports</a></li>
         </ul>
         <table class="side-bar-icons">
           <tr>
