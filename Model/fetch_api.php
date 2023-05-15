@@ -2,7 +2,7 @@
 
 require 'db-con.php';
 // require_once __DIR__ . '../../vendor/autoload.php'; // Replace with your own path to the Google API client library
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
 use Google\Client;
