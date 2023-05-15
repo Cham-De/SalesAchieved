@@ -5,11 +5,8 @@ popupbuttons.forEach((pb) => {
     const popup = document.querySelector(`#${popupId}`);
     if (popup) {
       popup.classList.toggle("active");
-      popup.addEventListener("click", (e) => {
-        popup.classList.remove("active");
-      });
       const popupCloseBtn = document.querySelector(
-        `#${popupId} .container #close-btn`
+        `#${popupId} #close-btn`
       );
       const popupContainer = document.querySelector(`#${popupId} .container`);
       if (popupContainer) {

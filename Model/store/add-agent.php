@@ -8,11 +8,13 @@ if (!(isset($_POST['submit']) && $_POST['submit'] == "add-agent")) {
 
 $company_name = $_POST["a_company_name"];
 $phone_no = $_POST["a_phone_no"];
-$address = $_POST["email"];
+$email = $_POST["email"];
+$username = $_POST["username"];
+$password = $_POST["password"];
 
 unset($_POST);
 
-$sql = "INSERT INTO agent(companyName, email, phone) values('$company_name', '$email', '$phone_no')";
+$sql = "INSERT INTO agent(companyName, email, phone, agentUsername, password) values('$company_name', '$email', '$phone_no', '$username', '$password')";
 
 
 try {

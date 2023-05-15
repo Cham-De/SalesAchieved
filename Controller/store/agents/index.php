@@ -172,6 +172,14 @@ $agents_result = $conn->query($agents_sql);
                             <span>Phone Number</span>
                             <input type="tel" pattern="{0-9}[10]" name="a_phone_no" placeholder="" required>
                         </label>
+                        <label for="" class="input">
+                            <span>Username</span>
+                            <input type="text" name="username" placeholder="" required>
+                        </label>
+                        <label for="" class="input">
+                            <span>Password</span>
+                            <input type="text" name="password" placeholder="" required>
+                        </label>
                         <div></div>
                         <button class="disabled" type="reset">Cancel</button>
                         <button class="main" type="submit" value="add-agent" name="submit">Save</button>
