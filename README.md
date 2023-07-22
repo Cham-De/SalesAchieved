@@ -2,7 +2,8 @@
 
 The system is developed around a role based access control mechanism, where there are 6 actors, namely Sales Representative, Store Manager,Finance Manager, Digital Marketing Strategist, Courier and Admin, to whom the feature access is distributed. SalesAchievd facilitates,
 
-Order handling with automated order details recording, order status updates and manual order additions and order payment reviewing
+Order handling with automated order details recording, 
+order status updates and manual order additions and order payment reviewing
 Product inventory management with availability checks, stock count triggers and new product additions
 Handling financial figures with dynamic financial KPIs and charts generation, reports generation
 Keeping records of the marketing campaigns carried out in the business page
